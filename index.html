@@ -2,12 +2,6 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0d1b2a">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Lab Palacio">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LabClinic v4</title>
 <style>
@@ -800,6 +794,22 @@ body.dark .toggle-thumb { transform:translateX(15px); }
     </div>
     <div class="form-group"><label>Observaciones</label><textarea id="o-obs" rows="2"></textarea></div>
     <div style="text-align:right;margin-top:0.75rem;"><button class="btn btn-primary" onclick="guardarOrden()">✔ Guardar orden</button></div>
+  </div>
+</div>
+
+<!-- Agregar análisis a orden existente -->
+<div class="modal-overlay" id="modal-agregar-analisis">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>➕ Agregar análisis a la orden</h3>
+      <button class="btn btn-sm" onclick="closeModal('modal-agregar-analisis')">✕</button>
+    </div>
+    <div id="info-orden-agregar" style="padding:8px 0;font-size:13px;color:var(--text-muted);margin-bottom:8px;"></div>
+    <div class="form-group"><label>Seleccioná los análisis a agregar</label></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;max-height:300px;overflow-y:auto;" id="checks-agregar"></div>
+    <div style="text-align:right;margin-top:0.75rem;">
+      <button class="btn btn-primary" onclick="confirmarAgregarAnalisis()">✔ Agregar a la orden</button>
+    </div>
   </div>
 </div>
 
@@ -2708,7 +2718,7 @@ function verHistorial(pid) {
               html+=`<div class="hist-param-row">
                 <span>${pm.n}</span>
                 <span style="color:${color};font-weight:${color!=='#334155'?'700':'400'};">${val} ${pm.u||''}</span>
-                <span style="color:#94a3b8;">${pm.tipo?'—':pm.rMin+'–'+pm.rMax}</span>
+                <span style="color:#94a3b8;">${pm.tipo?'—':pm.refTexto!==undefined&&pm.refTexto!==''?pm.refTexto:pm.rMin+'–'+pm.rMax}</span>
               </div>`;
             });
           }
@@ -2752,6 +2762,7 @@ function renderOrdenes() {
           <td>
             <div class="flex-row">
               <button class="btn btn-sm" onclick="irResultados(${o.id})" title="Cargar resultados">🧪</button>
+              <button class="btn btn-sm" onclick="agregarAnalisisOrden(${o.id})" title="Agregar análisis a esta orden">➕</button>
               <button class="btn btn-sm" onclick="abrirPago(${o.id})" title="Registrar pago">💰</button>
             </div>
           </td>
@@ -2798,6 +2809,43 @@ async function guardarOrden() {
   await guardarOrdenDB(nuevaOrden);
   await Promise.all(ps);
   closeModal('modal-orden'); renderOrdenes(); renderDashboard();
+}
+
+let _ordenAgregarId = null;
+
+function agregarAnalisisOrden(oid) {
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  const p = pacientes.find(x => x.id === o.pacienteId);
+  _ordenAgregarId = oid;
+
+  document.getElementById('info-orden-agregar').innerHTML =
+    `<b>Orden #${o.id}</b> — ${p ? p.nombre+' '+p.apellido : '—'} — ${o.fecha}<br>
+     <span style="color:var(--primary);">Análisis actuales: ${o.analisis.map(a=>analisisCatalogo.find(x=>x.id===a)?.nombre||a).join(', ')}</span>`;
+
+  // Mostrar solo análisis que NO están ya en la orden
+  const disponibles = analisisCatalogo.filter(a => !o.analisis.includes(a.id));
+  document.getElementById('checks-agregar').innerHTML = disponibles.length
+    ? disponibles.map(a => `
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:3px 0;">
+          <input type="checkbox" value="${a.id}" style="width:auto;"> ${a.nombre}
+        </label>`).join('')
+    : '<p style="color:var(--text-muted);font-size:13px;">Todos los análisis disponibles ya están en esta orden.</p>';
+
+  openModal('modal-agregar-analisis');
+}
+
+async function confirmarAgregarAnalisis() {
+  if (!_ordenAgregarId) return;
+  const o = ordenes.find(x => x.id === _ordenAgregarId);
+  if (!o) return;
+  const nuevos = Array.from(document.querySelectorAll('#checks-agregar input:checked')).map(c => c.value);
+  if (!nuevos.length) { alert('Seleccioná al menos un análisis.'); return; }
+  o.analisis = [...o.analisis, ...nuevos];
+  await guardarOrdenDB(o);
+  closeModal('modal-agregar-analisis');
+  renderOrdenes();
+  alert(`✔ Se agregaron ${nuevos.length} análisis a la orden #${o.id}`);
 }
 
 function irResultados(oid) {
@@ -2922,7 +2970,7 @@ function cargarFormResultados() {
           oninput="actualizarFlag(${oid},'${pm.n}',this.value,'${pm.rMin}','${pm.rMax}','${fid}')"
           onchange="guardarValor(${oid},'${pm.n}',this.value,'${pm.rMin}','${pm.rMax}','${fid}')"
           style="font-size:13px;padding:5px 8px;">
-        <span style="font-size:11px;color:var(--text-muted);">Ref: ${pm.rMin}–${pm.rMax} ${pm.u}</span>
+        <span style="font-size:11px;color:var(--text-muted);">Ref: ${pm.refTexto!==undefined && pm.refTexto!=='' ? pm.refTexto : pm.rMin+'–'+pm.rMax+' '+pm.u}</span>
         <span id="${fid}">${calcFlag(val,pm.rMin,pm.rMax)}</span>
         <span></span>
       </div>`;
@@ -3142,7 +3190,7 @@ function mostrarInforme(iid){
           const v=parseFloat(val);
           if(!isNaN(v)){const rMx2=parsearNum(pm.rMax),rMn2=parsearNum(pm.rMin);if(!isNaN(rMx2)&&rMx2>0&&v>rMx2)cls='alto';else if(!isNaN(rMn2)&&rMn2>0&&v<rMn2)cls='bajo';}
         }
-        const ref=(pm.tipo==='numero'||!pm.tipo)&&pm.rMax>0?`${pm.rMin}–${pm.rMax}`:'—';
+        const ref=(pm.tipo==='numero'||!pm.tipo)&&pm.rMax>0?`${pm.refTexto!==undefined&&pm.refTexto!==''?pm.refTexto:pm.rMin+'–'+pm.rMax}`:'—';
         let orinaRowStyle=''; let orinaVal=`<b>${val}</b>`;
         if(cls==='alto'){
           if(sombrAlto&&estiloFlag!=='texto') orinaRowStyle='background:#FCEBEB;';
@@ -3195,7 +3243,7 @@ function mostrarInforme(iid){
             else if(sombrBajo) valDisplay=`<b>▼ ${val}</b>`;
           }
         }
-        const ref = (!pm.tipo||pm.tipo==='numero')?`${pm.rMin}–${pm.rMax}`:'—';
+        const ref = (!pm.tipo||pm.tipo==='numero')?`${pm.refTexto!==undefined&&pm.refTexto!==''?pm.refTexto:pm.rMin+'–'+pm.rMax}`:'—';
         if(pm.tipo==='textarea'){
           filas+=`<tr style="${rowStyle}"><td>${pm.n}</td><td colspan="3">${valDisplay}</td></tr>`;
         } else {
@@ -3425,15 +3473,27 @@ function renderAnalisisConfig(){
               style="font-size:13px;" ${tipo==='select'||tipo==='textarea'?'disabled style="opacity:0.4"':''}>
             <input type="text" value="${pm.rMin||0}" placeholder="Mín"
               onchange="analisisCatalogo[${ai}].parametros[${pi}].rMin=this.value;guardarCatalogoDB();"
-              style="font-size:13px;" ${tipo!=='numero'?'disabled style="opacity:0.4"':''}>
+              style="font-size:13px;" ${tipo!=='numero'||(pm.refTexto)?'disabled style="opacity:0.4"':''}>
             <input type="text" value="${pm.rMax||0}" placeholder="Máx"
               onchange="analisisCatalogo[${ai}].parametros[${pi}].rMax=this.value;guardarCatalogoDB();"
-              style="font-size:13px;" ${tipo!=='numero'?'disabled style="opacity:0.4"':''}>
+              style="font-size:13px;" ${tipo!=='numero'||(pm.refTexto)?'disabled style="opacity:0.4"':''}>
             <select onchange="cambiarTipoParam(${ai},${pi},this.value)" style="font-size:12px;">
               ${tipoOpts}
             </select>
             <button class="btn btn-sm btn-danger" onclick="eliminarParametro(${ai},${pi})">✕</button>
           </div>
+          ${tipo==='numero'?`
+          <div style="margin-top:5px;padding:6px 8px;background:var(--bg-stat);border-radius:6px;border:1px solid var(--border);">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;">
+              <input type="checkbox" ${pm.refTexto?'checked':''} style="width:auto;"
+                onchange="analisisCatalogo[${ai}].parametros[${pi}].refTexto=this.checked?'':undefined;if(this.checked){analisisCatalogo[${ai}].parametros[${pi}].refTexto=''}guardarCatalogoDB();renderAnalisisConfig();">
+              Usar texto libre para referencias (en lugar de Mín/Máx)
+            </label>
+            ${pm.refTexto!==undefined?`<input type="text" value="${pm.refTexto||''}"
+              placeholder="Ej: Adultos 65–300 UI/L  ||  Niños 65–700 UI/L"
+              onchange="analisisCatalogo[${ai}].parametros[${pi}].refTexto=this.value;guardarCatalogoDB();"
+              style="font-size:12px;width:100%;">`:``}
+          </div>`:''}
           ${(tipo==='texto'||tipo==='textarea')?`
           <div style="margin-top:5px;padding:6px 8px;background:var(--bg-stat);border-radius:6px;border:1px solid var(--border);">
             <label style="font-size:10px;font-weight:700;color:var(--text-muted);margin-bottom:3px;display:block;">VALOR POR DEFECTO <span style="font-weight:400;">(se precarga en el formulario, podés cambiarlo)</span></label>
@@ -4478,15 +4538,6 @@ function cerrarSplash(){
   s.style.opacity='0';
   setTimeout(()=>{ s.style.display='none'; renderDashboard(); },500);
 }
-</script>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('./sw.js')
-        .then(function(r){ console.log('SW OK:', r.scope); })
-        .catch(function(e){ console.warn('SW error:', e); });
-    });
-  }
 </script>
 </body>
 </html>
