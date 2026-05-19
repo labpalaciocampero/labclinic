@@ -8,7 +8,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Lab Palacio">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LabClinic v4</title>
 <style>
@@ -4322,16 +4321,7 @@ function imprimirInformeA4() {
   img { max-width: 100%; height: auto; }
 </style>
 </head>
-<body>${el.innerHTML}  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(r => console.log('SW registrado:', r.scope))
-          .catch(e => console.warn('SW error:', e));
-      });
-    }
-  </script>
-</body>
+<body>${el.innerHTML}</body>
 </html>`);
   doc.close();
 
@@ -4422,7 +4412,7 @@ function mostrarBackupBadge() {
   setTimeout(() => el.classList.remove('visible'), 5000);
 }
 
-// INIT — async para esperar IndexedDB
+// INIT — async para esperar datos
 (async () => {
   cargarModoOscuro();
 
@@ -4432,26 +4422,45 @@ function mostrarBackupBadge() {
   const splashTexto = document.getElementById('splash-texto');
   if(splashTexto) splashTexto.src = TEXTO_B64;
 
-  // Barra de progreso
+  // Barra de progreso animada
   let prog = 0;
   const bar = document.getElementById('splash-bar');
   const splashInterval = setInterval(()=>{
-    prog += 1.5;
-    if(bar) bar.style.width = Math.min(prog,90)+'%';
-    if(prog >= 90) clearInterval(splashInterval);
-  }, 40);
+    prog += 2;
+    if(bar) bar.style.width = Math.min(prog, 85) + '%';
+    if(prog >= 85) clearInterval(splashInterval);
+  }, 35);
 
-  // Cargar datos desde IndexedDB
-  await cargarDatos();
-  actualizarSidebarLogo();
-
-  // Completar barra y cerrar splash
-  if(bar) bar.style.width='100%';
-  setTimeout(()=>{
+  // Timeout de seguridad: si algo falla, el splash cierra igual a los 4s
+  const safetyTimeout = setTimeout(()=>{
+    clearInterval(splashInterval);
+    if(bar) bar.style.width = '100%';
     cerrarSplash();
     renderDashboard();
-    setTimeout(copiaDeSeguridad, 1000);
-  }, 400);
+  }, 4000);
+
+  try {
+    // Cargar datos
+    await cargarDatos();
+    actualizarSidebarLogo();
+    clearTimeout(safetyTimeout);
+    clearInterval(splashInterval);
+    if(bar) bar.style.width = '100%';
+    setTimeout(()=>{
+      cerrarSplash();
+      renderDashboard();
+      setTimeout(copiaDeSeguridad, 1000);
+    }, 400);
+  } catch(e) {
+    console.error('Error cargando datos:', e);
+    clearTimeout(safetyTimeout);
+    clearInterval(splashInterval);
+    if(bar) bar.style.width = '100%';
+    setTimeout(()=>{
+      cerrarSplash();
+      renderDashboard();
+    }, 400);
+  }
 })();
 
 function cerrarSplash(){
@@ -4461,6 +4470,15 @@ function cerrarSplash(){
   s.style.opacity='0';
   setTimeout(()=>{ s.style.display='none'; renderDashboard(); },500);
 }
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./sw.js')
+        .then(function(r){ console.log('SW OK:', r.scope); })
+        .catch(function(e){ console.warn('SW error:', e); });
+    });
+  }
 </script>
 </body>
 </html>
