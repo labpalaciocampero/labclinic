@@ -1372,138 +1372,88 @@ const DEFAULT_ANALISIS = [
           "Regular",
           "Abundantes"
         ]
-      },
+      }
+    ]
+  },
+  {
+    "id": "urocultivo",
+    "nombre": "Urocultivo completo",
+    "tipo": "cultivo",
+    "parametros": [
       {
-        "n": "🔴 Urocultivo",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "seccion",
-        "label": "🔴 Urocultivo"
-      },
-      {
-        "n": "GRAN",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "Especificar si corresponde",
-        "opciones": [
-          "",
-          "Opción 2"
-        ]
-      },
-      {
-        "n": "CULTIVO",
+        "n": "Aspecto",
         "u": "",
         "rMin": 0,
         "rMax": 0,
         "tipo": "texto",
-        "opciones": [
-          "Ausente",
-          "Escaso",
-          "Moderado",
-          "Abundante"
-        ]
+        "placeholder": "Claro / Turbio / Hemático"
       },
       {
-        "n": "RECUENTO DE COLINAS",
-        "u": "UFC",
-        "rMin": "",
-        "rMax": "",
-        "tipo": "select",
-        "opciones": [
-          "> 50.000 UFC",
-          "> 100.000 UFC"
-        ]
+        "n": "Color",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "placeholder": "Amarillo / Incoloro / Rojizo"
       },
       {
-        "n": "ANTIBIOGRAMA",
+        "n": "Recuento de colonias",
+        "u": "UFC/mL",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "placeholder": "< 10.000 / > 100.000"
+      },
+      {
+        "n": "Resultado del cultivo",
         "u": "",
         "rMin": 0,
         "rMax": 0,
         "tipo": "select",
         "opciones": [
-          "Sensible",
-          "Resistente"
+          "NEGATIVO",
+          "POSITIVO"
         ]
       },
       {
-        "n": "NORFLOXACINA (NOR)",
+        "n": "Microorganismo aislado",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "select",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ]
+        "tipo": "texto",
+        "placeholder": "Ej: Escherichia coli — dejar vacío si negativo"
       },
       {
-        "n": "NITROFURANTOINA (FT)",
+        "n": "Sensible a",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "select",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ]
+        "tipo": "textarea",
+        "placeholder": "Antibióticos sensibles"
       },
       {
-        "n": "AMOXI + ACIDO CLAVULANICO (AMC)",
+        "n": "Resistente a",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "select",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ]
+        "tipo": "textarea",
+        "placeholder": "Antibióticos resistentes"
       },
       {
-        "n": "TRIMETRO/SULFA (STX)",
+        "n": "Intermedio a",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "select",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ]
+        "tipo": "textarea",
+        "placeholder": "Antibióticos intermedios"
       },
       {
-        "n": "GENTAMICINA (GM)",
+        "n": "Observaciones",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "select",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ]
-      },
-      {
-        "n": "CEFALOTINA (CF)",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "select",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ]
-      },
-      {
-        "n": "CEFOTAXIMA (CTX)",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "select",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ]
+        "tipo": "textarea",
+        "placeholder": "Observaciones adicionales"
       }
     ]
   },
@@ -2763,6 +2713,7 @@ function renderOrdenes() {
             <div class="flex-row">
               <button class="btn btn-sm" onclick="irResultados(${o.id})" title="Cargar resultados">🧪</button>
               <button class="btn btn-sm" onclick="agregarAnalisisOrden(${o.id})" title="Agregar análisis a esta orden">➕</button>
+              <button class="btn btn-sm" onclick="quitarAnalisisOrden(${o.id})" title="Quitar análisis de esta orden">➖</button>
               <button class="btn btn-sm" onclick="abrirPago(${o.id})" title="Registrar pago">💰</button>
             </div>
           </td>
@@ -2809,6 +2760,27 @@ async function guardarOrden() {
   await guardarOrdenDB(nuevaOrden);
   await Promise.all(ps);
   closeModal('modal-orden'); renderOrdenes(); renderDashboard();
+}
+
+function quitarAnalisisOrden(oid) {
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  if (o.analisis.length <= 1) { alert('La orden debe tener al menos un análisis.'); return; }
+  const p = pacientes.find(x => x.id === o.pacienteId);
+  const lista = o.analisis.map(aid => {
+    const an = analisisCatalogo.find(x => x.id === aid);
+    return `  • ${an ? an.nombre : aid}`;
+  }).join('\n');
+  const opcion = prompt(
+    `Orden #${o.id} — ${p ? p.nombre+' '+p.apellido : '—'}\n\nAnálisis actuales:\n${lista}\n\nEscribí el NÚMERO de orden del análisis a quitar (1, 2, 3...):`
+  );
+  if (!opcion) return;
+  const idx = parseInt(opcion) - 1;
+  if (isNaN(idx) || idx < 0 || idx >= o.analisis.length) { alert('Número inválido.'); return; }
+  const nombreQuitado = analisisCatalogo.find(x => x.id === o.analisis[idx])?.nombre || o.analisis[idx];
+  if (!confirm(`¿Quitar "${nombreQuitado}" de la orden #${o.id}?`)) return;
+  o.analisis.splice(idx, 1);
+  guardarOrdenDB(o).then(() => { renderOrdenes(); alert(`✔ "${nombreQuitado}" quitado de la orden #${o.id}`); });
 }
 
 let _ordenAgregarId = null;
@@ -2876,12 +2848,18 @@ function cargarFormResultados() {
   if(!oid){cont.innerHTML='';return;}
   const o=ordenes.find(x=>x.id===oid);
   if(!o)return;
+
+  // Clave compuesta para evitar colisión entre análisis con params del mismo nombre
+  function rKey(aid, pmn){ return aid+'|'+pmn; }
+  // Leer valor con fallback a clave legacy (solo nombre)
+  function rVal(aid, pmn){ return o.resultados[rKey(aid,pmn)] ?? o.resultados[pmn] ?? ''; }
+
   let html=o.analisis.map(aid=>{
     const an=analisisCatalogo.find(a=>a.id===aid);
     if(!an)return'';
     const rows=an.parametros.map(pm=>{
-      const val=o.resultados[pm.n]||'';
-      const fid='f'+oid+'_'+pm.n.replace(/[^a-zA-Z0-9]/g,'_');
+      const val=rVal(aid, pm.n);
+      const fid='f'+oid+'_'+aid.replace(/[^a-zA-Z0-9]/g,'_')+'_'+pm.n.replace(/[^a-zA-Z0-9]/g,'_');
       const tipo=pm.tipo||'numero';
 
       // Separador de sección
@@ -2916,12 +2894,10 @@ function cargarFormResultados() {
         </div>`;
       }
       if(tipo==='texto_fijo'){
-        // Valor fijo — se muestra como solo lectura y se guarda automáticamente
         const valorFijo = pm.valorFijo || pm.placeholder || '';
-        // Auto-guardar si no está ya guardado
         if(!val && valorFijo) {
           const o2 = ordenes.find(x=>x.id===oid);
-          if(o2){ o2.resultados[pm.n]=valorFijo; guardarOrdenDB(o2).catch(e=>console.error(e)); }
+          if(o2){ o2.resultados[rKey(aid,pm.n)]=valorFijo; guardarOrdenDB(o2).catch(e=>console.error(e)); }
         }
         return `<div class="result-row" style="grid-template-columns:2fr 2fr 1fr 30px;">
           <span style="font-size:13px;">${pm.n}</span>
@@ -2933,7 +2909,7 @@ function cargarFormResultados() {
         const opts=(pm.opciones||[]).map(op=>`<option value="${op}" ${val===op?'selected':''}>${op}</option>`).join('');
         return `<div class="result-row" style="grid-template-columns:2fr 2fr 1fr 30px;">
           <span style="font-size:13px;">${pm.n}</span>
-          <select onchange="guardarValorOrina(${oid},'${pm.n}',this.value)" style="font-size:13px;padding:5px 8px;">
+          <select onchange="guardarValorOrina(${oid},'${aid}|${pm.n}',this.value)" style="font-size:13px;padding:5px 8px;">
             <option value="">— Seleccionar —</option>${opts}
           </select>
           <span></span><span></span>
@@ -2943,22 +2919,20 @@ function cargarFormResultados() {
         return `<div style="display:grid;grid-template-columns:2fr 3fr;gap:8px;align-items:start;padding:6px 0;border-bottom:1px solid var(--border);">
           <span style="font-size:13px;padding-top:6px;">${pm.n}</span>
           <textarea rows="2" placeholder="${pm.placeholder||''}"
-            onchange="guardarValorOrina(${oid},'${pm.n}',this.value)"
+            onchange="guardarValorOrina(${oid},'${aid}|${pm.n}',this.value)"
             style="font-size:13px;padding:5px 8px;resize:vertical;">${val}</textarea>
         </div>`;
       }
       if(tipo==='texto'){
-        // Pre-cargar con valorDefecto si el campo está vacío
         const displayVal = val || pm.valorDefecto || '';
         if(!val && pm.valorDefecto) {
-          // Auto-guardar el valor por defecto
           const o2=ordenes.find(x=>x.id===oid);
-          if(o2){ o2.resultados[pm.n]=pm.valorDefecto; lsSet('ordenes', ordenes); }
+          if(o2){ o2.resultados[rKey(aid,pm.n)]=pm.valorDefecto; lsSet('ordenes', ordenes); }
         }
         return `<div class="result-row" style="grid-template-columns:2fr 2fr 1fr 30px;">
           <span style="font-size:13px;">${pm.n}</span>
           <input type="text" placeholder="${pm.placeholder||''}" value="${displayVal}"
-            onchange="guardarValorOrina(${oid},'${pm.n}',this.value)"
+            onchange="guardarValorOrina(${oid},'${aid}|${pm.n}',this.value)"
             style="font-size:13px;padding:5px 8px;">
           <span></span><span></span>
         </div>`;
@@ -2967,8 +2941,8 @@ function cargarFormResultados() {
       return `<div class="result-row">
         <span style="font-size:13px;">${pm.n}</span>
         <input type="text" inputmode="decimal" placeholder="" value="${val}"
-          oninput="actualizarFlag(${oid},'${pm.n}',this.value,'${pm.rMin}','${pm.rMax}','${fid}')"
-          onchange="guardarValor(${oid},'${pm.n}',this.value,'${pm.rMin}','${pm.rMax}','${fid}')"
+          oninput="actualizarFlag(${oid},'${aid}|${pm.n}',this.value,'${pm.rMin}','${pm.rMax}','${fid}')"
+          onchange="guardarValor(${oid},'${aid}|${pm.n}',this.value,'${pm.rMin}','${pm.rMax}','${fid}')"
           style="font-size:13px;padding:5px 8px;">
         <span style="font-size:11px;color:var(--text-muted);">Ref: ${pm.refTexto!==undefined && pm.refTexto!=='' ? pm.refTexto : pm.rMin+'–'+pm.rMax+' '+pm.u}</span>
         <span id="${fid}">${calcFlag(val,pm.rMin,pm.rMax)}</span>
@@ -3145,46 +3119,47 @@ function mostrarInforme(iid){
     const an=analisisCatalogo.find(a=>a.id===aid);if(!an)return;
     filas+=`<tr><td colspan="4" style="background:${col}22;color:${col};font-weight:bold;padding:6px 10px;">${an.nombre}</td></tr>`;
 
+    // Leer resultado con clave compuesta (nueva) o legacy (solo nombre)
+    function rRes(pmn){ return o.resultados[aid+'|'+pmn] ?? o.resultados[pmn]; }
+
     if(an.tipo==='cultivo'){
       const camposInfo=['Aspecto','Color','Recuento de colonias','Resultado del cultivo','Microorganismo aislado'];
       camposInfo.forEach(campo=>{
-        const val=o.resultados[campo];
+        const val=rRes(campo);
         if(!val)return;
         filas+=`<tr><td><b>${campo}</b></td><td colspan="3">${val}</td></tr>`;
       });
-      const sens=o.resultados['Sensible a'];
-      const res=o.resultados['Resistente a'];
-      const inter=o.resultados['Intermedio a'];
+      const sens=rRes('Sensible a');
+      const res=rRes('Resistente a');
+      const inter=rRes('Intermedio a');
       if(sens||res||inter){
         filas+=`<tr><td colspan="4" style="padding:4px 10px;font-weight:bold;color:#334155;background:#f8fafc;">Antibiograma</td></tr>`;
         if(sens) filas+=`<tr><td style="color:#16a34a;font-weight:bold;">✔ Sensible</td><td colspan="3">${sens}</td></tr>`;
         if(res)  filas+=`<tr><td style="color:#dc2626;font-weight:bold;">✘ Resistente</td><td colspan="3">${res}</td></tr>`;
         if(inter)filas+=`<tr><td style="color:#d97706;font-weight:bold;">◈ Intermedio</td><td colspan="3">${inter}</td></tr>`;
       }
-      const obs=o.resultados['Observaciones'];
+      const obs=rRes('Observaciones');
       if(obs) filas+=`<tr><td><i>Observaciones</i></td><td colspan="3">${obs}</td></tr>`;
 
     } else if(an.tipo==='orina' || an.id==='orina' || an.parametros.some(p=>p.tipo==='seccion')){
-      // Orina completa — renderizar con separadores de sección y campos especiales
       an.parametros.forEach(pm=>{
         if(pm.tipo==='seccion'){
           filas+=`<tr><td colspan="4" style="background:#f1f5f9;font-weight:700;font-size:11px;color:#64748b;padding:5px 10px;letter-spacing:0.5px;text-transform:uppercase;">${pm.label||pm.n}</td></tr>`;
           return;
         }
         if(pm.tipo==='calculado'){
-          const prot=parseFloat(o.resultados['Proteínas'])||0;
-          const creat=parseFloat(o.resultados['Creatinina urinaria'])||0;
+          const prot=parseFloat(rRes('Proteínas'))||0;
+          const creat=parseFloat(rRes('Creatinina urinaria'))||0;
           const idx=creat>0?(prot/creat).toFixed(2):'—';
           let interp='—';
           if(idx!=='—'){const v=parseFloat(idx);interp=v<0.2?'Normal':v<0.5?'Limítrofe':'Alto';}
           filas+=`<tr><td><i>${pm.n}</i></td><td><b>${idx}</b></td><td></td><td>Normal &lt;0.2 · ${interp}</td></tr>`;
           return;
         }
-        // Para campos select, texto, textarea, texto_fijo y numero
         const val = pm.tipo==='texto_fijo'
-          ? (o.resultados[pm.n] || pm.valorFijo || pm.placeholder || '')
-          : o.resultados[pm.n];
-        if(val===undefined||val===null||val==='') return; // omitir vacíos
+          ? (rRes(pm.n) || pm.valorFijo || pm.placeholder || '')
+          : rRes(pm.n);
+        if(val===undefined||val===null||val==='') return;
         let cls='';
         if(pm.tipo==='numero'||!pm.tipo){
           const v=parseFloat(val);
@@ -3199,7 +3174,6 @@ function mostrarInforme(iid){
           if(sombrBajo&&estiloFlag!=='texto') orinaRowStyle='background:#FAEEDA;';
           if(sombrBajo&&(estiloFlag==='texto'||estiloFlag==='ambos')) orinaVal=`<b style="color:#d97706;">▼ ${val}</b>`;
         }
-        // Textarea: mostrar en fila completa
         if(pm.tipo==='textarea'){
           filas+=`<tr style="${orinaRowStyle}"><td>${pm.n}</td><td colspan="3">${orinaVal}</td></tr>`;
         } else {
@@ -3209,20 +3183,16 @@ function mostrarInforme(iid){
 
     } else {
       an.parametros.forEach(pm=>{
-        // Saltar separadores de sección
         if(pm.tipo==='seccion') return;
-
-        // Nota fija — siempre aparece en el informe
         if(pm.tipo==='nota_fija'){
           if(!pm.textoNota) return;
           filas+=`<tr><td colspan="4" style="background:#f0f7ff;border:1px solid #bfdbfe;padding:6px 10px;font-size:10px;color:#1e3a5f;white-space:pre-wrap;line-height:1.5;"><span style="font-weight:700;color:#3b82f6;">📝 Referencia: </span>${pm.textoNota}</td></tr>`;
           return;
         }
-        // Para texto_fijo usar el valor fijo directamente
         const val = pm.tipo==='texto_fijo'
-          ? (o.resultados[pm.n] || pm.valorFijo || pm.placeholder || '—')
-          : (o.resultados[pm.n]||'—');
-        if(val==='—') return; // omitir vacíos
+          ? (rRes(pm.n) || pm.valorFijo || pm.placeholder || '—')
+          : (rRes(pm.n)||'—');
+        if(val==='—'||val===undefined||val===null||val==='') return;
         let flag='';
         let rowStyle='';
         let valDisplay=`<b>${val}</b>`;
