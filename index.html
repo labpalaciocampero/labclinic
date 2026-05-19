@@ -2271,23 +2271,31 @@ async function cargarDatos() {
       nextPagoId = meta.nextPagoId || (pagos.length     ? Math.max(...pagos.map(x=>x.id))     + 1 : 1);
     } catch(e) {}
 
-    const hashActual   = btoa(unescape(encodeURIComponent(JSON.stringify(DEFAULT_ANALISIS)))).slice(0,32);
-    const hashGuardado = localStorage.getItem('lc_catalogoHash') || '';
-    const catGuardado  = lsGet('catalogo');
+    // Catálogo: usar hash simple para detectar cambios
+    try {
+      const hashActual   = String(JSON.stringify(DEFAULT_ANALISIS).length);
+      const hashGuardado = localStorage.getItem('lc_catalogoHash') || '';
+      const catGuardado  = lsGet('catalogo');
 
-    if (catGuardado.length === 0 || hashGuardado !== hashActual) {
-      const custom = catGuardado.filter(a => a.id && a.id.startsWith('custom_'));
-      analisisCatalogo = [...JSON.parse(JSON.stringify(DEFAULT_ANALISIS)), ...custom];
-      lsSet('catalogo', analisisCatalogo);
-      localStorage.setItem('lc_catalogoHash', hashActual);
-    } else {
-      analisisCatalogo = catGuardado;
+      if (catGuardado.length === 0 || hashGuardado !== hashActual) {
+        const custom = catGuardado.filter(a => a.id && a.id.startsWith('custom_'));
+        analisisCatalogo = [...JSON.parse(JSON.stringify(DEFAULT_ANALISIS)), ...custom];
+        lsSet('catalogo', analisisCatalogo);
+        localStorage.setItem('lc_catalogoHash', hashActual);
+      } else {
+        analisisCatalogo = catGuardado;
+      }
+    } catch(e) {
+      analisisCatalogo = JSON.parse(JSON.stringify(DEFAULT_ANALISIS));
     }
 
-    const c = localStorage.getItem(CKEY);
-    if (c) config = Object.assign(config, JSON.parse(c));
+    try {
+      const c = localStorage.getItem(CKEY);
+      if (c) config = Object.assign(config, JSON.parse(c));
+    } catch(e) {}
 
-    await migrarDesdeLocalStorage();
+    // Migración opcional — no bloquea si falla
+    try { await migrarDesdeLocalStorage(); } catch(e) {}
 
   } catch(e) { console.error('Error cargando datos:', e); }
 }
