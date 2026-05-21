@@ -348,6 +348,7 @@ body.dark .toggle-thumb { transform:translateX(15px); }
             <option value="pendiente">Pendiente</option>
             <option value="completado">Completado</option>
           </select>
+          <button class="btn" onclick="abrirModalMedicos()" title="Administrar médicos solicitantes">👨‍⚕️ Médicos</button>
           <button class="btn btn-primary" onclick="abrirModalOrden()">+ Nueva orden</button>
         </div>
       </div>
@@ -784,7 +785,10 @@ body.dark .toggle-thumb { transform:translateX(15px); }
     <div class="modal-header"><h3>Nueva orden de análisis</h3><button class="btn btn-sm" onclick="closeModal('modal-orden')">✕</button></div>
     <div class="grid2">
       <div class="form-group"><label>Paciente *</label><select id="o-paciente"></select></div>
-      <div class="form-group"><label>Médico solicitante</label><input id="o-medico" type="text"></div>
+      <div class="form-group"><label>Médico solicitante</label>
+        <input id="o-medico" type="text" list="lista-medicos-datalist" placeholder="Seleccioná o escribí un médico">
+        <datalist id="lista-medicos-datalist"></datalist>
+      </div>
     </div>
     <div class="form-group"><label>Análisis solicitados *</label></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;" id="checks-analisis"></div>
@@ -794,6 +798,56 @@ body.dark .toggle-thumb { transform:translateX(15px); }
     </div>
     <div class="form-group"><label>Observaciones</label><textarea id="o-obs" rows="2"></textarea></div>
     <div style="text-align:right;margin-top:0.75rem;"><button class="btn btn-primary" onclick="guardarOrden()">✔ Guardar orden</button></div>
+  </div>
+</div>
+
+<!-- Editar médico de orden -->
+<div class="modal-overlay" id="modal-editar-medico">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-header">
+      <h3>👨‍⚕️ Cambiar médico solicitante</h3>
+      <button class="btn btn-sm" onclick="closeModal('modal-editar-medico')">✕</button>
+    </div>
+    <input type="hidden" id="editar-medico-oid">
+    <div class="form-group">
+      <label>Médico solicitante</label>
+      <input type="text" id="editar-medico-valor" list="editar-medico-datalist" placeholder="Seleccioná o escribí un médico">
+      <datalist id="editar-medico-datalist"></datalist>
+    </div>
+    <div style="text-align:right;margin-top:0.75rem;">
+      <button class="btn btn-primary" onclick="confirmarEditarMedico()">✔ Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reordenar análisis de orden -->
+<div class="modal-overlay" id="modal-reordenar-analisis">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-header">
+      <h3>↕ Reordenar análisis</h3>
+      <button class="btn btn-sm" onclick="closeModal('modal-reordenar-analisis')">✕</button>
+    </div>
+    <input type="hidden" id="reordenar-oid">
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Arrastrá o usá las flechas ↑↓ para reordenar. Los cambios se guardan al cerrar.</p>
+    <div id="lista-reordenar"></div>
+    <div style="text-align:right;margin-top:0.75rem;">
+      <button class="btn btn-primary" onclick="confirmarReordenarAnalisis()">✔ Guardar orden</button>
+    </div>
+  </div>
+</div>
+
+<!-- Médicos solicitantes -->
+<div class="modal-overlay" id="modal-medicos">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>👨‍⚕️ Médicos solicitantes</h3>
+      <button class="btn btn-sm" onclick="closeModal('modal-medicos')">✕</button>
+    </div>
+    <div id="lista-medicos-modal" style="margin-bottom:12px;max-height:320px;overflow-y:auto;"></div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="text" id="nuevo-medico-nombre" placeholder="Nombre del médico (Ej: Dr. Juan García)" style="flex:1;">
+      <button class="btn btn-primary" onclick="agregarMedico()">+ Agregar</button>
+    </div>
   </div>
 </div>
 
@@ -865,6 +919,10 @@ body.dark .toggle-thumb { transform:translateX(15px); }
 // ============================================================
 // DATOS POR DEFECTO
 // ============================================================
+
+// Datos pre-cargados del laboratorio
+const SEED_DATA = {"pacientes": [{"id": 4, "nombre": "Silvia", "apellido": "Ledesma", "dni": "17239263", "fnac": "1965-03-27", "sexo": "Femenino", "tel": "3814799132", "os": "Pami", "afiliado": "", "email": "", "dir": "Lules", "obs": "Preoperatorio/diabet/MEDIC PARA I.U, PARA TIROIDES T4 Y PRESION"}, {"id": 5, "nombre": "Marina", "apellido": "Herrera Coronel", "dni": "37423724", "fnac": "1994-01-10", "sexo": "Femenino", "tel": "3816277156", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "", "obs": "Control/ sin medic"}, {"id": 6, "nombre": "Marta", "apellido": "Fernandez", "dni": "5779412", "fnac": "1948-06-26", "sexo": "Femenino", "tel": "3815083842", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "Pasaje Dorrego 1132", "obs": "Insuf. renal/ medic para presion e irrigacion /P 70/ T 160/ V 1050 ML"}, {"id": 7, "nombre": "Daniel", "apellido": "Chaile", "dni": "25337005", "fnac": "1975-05-21", "sexo": "Masculino", "tel": "3813290479", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "", "obs": "Diabético/con insulina"}, {"id": 8, "nombre": "Nazareno", "apellido": "BAZAN", "dni": "57918049", "fnac": "1919-11-04", "sexo": "Masculino", "tel": "3815750303", "os": "SANCOR SALUD", "afiliado": "", "email": "", "dir": "", "obs": "DOLOR INGUINAL"}, {"id": 9, "nombre": "julio Enrique", "apellido": "Deleo", "dni": "3324288", "fnac": "0001-01-01", "sexo": "Masculino", "tel": "381479383", "os": "pami", "afiliado": "", "email": "", "dir": "Libertad 1471", "obs": "Insuf. renal cronica"}], "ordenes": [{"id": 11, "pacienteId": 4, "medico": "Lazarte Jorge", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt", "quim_pcr", "custom_1779211840614", "custom_1779213948631", "orina"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 0, "fecha": "2026-05-19", "resultados": {"Método": "Enzimático AA", "Glóbulos Rojos": "4.710.000", "Hematocrito": "39.0", "Hemoglobina": "12.7", "VCM": "84", "HCM": "26.9", "CHCM": "32.1", "Glóbulos Blancos": "8.900", "Cayados": "1", "Neutrófilos": "55", "Eosinófilos": "3", "Basófilos": "0", "Linfocitos": "38", "Monocitos": "4", "Plaquetas": "346.000", "ALT (TGP)": "36", "AST (TGO)": "31", "Fosfatasa alcalina": "88", "GGT": "29", "Bilirrubina total": "0.29", "Bilirrubina directa": "0.17", "Bilirrubina indirecta": "0.12", "Colesterol total": "204", "HDL": "58", "LDL": "127", "Triglicéridos": "110", "Aspecto": "Turbio", "Densidad": "1005", "Color": "Amarillo oscuro", "pH": "5", "Proteínas": "Contiene", "Glucosa": "No Contiene", "Urobilinógeno ": "Normal", "Cetonas": "No Contiene", "Pig. Biliares ": "No Contiene", "Leucocitos (microscopía)": "18-20", "Hematíes": "3-4", "Células ": "Regular", "Resultado": "153 Valor Confirmado", "Tiempo de Protrombina": "13.10", "Actividad": "88", "Interpretación": "REACTIVO — valores de consideración mayores a 6 mg/l", "Dosaje de Fosfatasa alcalina": "88", "Referencia": "Adultos 65 a 300 UI/L   //  Niños y Adolescentes 65 a 700 UI/L ", "Dosaje de GPT (Transaminasa G. Pirúvica) ": "36", "Dosaje de GOT (Transaminasa G. Oxalacético)   ": "31", "Dosaje de Gamma GT": "29", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "36", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "31", "lip|Colesterol total": "204    Valor Confirmado", "orina|Color": "Amarillo Ambar", "orina|Proteínas": "No Contiene", "orina|Hemoglobina": "Contiene", "orina|Observacion": "Presencia de elementos levaduriformes.", "quim_creatinina|Resultado": "0.80", "quim_kptt|Resultado": "34", "quim_pcr|Resultado": "24", "custom_1779211840614|Resultado": "8165", "custom_1779213948631|Resultado": "4.00"}}, {"id": 12, "pacienteId": 7, "medico": "Mendoza Daniel", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_hba1c", "quim_urea", "quim_creatinina", "orina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-19", "resultados": {"hemo|Glóbulos Rojos": "4.860.000", "hemo|Hematocrito": "44", "hemo|Hemoglobina": "14.7", "hemo|VCM": "91", "hemo|HCM": "30", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "6.000", "hemo|Cayados": "1", "hemo|Neutrófilos": "54", "hemo|Eosinófilos": "4", "hemo|Basófilos": "0", "hemo|Linfocitos": "38", "hemo|Monocitos": "3", "hemo|Plaquetas": "182.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "26", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "31", "hepat|Dosaje de Gamma GT": "17", "hepat|Dosaje de Fosfatasa alcalina": "46", "hepat|Bilirrubina total": "0.71", "hepat|Bilirrubina directa": "0.26", "hepat|Bilirrubina indirecta": "0.45", "lip|Colesterol total": "289 Valor Confirmado", "lip|HDL": "46", "lip|LDL": "212 Valor Confirmado", "lip|Triglicéridos": "170", "orina|Aspecto": "Ligeramente turbio", "orina|Densidad": "1020", "orina|Color": "Amarillo Ambar", "orina|pH": "6", "orina|Proteínas": "No Contiene", "orina|Glucosa": "Contiene +++", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "No Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "0-1", "orina|Mucus": "Escaso", "quim_glucosa_basal|Resultado": "285 Valor Confirmado", "quim_hba1c|Resultado": "12.8 Valor Confirmado", "quim_urea|Resultado": "0.21", "quim_creatinina|Resultado": "0.64"}}, {"id": 13, "pacienteId": 5, "medico": "—", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_insulina", "quim_homa", "custom_1779218045497", "custom_1779218494032", "custom_1779218760719", "orina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-19", "resultados": {"hemo|Glóbulos Rojos": "4.390.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.7", "hemo|VCM": "93.9", "hemo|HCM": "31.2", "hemo|CHCM": "33.2", "hemo|Glóbulos Blancos": "7.400", "hemo|Cayados": "1", "hemo|Neutrófilos": "47", "hemo|Eosinófilos": "3", "hemo|Basófilos": "0", "hemo|Linfocitos": "45", "hemo|Monocitos": "4", "hemo|Plaquetas": "225.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "18", "hepat|Dosaje de Gamma GT": "15", "hepat|Bilirrubina total": "0.97", "hepat|Bilirrubina directa": "0.48", "hepat|Bilirrubina indirecta": "0.50", "lip|Colesterol total": "163", "lip|HDL": "101", "lip|LDL": "58", "lip|Triglicéridos": "57", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "", "quim_glucosa_basal|Resultado": "91", "quim_urea|Resultado": "0.21", "quim_creatinina|Resultado": "0.82", "quim_insulina|Resultado": "9.9", "quim_homa|Resultado": "2.21", "orina|Aspecto": "Ligeramente turbio", "orina|Densidad": "1015", "orina|Color": "Amarillo Ambar", "orina|pH": "7.5", "orina|Proteínas": "", "orina|Células ": "Regular", "orina|Leucocitos (microscopía)": "5-6", "orina|Mucus": "Regular", "orina|Hematíes": "2-3", "orina|Hemoglobina": "Trazas", "custom_1779218760719|Resultado": "9.70", "custom_1779218045497|Resultado": "3.1", "custom_1779218494032|Resultado": "25.2"}}, {"id": 14, "pacienteId": 8, "medico": "—", "analisis": ["orina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-19", "resultados": {"orina|Aspecto": "Ligeramente turbio", "orina|Color": "Amarillo Ambar", "orina|Densidad": "1020", "orina|pH": "6", "orina|Proteínas": "No Contiene", "orina|Glucosa": "No Contiene", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "No Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "0-1", "orina|Mucus": "Escaso"}}, {"id": 15, "pacienteId": 9, "medico": "—", "analisis": ["hemo", "hepat", "ionograma", "lip", "quim_glucosa_basal", "quim_creatinina", "custom_1779218045497", "custom_1779218760719", "custom_1779323625485", "custom_1779323957195", "custom_1779324001979", "custom_1779324030602", "custom_1779324048026", "custom_1779324326329"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-20", "resultados": {"hemo|Glóbulos Rojos": "2.600.000", "hemo|Hematocrito": "26", "hemo|Hemoglobina": "8.2", "hemo|VCM": "98", "hemo|HCM": "31", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "5.700", "hemo|Cayados": "1", "hemo|Neutrófilos": "66", "hemo|Eosinófilos": "0", "hemo|Basófilos": "0", "hemo|Linfocitos": "31", "hemo|Monocitos": "2", "hemo|Plaquetas": "140.000 Valor Confirmado", "hemo|Observaciones ": "ANISOCITOSIS CON PRESENCIA DE MICROCITOS, NORMOCITOS Y MACROCITOS.\nPOIQUILOCITOSIS : ANULOCITOS , ELIPTOCITOS\nLEVE HIPOCROMIA.\nVALOR HEMATOLÓGICO CONFIRMADO", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "12", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "21", "hepat|Dosaje de Gamma GT": "7", "hepat|Dosaje de Fosfatasa alcalina": "48", "hepat|Bilirrubina total": "0.24", "hepat|Bilirrubina directa": "0.13", "hepat|Bilirrubina indirecta": "0.11", "ionograma|Sodio": "140", "ionograma|Potasio": "4.02", "ionograma|Cloro": "106", "ionograma|Calcio": "", "lip|Colesterol total": "150", "lip|HDL": "34", "lip|LDL": "103", "lip|Triglicéridos": "130", "quim_glucosa_basal|Resultado": "89", "quim_creatinina|Resultado": "3.35 VALOR CONF.", "custom_1779218045497|Resultado": "7.9", "custom_1779218760719|Resultado": "4.75", "custom_1779323625485|Metodo": "Colorimétrico", "custom_1779323957195|Metodo": "Ferrozina III", "custom_1779324001979|Metodo": "Ferrozina III", "custom_1779324030602|Metodo": "Quimioluminiscencia", "custom_1779324048026|Metodo": "Ferrozina III", "custom_1779323625485|Resultado": "4.04", "custom_1779323957195|Resultado": "134", "custom_1779324001979|Resultado": "37", "custom_1779324030602|Resultado": "124.0", "custom_1779324048026|Resultado": "78", "custom_1779324326329|Resultado": "212"}}, {"id": 16, "pacienteId": 6, "medico": "—", "analisis": ["hemo", "ionograma", "proteinas", "quim_glucosa_basal", "quim_urea", "quim_creatinina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-20", "resultados": {"hemo|Glóbulos Rojos": "4.600.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.7", "hemo|VCM": "89", "hemo|HCM": "29", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "8.300", "hemo|Cayados": "1", "hemo|Neutrófilos": "61", "hemo|Eosinófilos": "2", "hemo|Basófilos": "0", "hemo|Monocitos": "2", "hemo|Linfocitos": "34", "hemo|Plaquetas": "256.000", "ionograma|Sodio": "146", "ionograma|Potasio": "3.87", "ionograma|Cloro": "107", "proteinas|Proteínas totales": "7.23", "quim_glucosa_basal|Resultado": "119", "quim_urea|Resultado": "39", "quim_creatinina|Resultado": "1.03"}}], "informes": [{"id": 11, "ordenId": 2, "fecha": "2026-05-18"}, {"id": 12, "ordenId": 2, "fecha": "2026-05-18"}, {"id": 13, "ordenId": 4, "fecha": "2026-05-18"}, {"id": 14, "ordenId": 4, "fecha": "2026-05-18"}, {"id": 15, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 16, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 17, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 18, "ordenId": 6, "fecha": "2026-05-18"}, {"id": 19, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 20, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 21, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 22, "ordenId": 8, "fecha": "2026-05-18"}, {"id": 23, "ordenId": 9, "fecha": "2026-05-18"}, {"id": 24, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 25, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 26, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 27, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 28, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 29, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 30, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 31, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 32, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 33, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 34, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 35, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 36, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 37, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 38, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 39, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 40, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 41, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 42, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 43, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 44, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 45, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 46, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 47, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 48, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 49, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 50, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 51, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 52, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 53, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 54, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 55, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 56, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 57, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 58, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 59, "ordenId": 14, "fecha": "2026-05-19"}, {"id": 60, "ordenId": 16, "fecha": "2026-05-20"}, {"id": 61, "ordenId": 16, "fecha": "2026-05-20"}, {"id": 62, "ordenId": 15, "fecha": "2026-05-21"}], "pagos": [], "nextPId": 10, "nextOId": 17, "nextIId": 63, "nextPagoId": 1, "config": {"nombre": "Laboratorio Palacio Campero", "subtitulo": "Análisis Clínicos y Bacteriológicos", "tel": "Cel. 3814638141 - 3814186380", "email": "palaciocampero.lab@gmail.com", "web": "", "dir": "Pasaje Dorrego 1132", "ciudad": "San Miguel de Tucumán, Tucumán", "responsables": [{"nombre": "T.Bioq. Campero Claudia", "matricula": "", "cargo": "", "textoExtra": "MP: T270"}, {"nombre": "Bioq. Palacio Paola", "matricula": "MP:1287", "cargo": "", "textoExtra": "Bioquímica Certificada "}], "color": "#4d9de0", "icono": "", "pie": "", "fuente": "serif", "estiloHeader": "linea", "headerLinea1": "Bioq. Paola Palacio MP:1287", "headerLinea2": "T.Bioq. Claudia Campero MP:T270", "headerAlign": "left", "mostrarLogoEmoji": true, "mostrarEdad": true, "mostrarOS": false, "mostrarMedico": true, "mostrarAfiliado": false, "pie1": "LA INTERPRETACION CLÍNICA DE LOS RESULTADOS DEBE SER REALIZADA POR EL MÉDICO TRATANTE.", "pie2": "", "pie3": "", "pieLeyendaRef": false, "pieNroInforme": true, "pieFirma": true, "sombrealoAlto": false, "sombreadoBajo": false, "filasAlt": "none", "estiloFlag": "fondo", "usarIcono": true, "iconoSize": "60", "usarMarcaAgua": true, "marcaAguaSize": "200", "marcaAguaOpacidad": "8"}, "medicos": []};
+
 const DEFAULT_ANALISIS = [
   {
     "id": "hemo",
@@ -893,7 +951,7 @@ const DEFAULT_ANALISIS = [
         "n": "VCM",
         "u": "fL",
         "rMin": 80,
-        "rMax": "89"
+        "rMax": "95"
       },
       {
         "n": "HCM",
@@ -981,34 +1039,6 @@ const DEFAULT_ANALISIS = [
         "rMin": 0,
         "rMax": 0,
         "tipo": "texto"
-      },
-      {
-        "n": "Nuevo parámetro",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "numero"
-      },
-      {
-        "n": "Nuevo parámetro",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "numero"
-      },
-      {
-        "n": "Nuevo parámetro",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "numero"
-      },
-      {
-        "n": "Nuevo parámetro",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "numero"
       }
     ]
   },
@@ -1017,46 +1047,49 @@ const DEFAULT_ANALISIS = [
     "nombre": "Hepatograma",
     "parametros": [
       {
-        "n": "ALT (TGP)",
-        "u": "U/L",
-        "rMin": 0,
-        "rMax": 40
+        "n": "Dosaje de GPT (Transaminasa G. Pirúvica)",
+        "u": "UI/L",
+        "rMin": "8",
+        "rMax": "42"
       },
       {
-        "n": "AST (TGO)",
-        "u": "U/L",
-        "rMin": 0,
-        "rMax": 40
+        "n": "Dosaje de GOT (Transaminasa G.Oxalacético)",
+        "u": "UI/L",
+        "rMin": "10",
+        "rMax": "42"
       },
       {
-        "n": "Fosfatasa alcalina",
-        "u": "U/L",
+        "n": "Dosaje de Gamma GT",
+        "u": "UI/L",
+        "rMin": 0,
+        "rMax": 55,
+        "refTexto": "Hombres Menor a 51 UI/L // Mujeres Menor a 38 UI/L"
+      },
+      {
+        "n": "Dosaje de Fosfatasa alcalina",
+        "u": "UI/L",
         "rMin": 44,
-        "rMax": 147
-      },
-      {
-        "n": "GGT",
-        "u": "U/L",
-        "rMin": 0,
-        "rMax": 55
+        "rMax": 147,
+        "refTexto": "Adultos 65 a 300 UI/L   ||   Niños y Adolescentes 65 a 700 UI/L "
       },
       {
         "n": "Bilirrubina total",
         "u": "mg/dL",
-        "rMin": 0.1,
-        "rMax": 1.2
+        "rMin": "0.20",
+        "rMax": "1.10",
+        "refTexto": ""
       },
       {
         "n": "Bilirrubina directa",
         "u": "mg/dL",
-        "rMin": 0,
-        "rMax": 0.3
+        "rMin": "0.10",
+        "rMax": "0.20"
       },
       {
         "n": "Bilirrubina indirecta",
         "u": "mg/dL",
-        "rMin": 0.1,
-        "rMax": 0.9
+        "rMin": "0.10",
+        "rMax": "0.80"
       }
     ]
   },
@@ -1129,12 +1162,6 @@ const DEFAULT_ANALISIS = [
         "u": "mg/dL",
         "rMin": 0,
         "rMax": 150
-      },
-      {
-        "n": "VLDL",
-        "u": "mg/dL",
-        "rMin": 0,
-        "rMax": 30
       }
     ]
   },
@@ -1178,13 +1205,13 @@ const DEFAULT_ANALISIS = [
         "tipo": "select",
         "opciones": [
           "Amarillo pálido",
-          "Amarillo",
+          "Amarillo Ambar",
           "Amarillo oscuro",
           "Ámbar",
-          "Naranja",
-          "Rojo",
+          "Naranja Medicamentoso",
+          "Rojo Pardo",
           "Marrón",
-          "Verde",
+          "Verde Medicamentoso",
           "Incoloro"
         ]
       },
@@ -1225,8 +1252,10 @@ const DEFAULT_ANALISIS = [
         "rMax": 15,
         "tipo": "select",
         "opciones": [
-          "Contiene",
-          "No Contiene"
+          "Contiene +",
+          "No Contiene",
+          "Contiene ++",
+          "Contiene +++"
         ]
       },
       {
@@ -1236,8 +1265,11 @@ const DEFAULT_ANALISIS = [
         "rMax": 0,
         "tipo": "select",
         "opciones": [
-          "Contiene",
-          "No Contiene"
+          "Contiene +",
+          "No Contiene",
+          "Trazas",
+          "Contiene ++",
+          "Contiene +++"
         ]
       },
       {
@@ -1283,6 +1315,18 @@ const DEFAULT_ANALISIS = [
         "label": "🟠 Sedimento"
       },
       {
+        "n": "Células ",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "select",
+        "opciones": [
+          "Escasas",
+          "Abundantes",
+          "Regular"
+        ]
+      },
+      {
         "n": "Leucocitos (microscopía)",
         "u": "/campo",
         "rMin": 0,
@@ -1295,15 +1339,15 @@ const DEFAULT_ANALISIS = [
         "rMax": 2
       },
       {
-        "n": "Células ",
+        "n": "Mucus",
         "u": "",
         "rMin": 0,
         "rMax": 0,
         "tipo": "select",
         "opciones": [
-          "Escasas",
-          "Abundantes",
-          "Regular"
+          "Escaso",
+          "Regular",
+          "Abundante"
         ]
       },
       {
@@ -1372,88 +1416,145 @@ const DEFAULT_ANALISIS = [
           "Regular",
           "Abundantes"
         ]
-      }
-    ]
-  },
-  {
-    "id": "urocultivo",
-    "nombre": "Urocultivo completo",
-    "tipo": "cultivo",
-    "parametros": [
+      },
       {
-        "n": "Aspecto",
+        "n": "Observacion",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "textarea"
+      },
+      {
+        "n": "🔴 Urocultivo Estudio No solicitado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "seccion",
+        "label": "🔴 Urocultivo Estudio No solicitado"
+      },
+      {
+        "n": "GRAN",
         "u": "",
         "rMin": 0,
         "rMax": 0,
         "tipo": "texto",
-        "placeholder": "Claro / Turbio / Hemático"
+        "placeholder": "Especificar si corresponde",
+        "opciones": [
+          "",
+          "Opción 2"
+        ]
       },
       {
-        "n": "Color",
+        "n": "CULTIVO",
         "u": "",
         "rMin": 0,
         "rMax": 0,
         "tipo": "texto",
-        "placeholder": "Amarillo / Incoloro / Rojizo"
+        "opciones": [
+          "Ausente",
+          "Escaso",
+          "Moderado",
+          "Abundante"
+        ]
       },
       {
-        "n": "Recuento de colonias",
-        "u": "UFC/mL",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "< 10.000 / > 100.000"
+        "n": "RECUENTO DE COLINAS",
+        "u": "UFC",
+        "rMin": "",
+        "rMax": "",
+        "tipo": "select",
+        "opciones": [
+          "> 50.000 UFC",
+          "> 100.000 UFC"
+        ]
       },
       {
-        "n": "Resultado del cultivo",
+        "n": "ANTIBIOGRAMA",
         "u": "",
         "rMin": 0,
         "rMax": 0,
         "tipo": "select",
         "opciones": [
-          "NEGATIVO",
-          "POSITIVO"
+          "Sensible",
+          "Resistente"
         ]
       },
       {
-        "n": "Microorganismo aislado",
+        "n": "NORFLOXACINA (NOR)",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "Ej: Escherichia coli — dejar vacío si negativo"
+        "tipo": "select",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ]
       },
       {
-        "n": "Sensible a",
+        "n": "NITROFURANTOINA (FT)",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "textarea",
-        "placeholder": "Antibióticos sensibles"
+        "tipo": "select",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ]
       },
       {
-        "n": "Resistente a",
+        "n": "AMOXI + ACIDO CLAVULANICO (AMC)",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "textarea",
-        "placeholder": "Antibióticos resistentes"
+        "tipo": "select",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ]
       },
       {
-        "n": "Intermedio a",
+        "n": "TRIMETRO/SULFA (STX)",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "textarea",
-        "placeholder": "Antibióticos intermedios"
+        "tipo": "select",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ]
       },
       {
-        "n": "Observaciones",
+        "n": "GENTAMICINA (GM)",
         "u": "",
         "rMin": 0,
         "rMax": 0,
-        "tipo": "textarea",
-        "placeholder": "Observaciones adicionales"
+        "tipo": "select",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ]
+      },
+      {
+        "n": "CEFALOTINA (CF)",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "select",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ]
+      },
+      {
+        "n": "CEFOTAXIMA (CTX)",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "select",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ]
       }
     ]
   },
@@ -1534,10 +1635,11 @@ const DEFAULT_ANALISIS = [
     "nombre": "Tiroides",
     "parametros": [
       {
-        "n": "TSH",
+        "n": "Dosaje de Tirotrofina ultrasensible TSH",
         "u": "µUI/mL",
         "rMin": 0.4,
-        "rMax": 4
+        "rMax": 4,
+        "refTexto": "Rango eutiroideo del metodo: 0.27-4.20 uUL/ml  //  Rango eut.empirico: 0.27-3.00 uUL/ml  //  Niños menores a 1 año: 1.70 a 9.10 uUL/ml  // Niños entre 1 a 10 años: 0.70 a 5.70 uUL/ml"
       },
       {
         "n": "T4 libre",
@@ -1667,7 +1769,7 @@ const DEFAULT_ANALISIS = [
     "parametros": [
       {
         "n": "Resultado",
-        "u": "g/l",
+        "u": "g/dl",
         "rMin": 0.15,
         "rMax": 0.5,
         "tipo": "numero"
@@ -1748,13 +1850,13 @@ const DEFAULT_ANALISIS = [
   },
   {
     "id": "quim_tiempo_protrombina",
-    "nombre": "Tiempo de Protrombina",
+    "nombre": "Tiempo de Protombina",
     "parametros": [
       {
         "n": "Tiempo de Protrombina",
         "u": "Segundos",
-        "rMin": 12.0,
-        "rMax": 15.0,
+        "rMin": 12,
+        "rMax": 15,
         "tipo": "numero"
       },
       {
@@ -2110,6 +2212,306 @@ const DEFAULT_ANALISIS = [
         "placeholder": "240 - 480 UI/L"
       }
     ]
+  },
+  {
+    "id": "custom_1779211840614",
+    "nombre": "Colinesterasa Sérica",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "U/L",
+        "rMin": 3100,
+        "rMax": 11500
+      }
+    ]
+  },
+  {
+    "id": "custom_1779213948631",
+    "nombre": "Albúmina Sérica",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "g/dl",
+        "rMin": 3.5,
+        "rMax": 5
+      }
+    ]
+  },
+  {
+    "id": "custom_1779218045497",
+    "nombre": "Acido Úrico",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "Hombres: 3.4 a 7.0 mg/dl  //  Mujeres: 2.4 a 6.0 mg/dl  //  Niños: 2.0 a 5.5 mg/dl "
+      }
+    ]
+  },
+  {
+    "id": "custom_1779218494032",
+    "nombre": "Vitamina D (25 - Hidroxivitamina D)",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "ng/ml",
+        "rMin": 30,
+        "rMax": 50
+      }
+    ]
+  },
+  {
+    "id": "custom_1779218760719",
+    "nombre": "Calcemia",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "mg/dl",
+        "rMin": 8.5,
+        "rMax": 10.5
+      }
+    ]
+  },
+  {
+    "id": "custom_1779219008163",
+    "nombre": "Proteinograma",
+    "parametros": [
+      {
+        "n": "Albumina",
+        "u": "",
+        "rMin": 52,
+        "rMax": 68
+      },
+      {
+        "n": "Alfa 1 globulinas",
+        "u": "",
+        "rMin": 2,
+        "rMax": 5
+      },
+      {
+        "n": "Alfa 2 globulinas",
+        "u": "",
+        "rMin": 6.6,
+        "rMax": 13.5
+      },
+      {
+        "n": "Beta globulinas",
+        "u": "",
+        "rMin": 6,
+        "rMax": 9.8
+      },
+      {
+        "n": "Beta 2 globulinas",
+        "u": "",
+        "rMin": 2.6,
+        "rMax": 5.8
+      },
+      {
+        "n": "Gammaglobulinas",
+        "u": "",
+        "rMin": 11,
+        "rMax": 21
+      }
+    ]
+  },
+  {
+    "id": "custom_1779323625485",
+    "nombre": "Fosfatemia (Dosaje de fosforo en plasma)",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "mg/dl",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "Adulto 2.3 a 4.37 mg/dl  //  Niños 4.0 a 6.5 mg/dl"
+      },
+      {
+        "n": "Metodo",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "valorDefecto": "Colorimétrico"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779323957195",
+    "nombre": "Dosaje de Transferrina",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "mg/dl",
+        "rMin": 180,
+        "rMax": 382
+      },
+      {
+        "n": "Metodo",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "valorDefecto": "Ferrozina III"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779324001979",
+    "nombre": "Saturación de transferrina",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "%",
+        "rMin": 20,
+        "rMax": 50
+      },
+      {
+        "n": "Metodo",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "valorDefecto": "Ferrozina III"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779324030602",
+    "nombre": "Ferritina",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "Adultos 11.0 - 306.80 ng/ml  //  Niños 30.0 - 150.0 ng/ml"
+      },
+      {
+        "n": "Metodo",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "valorDefecto": "Quimioluminiscencia"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779324048026",
+    "nombre": "Ferremia",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "Hombre 60 a 160 mg/dl  //  Mujer 25 a 156 mg/dl"
+      },
+      {
+        "n": "Metodo",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "valorDefecto": "Ferrozina III"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779324326329",
+    "nombre": "TBIC (capacidad total de fijación de hierro)",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "mg/dl",
+        "rMin": 250,
+        "rMax": 450
+      }
+    ]
+  },
+  {
+    "id": "urocultivo",
+    "nombre": "Urocultivo completo",
+    "tipo": "cultivo",
+    "parametros": [
+      {
+        "n": "Aspecto",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "placeholder": "Claro / Turbio / Hemático"
+      },
+      {
+        "n": "Color",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "placeholder": "Amarillo / Incoloro / Rojizo"
+      },
+      {
+        "n": "Recuento de colonias",
+        "u": "UFC/mL",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "placeholder": "< 10.000 / > 100.000"
+      },
+      {
+        "n": "Resultado del cultivo",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "select",
+        "opciones": [
+          "NEGATIVO",
+          "POSITIVO"
+        ]
+      },
+      {
+        "n": "Microorganismo aislado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "texto",
+        "placeholder": "Ej: Escherichia coli — dejar vacío si negativo"
+      },
+      {
+        "n": "Sensible a",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "textarea",
+        "placeholder": "Antibióticos sensibles"
+      },
+      {
+        "n": "Resistente a",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "textarea",
+        "placeholder": "Antibióticos resistentes"
+      },
+      {
+        "n": "Intermedio a",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "textarea",
+        "placeholder": "Antibióticos intermedios"
+      },
+      {
+        "n": "Observaciones",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "textarea",
+        "placeholder": "Observaciones adicionales"
+      }
+    ]
   }
 ];
 
@@ -2230,6 +2632,28 @@ async function cargarDatos() {
       nextIId    = meta.nextIId    || (informes.length  ? Math.max(...informes.map(x=>x.id))  + 1 : 1);
       nextPagoId = meta.nextPagoId || (pagos.length     ? Math.max(...pagos.map(x=>x.id))     + 1 : 1);
     } catch(e) {}
+
+    // Primer arranque: si no hay datos locales, cargar SEED_DATA
+    const esPrimerArranque = !localStorage.getItem('lc_meta') && !localStorage.getItem('lc_pacientes');
+    if (esPrimerArranque && typeof SEED_DATA !== 'undefined') {
+      console.log('Primer arranque — cargando datos del laboratorio...');
+      pacientes        = SEED_DATA.pacientes  || [];
+      ordenes          = SEED_DATA.ordenes    || [];
+      informes         = SEED_DATA.informes   || [];
+      pagos            = SEED_DATA.pagos      || [];
+      nextPId          = SEED_DATA.nextPId    || 1;
+      nextOId          = SEED_DATA.nextOId    || 1;
+      nextIId          = SEED_DATA.nextIId    || 1;
+      nextPagoId       = SEED_DATA.nextPagoId || 1;
+      if (SEED_DATA.config) config = Object.assign(config, SEED_DATA.config);
+      if (SEED_DATA.medicos && SEED_DATA.medicos.length) localStorage.setItem('lc_medicos', JSON.stringify(SEED_DATA.medicos));
+      lsSet('pacientes', pacientes);
+      lsSet('ordenes',   ordenes);
+      lsSet('informes',  informes);
+      lsSet('pagos',     pagos);
+      localStorage.setItem(CKEY, JSON.stringify(config));
+      localStorage.setItem('lc_meta', JSON.stringify({nextPId, nextOId, nextIId, nextPagoId}));
+    }
 
     // Catálogo: usar hash simple para detectar cambios
     try {
@@ -2352,66 +2776,62 @@ function flash() {
   window._st = setTimeout(()=>el.classList.remove('visible'), 2000);
 }
 
-function exportarDatos() {
-  const data = JSON.stringify({
-    pacientes, ordenes, informes, pagos, analisisCatalogo,
-    nextPId, nextOId, nextIId, nextPagoId, config,
-    exportVersion: 2, exportDate: new Date().toISOString()
-  }, null, 2);
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([data],{type:'application/json'}));
-  a.download = 'labclinic_backup_'+new Date().toISOString().slice(0,10)+'.json';
-  a.click();
-}
-
 function importarDatos(ev) {
   const f = ev.target.files[0]; if(!f) return;
   const r = new FileReader();
   r.onload = async e => {
     try {
       const d = JSON.parse(e.target.result);
-      if (!confirm('¿Importar datos? Se reemplazarán los actuales.')) return;
+      if (!confirm(
+        `¿Importar datos del archivo "${f.name}"?\n\n` +
+        `Contiene: ${(d.pacientes||[]).length} pacientes, ${(d.ordenes||[]).length} órdenes.\n\n` +
+        `Los datos actuales serán reemplazados.`
+      )) return;
 
-      await abrirDB();
-
-      // Limpiar stores existentes
-      await Promise.all([
-        dbClear('pacientes'), dbClear('ordenes'),
-        dbClear('informes'),  dbClear('pagos'),
-        dbClear('catalogo'),  dbClear('meta'),
-      ]);
-
-      // Insertar nuevos datos
-      pacientes  = d.pacientes  || [];
-      ordenes    = d.ordenes    || [];
-      informes   = d.informes   || [];
-      pagos      = d.pagos      || [];
+      // Usar localStorage (compatible con file:// y GitHub Pages)
+      pacientes        = d.pacientes        || [];
+      ordenes          = d.ordenes          || [];
+      informes         = d.informes         || [];
+      pagos            = d.pagos            || [];
       analisisCatalogo = d.analisisCatalogo || analisisCatalogo;
-      nextPId    = d.nextPId    || 1;
-      nextOId    = d.nextOId    || 1;
-      nextIId    = d.nextIId    || 1;
-      nextPagoId = d.nextPagoId || 1;
+      nextPId          = d.nextPId          || 1;
+      nextOId          = d.nextOId          || 1;
+      nextIId          = d.nextIId          || 1;
+      nextPagoId       = d.nextPagoId       || 1;
       if (d.config) config = Object.assign(config, d.config);
 
-      await Promise.all([
-        pacientes.length  ? dbPutMany('pacientes', pacientes)  : Promise.resolve(),
-        ordenes.length    ? dbPutMany('ordenes',   ordenes)    : Promise.resolve(),
-        informes.length   ? dbPutMany('informes',  informes)   : Promise.resolve(),
-        pagos.length      ? dbPutMany('pagos',     pagos)      : Promise.resolve(),
-        dbPutMany('catalogo', analisisCatalogo),
-      ]);
-      await guardarMeta();
+      lsSet('pacientes', pacientes);
+      lsSet('ordenes',   ordenes);
+      lsSet('informes',  informes);
+      lsSet('pagos',     pagos);
+      lsSet('catalogo',  analisisCatalogo);
       localStorage.setItem(CKEY, JSON.stringify(config));
+      localStorage.setItem('lc_meta', JSON.stringify({nextPId, nextOId, nextIId, nextPagoId}));
+      // Médicos
+      if (d.medicos) localStorage.setItem('lc_medicos', JSON.stringify(d.medicos));
 
       renderDashboard();
       actualizarSidebarLogo();
-      alert('✔ Datos importados correctamente. ' + pacientes.length + ' pacientes, ' + ordenes.length + ' órdenes.');
+      alert(`✔ Importación exitosa.\n${pacientes.length} pacientes · ${ordenes.length} órdenes · ${analisisCatalogo.length} tipos de análisis.`);
     } catch(err) {
       console.error(err);
       alert('Error al importar: ' + err.message);
     }
   };
   r.readAsText(f); ev.target.value='';
+}
+
+function exportarDatos() {
+  const medicos = getMedicos();
+  const data = JSON.stringify({
+    pacientes, ordenes, informes, pagos, analisisCatalogo, medicos,
+    nextPId, nextOId, nextIId, nextPagoId, config,
+    exportVersion: 3, exportDate: new Date().toISOString()
+  }, null, 2);
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([data],{type:'application/json'}));
+  a.download = 'labclinic_backup_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
 }
 
 // ============================================================
@@ -2712,8 +3132,10 @@ function renderOrdenes() {
           <td>
             <div class="flex-row">
               <button class="btn btn-sm" onclick="irResultados(${o.id})" title="Cargar resultados">🧪</button>
-              <button class="btn btn-sm" onclick="agregarAnalisisOrden(${o.id})" title="Agregar análisis a esta orden">➕</button>
-              <button class="btn btn-sm" onclick="quitarAnalisisOrden(${o.id})" title="Quitar análisis de esta orden">➖</button>
+              <button class="btn btn-sm" onclick="editarMedicoOrden(${o.id})" title="Cambiar médico solicitante">👨‍⚕️</button>
+              <button class="btn btn-sm" onclick="reordenarAnalisisOrden(${o.id})" title="Reordenar análisis">↕</button>
+              <button class="btn btn-sm" onclick="agregarAnalisisOrden(${o.id})" title="Agregar análisis">➕</button>
+              <button class="btn btn-sm" onclick="quitarAnalisisOrden(${o.id})" title="Quitar análisis">➖</button>
               <button class="btn btn-sm" onclick="abrirPago(${o.id})" title="Registrar pago">💰</button>
             </div>
           </td>
@@ -2733,6 +3155,7 @@ function abrirModalOrden() {
   document.getElementById('o-importe').value='';
   document.getElementById('o-obs').value='';
   document.getElementById('o-pago').value='pendiente';
+  actualizarDatalistMedicos();
   openModal('modal-orden');
 }
 
@@ -2762,17 +3185,76 @@ async function guardarOrden() {
   closeModal('modal-orden'); renderOrdenes(); renderDashboard();
 }
 
+// ============================================================
+// MÉDICOS SOLICITANTES
+// ============================================================
+function getMedicos() {
+  try { return JSON.parse(localStorage.getItem('lc_medicos') || '[]'); } catch(e) { return []; }
+}
+function saveMedicos(lista) {
+  localStorage.setItem('lc_medicos', JSON.stringify(lista));
+}
+
+function abrirModalMedicos() {
+  renderListaMedicos();
+  actualizarDatalistMedicos();
+  openModal('modal-medicos');
+}
+
+function renderListaMedicos() {
+  const medicos = getMedicos();
+  const cont = document.getElementById('lista-medicos-modal');
+  if (!medicos.length) {
+    cont.innerHTML = '<p style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px 0;">Sin médicos guardados. Agregá uno abajo.</p>';
+    return;
+  }
+  cont.innerHTML = medicos.map((m, i) => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-bottom:1px solid var(--border);">
+      <span style="font-size:13px;">👨‍⚕️ ${m}</span>
+      <button class="btn btn-sm btn-danger" onclick="eliminarMedico(${i})" title="Eliminar">🗑</button>
+    </div>`).join('');
+}
+
+function agregarMedico() {
+  const input = document.getElementById('nuevo-medico-nombre');
+  const nombre = input.value.trim();
+  if (!nombre) { alert('Ingresá el nombre del médico.'); return; }
+  const medicos = getMedicos();
+  if (medicos.includes(nombre)) { alert('Ese médico ya está en la lista.'); return; }
+  medicos.push(nombre);
+  saveMedicos(medicos);
+  input.value = '';
+  renderListaMedicos();
+  actualizarDatalistMedicos();
+}
+
+function eliminarMedico(idx) {
+  const medicos = getMedicos();
+  if (!confirm(`¿Eliminar a "${medicos[idx]}" de la lista?`)) return;
+  medicos.splice(idx, 1);
+  saveMedicos(medicos);
+  renderListaMedicos();
+  actualizarDatalistMedicos();
+}
+
+function actualizarDatalistMedicos() {
+  const dl = document.getElementById('lista-medicos-datalist');
+  if (!dl) return;
+  const medicos = getMedicos();
+  dl.innerHTML = medicos.map(m => `<option value="${m}">`).join('');
+}
+
 function quitarAnalisisOrden(oid) {
   const o = ordenes.find(x => x.id === oid);
   if (!o) return;
   if (o.analisis.length <= 1) { alert('La orden debe tener al menos un análisis.'); return; }
   const p = pacientes.find(x => x.id === o.pacienteId);
-  const lista = o.analisis.map(aid => {
+  const lista = o.analisis.map((aid, i) => {
     const an = analisisCatalogo.find(x => x.id === aid);
-    return `  • ${an ? an.nombre : aid}`;
+    return `${i+1}. ${an ? an.nombre : aid}`;
   }).join('\n');
   const opcion = prompt(
-    `Orden #${o.id} — ${p ? p.nombre+' '+p.apellido : '—'}\n\nAnálisis actuales:\n${lista}\n\nEscribí el NÚMERO de orden del análisis a quitar (1, 2, 3...):`
+    `Orden #${o.id} — ${p ? p.nombre+' '+p.apellido : '—'}\n\nAnálisis en esta orden:\n${lista}\n\nEscribí el número a quitar:`
   );
   if (!opcion) return;
   const idx = parseInt(opcion) - 1;
@@ -2780,7 +3262,101 @@ function quitarAnalisisOrden(oid) {
   const nombreQuitado = analisisCatalogo.find(x => x.id === o.analisis[idx])?.nombre || o.analisis[idx];
   if (!confirm(`¿Quitar "${nombreQuitado}" de la orden #${o.id}?`)) return;
   o.analisis.splice(idx, 1);
-  guardarOrdenDB(o).then(() => { renderOrdenes(); alert(`✔ "${nombreQuitado}" quitado de la orden #${o.id}`); });
+  guardarOrdenDB(o).then(() => { renderOrdenes(); });
+}
+
+function editarMedicoOrden(oid) {
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  const medicos = getMedicos();
+  // Build modal content dynamically
+  document.getElementById('editar-medico-oid').value = oid;
+  const input = document.getElementById('editar-medico-valor');
+  input.value = o.medico || '';
+  // Rebuild datalist
+  const dl = document.getElementById('editar-medico-datalist');
+  dl.innerHTML = medicos.map(m => `<option value="${m}">`).join('');
+  openModal('modal-editar-medico');
+  setTimeout(()=>input.focus(), 100);
+}
+
+async function confirmarEditarMedico() {
+  const oid = parseInt(document.getElementById('editar-medico-oid').value);
+  const nuevo = document.getElementById('editar-medico-valor').value.trim();
+  if (!nuevo) { alert('Ingresá el nombre del médico.'); return; }
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  o.medico = nuevo;
+  // Si es nuevo, guardarlo en la lista de médicos
+  const medicos = getMedicos();
+  if (!medicos.includes(nuevo)) { medicos.push(nuevo); saveMedicos(medicos); }
+  await guardarOrdenDB(o);
+  closeModal('modal-editar-medico');
+  renderOrdenes();
+}
+
+function reordenarAnalisisOrden(oid) {
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  document.getElementById('reordenar-oid').value = oid;
+  renderListaReordenar(oid);
+  openModal('modal-reordenar-analisis');
+}
+
+function renderListaReordenar(oid) {
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  document.getElementById('lista-reordenar').innerHTML = o.analisis.map((aid, i) => {
+    const an = analisisCatalogo.find(x => x.id === aid);
+    return `<div class="drag-reorder-row" data-aid="${aid}" data-idx="${i}"
+        draggable="true"
+        ondragstart="dragReorderStart(event,${i})"
+        ondragover="dragReorderOver(event)"
+        ondrop="dragReorderDrop(event,${i},${oid})"
+        ondragend="dragReorderEnd(event)"
+        style="display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:6px;
+               background:var(--bg-card);border:1px solid var(--border);border-radius:8px;cursor:grab;">
+      <span style="font-size:18px;color:var(--text-muted);">⠿</span>
+      <span style="flex:1;font-size:13px;">${an ? an.nombre : aid}</span>
+      <div style="display:flex;gap:4px;">
+        <button class="btn btn-sm" onclick="moverAnalisisOrden(${oid},${i},-1)" style="padding:2px 8px;">↑</button>
+        <button class="btn btn-sm" onclick="moverAnalisisOrden(${oid},${i},1)"  style="padding:2px 8px;">↓</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+let _dragReorderIdx = null;
+function dragReorderStart(e, idx) { _dragReorderIdx = idx; e.currentTarget.style.opacity='0.5'; }
+function dragReorderEnd(e)        { e.currentTarget.style.opacity='1'; }
+function dragReorderOver(e)       { e.preventDefault(); }
+function dragReorderDrop(e, targetIdx, oid) {
+  e.preventDefault();
+  if (_dragReorderIdx === null || _dragReorderIdx === targetIdx) return;
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  const moved = o.analisis.splice(_dragReorderIdx, 1)[0];
+  o.analisis.splice(targetIdx, 0, moved);
+  _dragReorderIdx = null;
+  guardarOrdenDB(o).then(() => renderListaReordenar(oid));
+}
+
+function moverAnalisisOrden(oid, idx, dir) {
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  const nuevo = idx + dir;
+  if (nuevo < 0 || nuevo >= o.analisis.length) return;
+  [o.analisis[idx], o.analisis[nuevo]] = [o.analisis[nuevo], o.analisis[idx]];
+  guardarOrdenDB(o).then(() => renderListaReordenar(oid));
+}
+
+async function confirmarReordenarAnalisis() {
+  const oid = parseInt(document.getElementById('reordenar-oid').value);
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  await guardarOrdenDB(o);
+  closeModal('modal-reordenar-analisis');
+  renderOrdenes();
 }
 
 let _ordenAgregarId = null;
