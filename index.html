@@ -2,6 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d1b2a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Lab Palacio">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LabClinic v4</title>
 <style>
@@ -924,7 +930,7 @@ body.dark .toggle-thumb { transform:translateX(15px); }
 // ============================================================
 
 // Datos pre-cargados del laboratorio
-const SEED_DATA = {"pacientes": [{"id": 4, "nombre": "Silvia", "apellido": "Ledesma", "dni": "17239263", "fnac": "1965-03-27", "sexo": "Femenino", "tel": "3814799132", "os": "Pami", "afiliado": "", "email": "", "dir": "Lules", "obs": "Preoperatorio/diabet/MEDIC PARA I.U, PARA TIROIDES T4 Y PRESION"}, {"id": 5, "nombre": "Marina", "apellido": "Herrera Coronel", "dni": "37423724", "fnac": "1994-01-10", "sexo": "Femenino", "tel": "3816277156", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "", "obs": "Control/ sin medic"}, {"id": 6, "nombre": "Marta", "apellido": "Fernandez", "dni": "5779412", "fnac": "1948-06-26", "sexo": "Femenino", "tel": "3815083842", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "Pasaje Dorrego 1132", "obs": "Insuf. renal/ medic para presion e irrigacion /P 70/ T 160/ V 1050 ML"}, {"id": 7, "nombre": "Daniel", "apellido": "Chaile", "dni": "25337005", "fnac": "1975-05-21", "sexo": "Masculino", "tel": "3813290479", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "", "obs": "Diabético/con insulina"}, {"id": 8, "nombre": "Nazareno", "apellido": "BAZAN", "dni": "57918049", "fnac": "1919-11-04", "sexo": "Masculino", "tel": "3815750303", "os": "SANCOR SALUD", "afiliado": "", "email": "", "dir": "", "obs": "DOLOR INGUINAL"}, {"id": 9, "nombre": "julio Enrique", "apellido": "Deleo", "dni": "3324288", "fnac": "0001-01-01", "sexo": "Masculino", "tel": "381479383", "os": "pami", "afiliado": "", "email": "", "dir": "Libertad 1471", "obs": "Insuf. renal cronica"}, {"id": 10, "nombre": "Josefina María", "apellido": "Hurtado Palacio", "dni": "53.123.214", "fnac": "2013-07-25", "sexo": "Femenino", "tel": "381 4638141", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "Pasaje Dorrego 1142", "obs": "Paciente en tratamiento con Hormona de Crecimiento"}, {"id": 11, "nombre": "Dora", "apellido": "Lopez", "dni": "13.577.505", "fnac": "1959-05-15", "sexo": "Femenino", "tel": "381 4691374", "os": "Pami", "afiliado": "140014615200", "email": "", "dir": "", "obs": "Control de Anemia"}, {"id": 12, "nombre": "Wheeler", "apellido": "Eylen", "dni": "33.374.357", "fnac": "1987-12-28", "sexo": "Femenino", "tel": "", "os": "Sancor Salud", "afiliado": "", "email": "", "dir": "", "obs": ""}, {"id": 13, "nombre": "Cagna", "apellido": "Federico", "dni": "20.218.435", "fnac": "1968-06-29", "sexo": "Masculino", "tel": "", "os": "Particular", "afiliado": "", "email": "", "dir": "", "obs": "Paciente que sufrió un ACV, Medicado para la presión y para el colesterol."}, {"id": 14, "nombre": "Viviana", "apellido": "Manjarréz", "dni": "20.433.672", "fnac": "1969-09-29", "sexo": "Femenino", "tel": "381 4908966", "os": "Particular", "afiliado": "", "email": "", "dir": "", "obs": "Control /Sin medicación"}, {"id": 15, "nombre": "Paola Liliana", "apellido": "Santin", "dni": "26.684.777", "fnac": "1978-06-28", "sexo": "Femenino", "tel": "381 155184454", "os": "Subsidio de Salud", "afiliado": "2612507148853", "email": "", "dir": "Paraguay 260- Yerba Buena", "obs": "Insulino resistencia, fatiga, sobrepeso, dolor articular"}, {"id": 16, "nombre": "Analia", "apellido": "Boasso", "dni": "17.860.837", "fnac": "1966-02-20", "sexo": "Femenino", "tel": "381 5457253", "os": "Particular", "afiliado": "", "email": "", "dir": "", "obs": ""}, {"id": 17, "nombre": "ARGAÑARAZ", "apellido": "Julián", "dni": "57.916.113", "fnac": "1991-11-09", "sexo": "Masculino", "tel": "381 4909296", "os": "Particular", "afiliado": "", "email": "", "dir": "Juan Manuel Estrada 785", "obs": "Sindrome Gripal 7mo día de síntomas, paperas, taratamiento con ibuprofeno"}, {"id": 18, "nombre": "Concepcion Gladys", "apellido": "Fernandez", "dni": "4836221", "fnac": "1943-11-30", "sexo": "Femenino", "tel": "3814960887", "os": "Pami", "afiliado": "150127787209", "email": "", "dir": "25 de mayo 2364", "obs": "PRE QUIRURGICO"}, {"id": 19, "nombre": "Gustavo Alfredo", "apellido": "Amaya", "dni": "22612298", "fnac": "1972-02-15", "sexo": "Masculino", "tel": "3816607457", "os": "Sub Salud ", "afiliado": "", "email": "", "dir": "", "obs": "CONTROL/TUVO GRIPE A/ SEÑA 5000"}, {"id": 20, "nombre": "JOSE", "apellido": "GUZMAN", "dni": "28085984", "fnac": "1980-12-22", "sexo": "Masculino", "tel": "3873122524", "os": "", "afiliado": "", "email": "", "dir": "", "obs": "DOLOR DE MANO. AMORTIGUAMIENTO"}, {"id": 21, "nombre": "Ana Sofia", "apellido": "Fe", "dni": "34132122", "fnac": "1989-07-17", "sexo": "Femenino", "tel": "3815829153", "os": "Particular", "afiliado": "", "email": "", "dir": "Alberdi 720 / 9C", "obs": "Prequirurgico. sin medic. pago 44.000"}], "ordenes": [{"id": 11, "pacienteId": 4, "medico": "Lazarte Jorge", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt", "quim_pcr", "custom_1779211840614", "custom_1779213948631", "orina"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 0, "fecha": "2026-05-19", "resultados": {"Método": "Enzimático AA", "Glóbulos Rojos": "4.710.000", "Hematocrito": "39.0", "Hemoglobina": "12.7", "VCM": "84", "HCM": "26.9", "CHCM": "32.1", "Glóbulos Blancos": "8.900", "Cayados": "1", "Neutrófilos": "55", "Eosinófilos": "3", "Basófilos": "0", "Linfocitos": "38", "Monocitos": "4", "Plaquetas": "346.000", "ALT (TGP)": "36", "AST (TGO)": "31", "Fosfatasa alcalina": "88", "GGT": "29", "Bilirrubina total": "0.29", "Bilirrubina directa": "0.17", "Bilirrubina indirecta": "0.12", "Colesterol total": "204", "HDL": "58", "LDL": "127", "Triglicéridos": "110", "Aspecto": "Turbio", "Densidad": "1005", "Color": "Amarillo oscuro", "pH": "5", "Proteínas": "Contiene", "Glucosa": "No Contiene", "Urobilinógeno ": "Normal", "Cetonas": "No Contiene", "Pig. Biliares ": "No Contiene", "Leucocitos (microscopía)": "18-20", "Hematíes": "3-4", "Células ": "Regular", "Resultado": "153 Valor Confirmado", "Tiempo de Protrombina": "13.10", "Actividad": "88", "Interpretación": "REACTIVO — valores de consideración mayores a 6 mg/l", "Dosaje de Fosfatasa alcalina": "88", "Referencia": "Adultos 65 a 300 UI/L   //  Niños y Adolescentes 65 a 700 UI/L ", "Dosaje de GPT (Transaminasa G. Pirúvica) ": "36", "Dosaje de GOT (Transaminasa G. Oxalacético)   ": "31", "Dosaje de Gamma GT": "29", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "36", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "31", "lip|Colesterol total": "204    Valor Confirmado", "orina|Color": "Amarillo Ambar", "orina|Proteínas": "No Contiene", "orina|Hemoglobina": "Contiene", "orina|Observacion": "Presencia de elementos levaduriformes.", "quim_creatinina|Resultado": "0.80", "quim_kptt|Resultado": "34", "quim_pcr|Resultado": "24", "custom_1779211840614|Resultado": "8165", "custom_1779213948631|Resultado": "4.00"}}, {"id": 12, "pacienteId": 7, "medico": "Mendoza Daniel", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_hba1c", "quim_urea", "quim_creatinina", "orina"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 5000, "fecha": "2026-05-19", "resultados": {"hemo|Glóbulos Rojos": "4.860.000", "hemo|Hematocrito": "44", "hemo|Hemoglobina": "14.7", "hemo|VCM": "91", "hemo|HCM": "30", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "6.000", "hemo|Cayados": "1", "hemo|Neutrófilos": "54", "hemo|Eosinófilos": "4", "hemo|Basófilos": "0", "hemo|Linfocitos": "38", "hemo|Monocitos": "3", "hemo|Plaquetas": "182.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "26", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "31", "hepat|Dosaje de Gamma GT": "17", "hepat|Dosaje de Fosfatasa alcalina": "46", "hepat|Bilirrubina total": "0.71", "hepat|Bilirrubina directa": "0.26", "hepat|Bilirrubina indirecta": "0.45", "lip|Colesterol total": "289 Valor Confirmado", "lip|HDL": "46", "lip|LDL": "212 Valor Confirmado", "lip|Triglicéridos": "170", "orina|Aspecto": "Ligeramente turbio", "orina|Densidad": "1020", "orina|Color": "Amarillo Ambar", "orina|pH": "6", "orina|Proteínas": "No Contiene", "orina|Glucosa": "Contiene +++", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "No Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "0-1", "orina|Mucus": "Escaso", "quim_glucosa_basal|Resultado": "285 Valor Confirmado", "quim_hba1c|Resultado": "12.8 Valor Confirmado", "quim_urea|Resultado": "0.21", "quim_creatinina|Resultado": "0.64"}}, {"id": 13, "pacienteId": 5, "medico": "—", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_insulina", "quim_homa", "custom_1779218045497", "custom_1779218494032", "custom_1779218760719", "orina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-19", "resultados": {"hemo|Glóbulos Rojos": "4.390.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.7", "hemo|VCM": "93.9", "hemo|HCM": "31.2", "hemo|CHCM": "33.2", "hemo|Glóbulos Blancos": "7.400", "hemo|Cayados": "1", "hemo|Neutrófilos": "47", "hemo|Eosinófilos": "3", "hemo|Basófilos": "0", "hemo|Linfocitos": "45", "hemo|Monocitos": "4", "hemo|Plaquetas": "225.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "18", "hepat|Dosaje de Gamma GT": "15", "hepat|Bilirrubina total": "0.97", "hepat|Bilirrubina directa": "0.48", "hepat|Bilirrubina indirecta": "0.50", "lip|Colesterol total": "163", "lip|HDL": "101", "lip|LDL": "58", "lip|Triglicéridos": "57", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "", "quim_glucosa_basal|Resultado": "91", "quim_urea|Resultado": "0.21", "quim_creatinina|Resultado": "0.82", "quim_insulina|Resultado": "9.9", "quim_homa|Resultado": "2.21", "orina|Aspecto": "Ligeramente turbio", "orina|Densidad": "1015", "orina|Color": "Amarillo Ambar", "orina|pH": "7.5", "orina|Proteínas": "", "orina|Células ": "Regular", "orina|Leucocitos (microscopía)": "5-6", "orina|Mucus": "Regular", "orina|Hematíes": "2-3", "orina|Hemoglobina": "Trazas", "custom_1779218760719|Resultado": "9.70", "custom_1779218045497|Resultado": "3.1", "custom_1779218494032|Resultado": "25.2", "quim_urea|Referencia": "15 a 50 mg/dl"}}, {"id": 14, "pacienteId": 8, "medico": "—", "analisis": ["orina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-19", "resultados": {"orina|Aspecto": "Ligeramente turbio", "orina|Color": "Amarillo Ambar", "orina|Densidad": "1020", "orina|pH": "6", "orina|Proteínas": "No Contiene", "orina|Glucosa": "No Contiene", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "No Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "0-1", "orina|Mucus": "Escaso"}}, {"id": 15, "pacienteId": 9, "medico": "—", "analisis": ["hemo", "hepat", "ionograma", "lip", "quim_glucosa_basal", "quim_creatinina", "custom_1779218045497", "custom_1779323625485", "custom_1779323957195", "custom_1779324001979", "custom_1779324030602", "custom_1779324048026", "custom_1779324326329"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-20", "resultados": {"hemo|Glóbulos Rojos": "2.600.000", "hemo|Hematocrito": "26", "hemo|Hemoglobina": "8.2", "hemo|VCM": "98", "hemo|HCM": "31", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "5.700", "hemo|Cayados": "1", "hemo|Neutrófilos": "66", "hemo|Eosinófilos": "0", "hemo|Basófilos": "0", "hemo|Linfocitos": "31", "hemo|Monocitos": "2", "hemo|Plaquetas": "140.000 Valor Confirmado", "hemo|Observaciones ": "ANISOCITOSIS CON PRESENCIA DE MICROCITOS, NORMOCITOS Y MACROCITOS.\nPOIQUILOCITOSIS : ANULOCITOS , ELIPTOCITOS\nLEVE HIPOCROMIA.\nVALOR HEMATOLÓGICO CONFIRMADO", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "12", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "21", "hepat|Dosaje de Gamma GT": "7", "hepat|Dosaje de Fosfatasa alcalina": "48", "hepat|Bilirrubina total": "0.24", "hepat|Bilirrubina directa": "0.13", "hepat|Bilirrubina indirecta": "0.11", "ionograma|Sodio": "140", "ionograma|Potasio": "4.02", "ionograma|Cloro": "106", "ionograma|Calcio": "", "lip|Colesterol total": "150", "lip|HDL": "34", "lip|LDL": "103", "lip|Triglicéridos": "130", "quim_glucosa_basal|Resultado": "89", "quim_creatinina|Resultado": "3.35 VALOR CONF.", "custom_1779218045497|Resultado": "7.9 VALOR CONFIRMADO", "custom_1779218760719|Resultado": "4.75", "custom_1779323625485|Metodo": "Colorimétrico", "custom_1779323957195|Metodo": "Ferrozina III", "custom_1779324001979|Metodo": "Ferrozina III", "custom_1779324030602|Metodo": "Quimioluminiscencia", "custom_1779324048026|Metodo": "Ferrozina III", "custom_1779323625485|Resultado": "4.04", "custom_1779323957195|Resultado": "134", "custom_1779324001979|Resultado": "37", "custom_1779324030602|Resultado": "124.0", "custom_1779324048026|Resultado": "78", "custom_1779324326329|Resultado": "212"}}, {"id": 16, "pacienteId": 6, "medico": "Lescano Martin", "analisis": ["hemo", "ionograma", "proteinas", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "custom_1779326626877", "custom_1779326800067"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 5000, "fecha": "2026-05-20", "resultados": {"hemo|Glóbulos Rojos": "4.650.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.7", "hemo|VCM": "89", "hemo|HCM": "29", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "8.300", "hemo|Cayados": "1", "hemo|Neutrófilos": "62", "hemo|Eosinófilos": "2", "hemo|Basófilos": "0", "hemo|Monocitos": "2", "hemo|Linfocitos": "34", "hemo|Plaquetas": "256.000", "ionograma|Sodio": "146", "ionograma|Potasio": "3.87", "ionograma|Cloro": "107", "proteinas|Proteínas totales": "7.23", "quim_glucosa_basal|Resultado": "119 Valor Confirmado", "quim_urea|Resultado": "39", "quim_creatinina|Resultado": "1.03", "custom_1779326626877|Proteinuria (24h)": "114 Valor Confirmado", "custom_1779326626877|Proteinuria (AL.) Presencia de Proteína en orina causada por la amiloidosis.": "109", "custom_1779326626877|Volumen": "1050", "custom_1779326800067|Coeficiente de excreción de CR (Mide la cantidad de desecho metabólico que el cuerpo libera en 24h) ": "11.9 Valor Confirmado", "custom_1779326800067|Tiempo de recolección ": "1040", "custom_1779326800067|Volumen Minuto": "0.73", "custom_1779326800067|Creatinina en Orina": "79.2", "custom_1779326800067|Volumen de Orina": "1050", "custom_1779326800067|CLEARENCE DE CREATININA (DCE)": "54.1 Valor Confirmado", "custom_1779326800067|MDRD-IDMS (formula empleada para estimar la tasa de filtrado glomerular)": ">60.0 ML/MIN/1.73M2", "quim_urea|Referencia": "15 a 50 mg/dl", "custom_1779326800067|COEFICIENTE DE EXCRECION CR (Mide la cantidad de desecho metabólico que el cuerpo libera en 24h) ": "11.9", "custom_1779326800067|MDRD-IDMS (Formula empleada para estimar la tasa de filtrado glomerular)": ">60.0 ML/MIN/1.73M2"}}, {"id": 17, "pacienteId": 5, "medico": "Prieto Marcela", "analisis": ["tiro", "custom_1779219008163"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 0, "fecha": "2026-05-21", "resultados": {"tiro|Dosaje de Tirotrofina ultrasensible TSH": "8.12", "custom_1779219008163|Proteína totales": "7.68", "custom_1779219008163|Albumina abs": "4.62", "custom_1779219008163|Albumina %": "60.20", "custom_1779219008163|Alfa 1 globulinas abs": "0.31", "custom_1779219008163|Alfa 1 globulinas %": "4.00", "custom_1779219008163|Alfa 2 globulinas abs": "0.76", "custom_1779219008163|Alfa 2 globulinas %": "9.90", "custom_1779219008163|Beta 1 globulinas abs": "0.46", "custom_1779219008163|Beta 1 globulinas %": "6.00", "custom_1779219008163|Beta 2 globulinas abs": "0.35", "custom_1779219008163|Beta 2 globulinas %": "4.60", "custom_1779219008163|Gamma globulinas abs": "1.18", "custom_1779219008163|Gamma globulinas %": "15.30", "custom_1779219008163|Relación Alb/Glob": "1.51"}}, {"id": 18, "pacienteId": 10, "medico": "Mangone Pamela", "analisis": ["hemo", "hepat", "lip", "tiro", "quim_hba1c", "quim_urea", "quim_creatinina", "quim_bilirrubina", "quim_insulina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-22", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.900.000", "hemo|Hematocrito": "42", "hemo|Hemoglobina": "14.1", "hemo|VCM": "87", "hemo|HCM": "29", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "6.100", "hemo|Cayados": "0", "hemo|Neutrófilos": "47", "hemo|Eosinófilos": "3", "hemo|Basófilos": "0", "hemo|Linfocitos": "48", "hemo|Monocitos": "2", "hemo|Plaquetas": "261.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "8", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "19", "hepat|Dosaje de Gamma GT": "12", "hepat|Dosaje de Fosfatasa alcalina": "770", "lip|Colesterol total": "126", "lip|HDL": "55", "lip|LDL": "70", "lip|Triglicéridos": "83", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "2.53", "tiro|T4 libre": "1.22", "quim_hba1c|Resultado": "5.8", "quim_urea|Resultado": "24", "quim_creatinina|Resultado": "0.57", "quim_bilirrubina|Bilirrubina Total": "", "quim_insulina|Resultado": "9.6", "hepat|Bilirrubina total": "0.57", "hepat|Bilirrubina directa": "0.10", "hepat|Bilirrubina indirecta": "0.47"}}, {"id": 19, "pacienteId": 11, "medico": "Segundo Juri", "analisis": ["custom_1779218494032"], "obs": "", "estado": "pendiente", "pago": "pagado", "importe": 0, "fecha": "2026-05-22", "resultados": {}}, {"id": 20, "pacienteId": 12, "medico": "Araujo María", "analisis": ["hemo", "hepat", "lip", "tiro", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_insulina", "urocultivo", "custom_1779488458182"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-22", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.180.000", "hemo|Hematocrito": "38", "hemo|Hemoglobina": "12.5", "hemo|VCM": "92", "hemo|HCM": "30", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "8.200", "hemo|Cayados": "1", "hemo|Neutrófilos": "63", "hemo|Eosinófilos": "1", "hemo|Basófilos": "0", "hemo|Linfocitos": "32", "hemo|Monocitos": "3", "hemo|Plaquetas": "155.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "16", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "18", "hepat|Dosaje de Gamma GT": "22", "hepat|Dosaje de Fosfatasa alcalina": "214", "hepat|Bilirrubina total": "0.80", "hepat|Bilirrubina directa": "0.20", "hepat|Bilirrubina indirecta": "0.60", "quim_glucosa_basal|Resultado": "73", "quim_urea|Resultado": "47", "quim_creatinina|Resultado": "0.91", "quim_insulina|Resultado": "7.0", "custom_1779488458182|EX DIRECTO:": "Abundantes células. 10 a 15 leucocitos. No se observan piocitos ni hematies", "custom_1779488458182|GRAM:": "Cocos bacilos gran ( + )", "custom_1779488458182|CULTIVO:": "Se aisla flora bacteriana compatible con la normal.  Ex Micológico: elementos levaduriformes con pseudomicelios. Ex Parasitológico: Negativo", "lip|Colesterol total": "180", "lip|HDL": "67", "lip|LDL": "105", "lip|Triglicéridos": "75", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "3.79", "tiro|T4 Total": "6.36"}}, {"id": 21, "pacienteId": 13, "medico": "Rojo Gonzalo", "analisis": ["hemo", "hepat", "ionograma", "lip", "orina", "quim_eritrosedimentacion", "quim_glucosa_basal", "quim_hba1c", "quim_urea", "quim_creatinina", "quim_pcr", "custom_1779218045497"], "obs": "", "estado": "pendiente", "pago": "pagado", "importe": 0, "fecha": "2026-05-22", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "5.200.000", "hemo|Hematocrito": "44", "hemo|Hemoglobina": "14.7", "hemo|VCM": "85", "hemo|HCM": "28", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "8.700", "hemo|Cayados": "0", "hemo|Neutrófilos": "66", "hemo|Eosinófilos": "0", "hemo|Basófilos": "0", "hemo|Linfocitos": "30", "hemo|Monocitos": "4", "hemo|Plaquetas": "170.000", "hemo|VSG": "", "orina|Aspecto": "Limpido", "orina|Densidad": "1.025", "orina|Color": "Amarillo Ambar", "orina|pH": "5.0", "orina|Proteínas": "No Contiene", "orina|Glucosa": "No Contiene", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "0-1 ", "orina|Hematíes": "0-1", "orina|Mucus": "Escaso", "quim_eritrosedimentacion|Resultado": "10", "quim_pcr|Interpretación": "NO REACTIVO", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "19", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "16", "hepat|Dosaje de Gamma GT": "39", "hepat|Dosaje de Fosfatasa alcalina": "245", "hepat|Bilirrubina total": "0.53", "hepat|Bilirrubina directa": "0.10", "hepat|Bilirrubina indirecta": "0.43", "ionograma|Sodio": "141", "ionograma|Potasio": "4.56", "ionograma|Cloro": "102", "lip|Colesterol total": "126", "lip|HDL": "37", "lip|LDL": "75", "lip|Triglicéridos": "115", "quim_glucosa_basal|Resultado": "99", "quim_hba1c|Resultado": "5.6", "quim_urea|Resultado": "40", "quim_creatinina|Resultado": "1.27", "custom_1779218045497|Resultado": "6.9"}}, {"id": 22, "pacienteId": 14, "medico": "Cagna Federico", "analisis": ["hemo", "hepat", "lip", "tiro", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt", "quim_insulina", "quim_homa"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 57, "fecha": "2026-05-22", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.800.000", "hemo|Hematocrito": "43", "hemo|Hemoglobina": "13.9", "hemo|VCM": "89", "hemo|HCM": "29", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "6.400", "hemo|Cayados": "1", "hemo|Neutrófilos": "57", "hemo|Eosinófilos": "2", "hemo|Basófilos": "0", "hemo|Linfocitos": "38", "hemo|Monocitos": "2", "hemo|Plaquetas": "249.000", "quim_tiempo_protrombina|Tiempo de Protrombina": "13", "quim_kptt|Resultado": "35", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "23", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "27", "hepat|Dosaje de Gamma GT": "29", "hepat|Dosaje de Fosfatasa alcalina": "317", "lip|Colesterol total": "207", "lip|HDL": "48", "lip|LDL": "146", "lip|Triglicéridos": "149", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "5.95", "tiro|T4 Total": "7.46", "quim_glucosa_basal|Resultado": "101", "quim_urea|Resultado": "41", "quim_creatinina|Resultado": "0.86", "quim_tiempo_protrombina|Actividad": "95", "quim_insulina|Resultado": "34.8", "quim_homa|Resultado": "9.37"}}, {"id": 23, "pacienteId": 12, "medico": "—", "analisis": ["orina"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-22", "resultados": {}}, {"id": 24, "pacienteId": 15, "medico": "Murga Ana Dora", "analisis": ["hemo", "lip", "tiro", "quim_eritrosedimentacion", "quim_hba1c", "quim_urea", "quim_creatinina", "quim_insulina", "quim_homa", "custom_1779218494032", "hepat", "quim_glucosa_basal"], "obs": "", "estado": "pendiente", "pago": "parcial", "importe": 0, "fecha": "2026-05-23", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.400.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.2", "hemo|VCM": "93", "hemo|HCM": "30", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "5.800", "hemo|Cayados": "1", "hemo|Neutrófilos": "58", "hemo|Eosinófilos": "1", "hemo|Basófilos": "0", "hemo|Linfocitos": "38", "hemo|Monocitos": "2", "hemo|Plaquetas": "231.000", "hemo|VSG": "", "quim_eritrosedimentacion|Resultado": "10"}}, {"id": 25, "pacienteId": 16, "medico": "—", "analisis": ["tiro"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-23", "resultados": {}}, {"id": 26, "pacienteId": 18, "medico": "—", "analisis": ["orina", "urocultivo"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-26", "resultados": {}}, {"id": 27, "pacienteId": 19, "medico": "—", "analisis": ["hemo", "hepat", "ionograma", "lip", "orina", "psa", "quim_eritrosedimentacion", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt", "custom_1779218045497"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-26", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.053.000", "hemo|Hematocrito": "40", "hemo|Hemoglobina": "12.7", "hemo|VCM": "83", "hemo|HCM": "28", "hemo|CHCM": "34", "hemo|Glóbulos Blancos": "6.700", "hemo|Cayados": "1", "hemo|Neutrófilos": "51", "hemo|Eosinófilos": "4", "hemo|Basófilos": "0", "hemo|Linfocitos": "41", "hemo|Monocitos": "3", "hemo|Plaquetas": "194.000"}}, {"id": 28, "pacienteId": 20, "medico": "—", "analisis": ["hemo", "hepat", "lip", "orina", "proteinas", "quim_eritrosedimentacion", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_pcr", "quim_amilasa", "custom_1779213948631", "custom_1779218045497"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-26", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.095.000", "hemo|Hematocrito": "45", "hemo|Hemoglobina": "14.9", "hemo|VCM": "90", "hemo|HCM": "30", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "6300", "hemo|Cayados": "1", "hemo|Neutrófilos": "62", "hemo|Eosinófilos": "4", "hemo|Basófilos": "0", "hemo|Linfocitos": "30", "hemo|Monocitos": "3", "hemo|Plaquetas": "182.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "31", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "26", "hepat|Dosaje de Gamma GT": "64 VAL CONF.", "hepat|Dosaje de Fosfatasa alcalina": "283", "hepat|Bilirrubina total": "0.80", "hepat|Bilirrubina directa": "0.20", "hepat|Bilirrubina indirecta": "0.60", "lip|Colesterol total": "184", "lip|Triglicéridos": "371 VAL CONF. Suero Opalescente Lipemico", "proteinas|Proteínas totales": "7.3", "proteinas|Albúmina": "4.3", "quim_glucosa_basal|Resultado": "94", "quim_urea|Resultado": "47", "quim_creatinina|Resultado": "0.85", "quim_amilasa|Resultado": "76", "custom_1779213948631|Resultado": "4.3", "custom_1779218045497|Resultado": "6.1"}}, {"id": 29, "pacienteId": 21, "medico": "—", "analisis": ["hemo", "quim_urea", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 44, "fecha": "2026-05-26", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.021.000", "hemo|Hematocrito": "37", "hemo|Hemoglobina": "11.8", "hemo|VCM": "37", "hemo|HCM": "88", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "8.200", "hemo|Cayados": "1", "hemo|Neutrófilos": "59", "hemo|Eosinófilos": "5", "hemo|Basófilos": "0", "hemo|Linfocitos": "30", "hemo|Monocitos": "5", "hemo|Plaquetas": "206.000"}}], "informes": [{"id": 11, "ordenId": 2, "fecha": "2026-05-18"}, {"id": 12, "ordenId": 2, "fecha": "2026-05-18"}, {"id": 13, "ordenId": 4, "fecha": "2026-05-18"}, {"id": 14, "ordenId": 4, "fecha": "2026-05-18"}, {"id": 15, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 16, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 17, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 18, "ordenId": 6, "fecha": "2026-05-18"}, {"id": 19, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 20, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 21, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 22, "ordenId": 8, "fecha": "2026-05-18"}, {"id": 23, "ordenId": 9, "fecha": "2026-05-18"}, {"id": 24, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 25, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 26, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 27, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 28, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 29, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 30, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 31, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 32, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 33, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 34, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 35, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 36, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 37, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 38, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 39, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 40, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 41, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 42, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 43, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 44, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 45, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 46, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 47, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 48, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 49, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 50, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 51, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 52, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 53, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 54, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 55, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 56, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 57, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 58, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 59, "ordenId": 14, "fecha": "2026-05-19"}, {"id": 60, "ordenId": 16, "fecha": "2026-05-20"}, {"id": 61, "ordenId": 16, "fecha": "2026-05-20"}, {"id": 62, "ordenId": 15, "fecha": "2026-05-21"}, {"id": 63, "ordenId": 15, "fecha": "2026-05-21"}, {"id": 64, "ordenId": 15, "fecha": "2026-05-21"}, {"id": 65, "ordenId": 16, "fecha": "2026-05-21"}, {"id": 66, "ordenId": 16, "fecha": "2026-05-21"}, {"id": 67, "ordenId": 17, "fecha": "2026-05-21"}, {"id": 68, "ordenId": 13, "fecha": "2026-05-21"}, {"id": 69, "ordenId": 18, "fecha": "2026-05-22"}, {"id": 70, "ordenId": 20, "fecha": "2026-05-22"}, {"id": 71, "ordenId": 20, "fecha": "2026-05-22"}, {"id": 72, "ordenId": 20, "fecha": "2026-05-22"}, {"id": 73, "ordenId": 22, "fecha": "2026-05-24"}, {"id": 74, "ordenId": 28, "fecha": "2026-05-26"}], "pagos": [{"id": 1, "ordenId": 12, "importe": 5000, "estado": "pagado", "fecha": "2026-05-21", "notas": "EFECTIVO"}, {"id": 2, "ordenId": 22, "importe": 57, "estado": "pagado", "fecha": "2026-05-22", "notas": ""}, {"id": 3, "ordenId": 16, "importe": 5000, "estado": "pagado", "fecha": "2026-05-23", "notas": "efevtivo"}, {"id": 4, "ordenId": 29, "importe": 44, "estado": "pendiente", "fecha": "", "notas": ""}], "nextPId": 22, "nextOId": 30, "nextIId": 75, "nextPagoId": 5, "config": {"nombre": "Laboratorio Palacio Campero", "subtitulo": "Análisis Clínicos y Bacteriológicos", "tel": "Cel. 3814638141 - 3814186380", "email": "palaciocampero.lab@gmail.com", "web": "", "dir": "Pasaje Dorrego 1132", "ciudad": "San Miguel de Tucumán, Tucumán", "responsables": [{"nombre": "T.Bioq. Campero Claudia", "matricula": "", "cargo": "", "textoExtra": "MP: T270"}, {"nombre": "Bioq. Palacio Paola", "matricula": "MP:1287", "cargo": "", "textoExtra": "Bioquímica Certificada "}], "color": "#4d9de0", "icono": "", "pie": "", "fuente": "serif", "estiloHeader": "linea", "headerLinea1": "Bioq. Paola Palacio MP:1287", "headerLinea2": "T.Bioq. Claudia Campero MP:T270", "headerAlign": "left", "mostrarLogoEmoji": true, "mostrarEdad": true, "mostrarOS": false, "mostrarMedico": true, "mostrarAfiliado": false, "pie1": "LA INTERPRETACION CLÍNICA DE LOS RESULTADOS DEBE SER REALIZADA POR EL MÉDICO TRATANTE.", "pie2": "", "pie3": "", "pieLeyendaRef": false, "pieNroInforme": true, "pieFirma": true, "sombrealoAlto": false, "sombreadoBajo": false, "filasAlt": "none", "estiloFlag": "fondo", "usarIcono": true, "iconoSize": "60", "usarMarcaAgua": true, "marcaAguaSize": "200", "marcaAguaOpacidad": "8"}, "medicos": ["Lescano Martin", "Segundo Juri", "Rojo Gonzalo"]};
+const SEED_DATA = {"pacientes": [{"id": 4, "nombre": "Silvia", "apellido": "Ledesma", "dni": "17239263", "fnac": "1965-03-27", "sexo": "Femenino", "tel": "3814799132", "os": "Pami", "afiliado": "", "email": "", "dir": "Lules", "obs": "Preoperatorio/diabet/MEDIC PARA I.U, PARA TIROIDES T4 Y PRESION"}, {"id": 5, "nombre": "Marina", "apellido": "Herrera Coronel", "dni": "37423724", "fnac": "1994-01-10", "sexo": "Femenino", "tel": "3816277156", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "", "obs": "Control/ sin medic"}, {"id": 6, "nombre": "Marta", "apellido": "Fernandez", "dni": "5779412", "fnac": "1948-06-26", "sexo": "Femenino", "tel": "3815083842", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "Pasaje Dorrego 1132", "obs": "Insuf. renal/ medic para presion e irrigacion /P 70/ T 160/ V 1050 ML"}, {"id": 7, "nombre": "Daniel", "apellido": "Chaile", "dni": "25337005", "fnac": "1975-05-21", "sexo": "Masculino", "tel": "3813290479", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "", "obs": "Diabético/con insulina"}, {"id": 8, "nombre": "Nazareno", "apellido": "BAZAN", "dni": "57918049", "fnac": "1919-11-04", "sexo": "Masculino", "tel": "3815750303", "os": "SANCOR SALUD", "afiliado": "", "email": "", "dir": "", "obs": "DOLOR INGUINAL"}, {"id": 9, "nombre": "julio Enrique", "apellido": "Deleo", "dni": "3324288", "fnac": "0001-01-01", "sexo": "Masculino", "tel": "3814793813", "os": "pami", "afiliado": "", "email": "", "dir": "Libertad 1471", "obs": "Insuf. renal cronica"}, {"id": 10, "nombre": "Josefina María", "apellido": "Hurtado Palacio", "dni": "53.123.214", "fnac": "2013-07-25", "sexo": "Femenino", "tel": "381 4638141", "os": "Subsidio de Salud", "afiliado": "", "email": "", "dir": "Pasaje Dorrego 1142", "obs": "Paciente en tratamiento con Hormona de Crecimiento"}, {"id": 11, "nombre": "Dora", "apellido": "Lopez", "dni": "13.577.505", "fnac": "1959-05-15", "sexo": "Femenino", "tel": "381 4691374", "os": "Pami", "afiliado": "140014615200", "email": "", "dir": "", "obs": "Control de Anemia"}, {"id": 12, "nombre": "Wheeler", "apellido": "Eylen", "dni": "33.374.357", "fnac": "1987-12-28", "sexo": "Femenino", "tel": "", "os": "Sancor Salud", "afiliado": "", "email": "", "dir": "", "obs": ""}, {"id": 13, "nombre": "Cagna", "apellido": "Federico", "dni": "20.218.435", "fnac": "1968-06-29", "sexo": "Masculino", "tel": "", "os": "Particular", "afiliado": "", "email": "", "dir": "", "obs": "Paciente que sufrió un ACV, Medicado para la presión y para el colesterol."}, {"id": 14, "nombre": "Viviana", "apellido": "Manjarréz", "dni": "20.433.672", "fnac": "1969-09-29", "sexo": "Femenino", "tel": "381 4908966", "os": "Particular", "afiliado": "", "email": "", "dir": "", "obs": "Control /Sin medicación"}, {"id": 15, "nombre": "Paola Liliana", "apellido": "Santin", "dni": "26.684.777", "fnac": "1978-06-28", "sexo": "Femenino", "tel": "381 155184454", "os": "Subsidio de Salud", "afiliado": "2612507148853", "email": "", "dir": "Paraguay 260- Yerba Buena", "obs": "Insulino resistencia, fatiga, sobrepeso, dolor articular"}, {"id": 16, "nombre": "Analia", "apellido": "Boasso", "dni": "17.860.837", "fnac": "1966-02-20", "sexo": "Femenino", "tel": "381 5457253", "os": "Particular", "afiliado": "", "email": "", "dir": "", "obs": ""}, {"id": 17, "nombre": "ARGAÑARAZ", "apellido": "Julián", "dni": "57.916.113", "fnac": "1991-11-09", "sexo": "Masculino", "tel": "381 4909296", "os": "Particular", "afiliado": "", "email": "", "dir": "Juan Manuel Estrada 785", "obs": "Sindrome Gripal 7mo día de síntomas, paperas, taratamiento con ibuprofeno"}, {"id": 18, "nombre": "Concepcion Gladys", "apellido": "Fernandez", "dni": "4836221", "fnac": "1943-11-30", "sexo": "Femenino", "tel": "3814960887", "os": "Pami", "afiliado": "150127787209", "email": "", "dir": "25 de mayo 2364", "obs": "PRE QUIRURGICO"}, {"id": 19, "nombre": "Gustavo Alfredo", "apellido": "Amaya", "dni": "22612298", "fnac": "1972-02-15", "sexo": "Masculino", "tel": "3816607457", "os": "Sub Salud ", "afiliado": "", "email": "", "dir": "", "obs": "CONTROL/TUVO GRIPE A/ SEÑA 5000"}, {"id": 21, "nombre": "Ana Sofia", "apellido": "Fe", "dni": "34132122", "fnac": "1989-07-17", "sexo": "Femenino", "tel": "3815829153", "os": "Particular", "afiliado": "", "email": "", "dir": "Alberdi 720 / 9C", "obs": "Prequirurgico. sin medic. pago 44.000"}, {"id": 22, "nombre": "MARÍA PAOLA", "apellido": "MEDINA", "dni": "24164859", "fnac": "1974-10-06", "sexo": "Femenino", "tel": "381 511 6286 ", "os": "PARTICULAR", "afiliado": "", "email": "", "dir": "GUEMES 2286", "obs": "HTA, MEDICADA"}, {"id": 23, "nombre": "AMELIA  MAGDALENA", "apellido": "ROBLES", "dni": "3.324.288", "fnac": "", "sexo": "Femenino", "tel": "3814793813", "os": "SUBSIDIO DE SALUD", "afiliado": "", "email": "", "dir": "", "obs": ""}, {"id": 24, "nombre": "HORMANDO", "apellido": "HURTADO CUELLAR", "dni": "14480723", "fnac": "1945-06-10", "sexo": "Masculino", "tel": "", "os": "", "afiliado": "", "email": "", "dir": "", "obs": "CONTROL CARDIACO/ STENT"}, {"id": 25, "nombre": "MARIA LUISA", "apellido": "LEMOINE", "dni": "13037106", "fnac": "", "sexo": "Femenino", "tel": "", "os": "PAMI", "afiliado": "", "email": "", "dir": "", "obs": "CONTROL"}, {"id": 26, "nombre": "AMELIA", "apellido": "ROBLES", "dni": "545689", "fnac": "", "sexo": "Femenino", "tel": "", "os": "SUB SALUD", "afiliado": "", "email": "", "dir": "", "obs": ""}], "ordenes": [{"id": 11, "pacienteId": 4, "medico": "Lazarte Jorge", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt", "quim_pcr", "custom_1779211840614", "custom_1779213948631", "orina"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 0, "fecha": "2026-05-19", "resultados": {"Método": "Enzimático AA", "Glóbulos Rojos": "4.710.000", "Hematocrito": "39.0", "Hemoglobina": "12.7", "VCM": "84", "HCM": "26.9", "CHCM": "32.1", "Glóbulos Blancos": "8.900", "Cayados": "1", "Neutrófilos": "55", "Eosinófilos": "3", "Basófilos": "0", "Linfocitos": "38", "Monocitos": "4", "Plaquetas": "346.000", "ALT (TGP)": "36", "AST (TGO)": "31", "Fosfatasa alcalina": "88", "GGT": "29", "Bilirrubina total": "0.29", "Bilirrubina directa": "0.17", "Bilirrubina indirecta": "0.12", "Colesterol total": "204", "HDL": "58", "LDL": "127", "Triglicéridos": "110", "Aspecto": "Turbio", "Densidad": "1005", "Color": "Amarillo oscuro", "pH": "5", "Proteínas": "Contiene", "Glucosa": "No Contiene", "Urobilinógeno ": "Normal", "Cetonas": "No Contiene", "Pig. Biliares ": "No Contiene", "Leucocitos (microscopía)": "18-20", "Hematíes": "3-4", "Células ": "Regular", "Resultado": "153 Valor Confirmado", "Tiempo de Protrombina": "13.10", "Actividad": "88", "Interpretación": "REACTIVO — valores de consideración mayores a 6 mg/l", "Dosaje de Fosfatasa alcalina": "88", "Referencia": "Adultos 65 a 300 UI/L   //  Niños y Adolescentes 65 a 700 UI/L ", "Dosaje de GPT (Transaminasa G. Pirúvica) ": "36", "Dosaje de GOT (Transaminasa G. Oxalacético)   ": "31", "Dosaje de Gamma GT": "29", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "36", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "31", "lip|Colesterol total": "204    Valor Confirmado", "orina|Color": "Amarillo Ambar", "orina|Proteínas": "No Contiene", "orina|Hemoglobina": "Contiene", "orina|Observacion": "Presencia de elementos levaduriformes.", "quim_creatinina|Resultado": "0.80", "quim_kptt|Resultado": "34", "quim_pcr|Resultado": "24", "custom_1779211840614|Resultado": "8165", "custom_1779213948631|Resultado": "4.00"}}, {"id": 12, "pacienteId": 7, "medico": "Mendoza Daniel", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_hba1c", "quim_urea", "quim_creatinina", "orina"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 5000, "fecha": "2026-05-19", "resultados": {"hemo|Glóbulos Rojos": "4.860.000", "hemo|Hematocrito": "44", "hemo|Hemoglobina": "14.7", "hemo|VCM": "91", "hemo|HCM": "30", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "6.000", "hemo|Cayados": "1", "hemo|Neutrófilos": "54", "hemo|Eosinófilos": "4", "hemo|Basófilos": "0", "hemo|Linfocitos": "38", "hemo|Monocitos": "3", "hemo|Plaquetas": "182.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "26", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "31", "hepat|Dosaje de Gamma GT": "17", "hepat|Dosaje de Fosfatasa alcalina": "46", "hepat|Bilirrubina total": "0.71", "hepat|Bilirrubina directa": "0.26", "hepat|Bilirrubina indirecta": "0.45", "lip|Colesterol total": "289 Valor Confirmado", "lip|HDL": "46", "lip|LDL": "212 Valor Confirmado", "lip|Triglicéridos": "170", "orina|Aspecto": "Ligeramente turbio", "orina|Densidad": "1020", "orina|Color": "Amarillo Ambar", "orina|pH": "6", "orina|Proteínas": "No Contiene", "orina|Glucosa": "Contiene +++", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "No Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "0-1", "orina|Mucus": "Escaso", "quim_glucosa_basal|Resultado": "285 Valor Confirmado", "quim_hba1c|Resultado": "12.8 Valor Confirmado", "quim_urea|Resultado": "0.21", "quim_creatinina|Resultado": "0.64"}}, {"id": 13, "pacienteId": 5, "medico": "—", "analisis": ["hemo", "hepat", "lip", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_insulina", "quim_homa", "custom_1779218045497", "custom_1779218494032", "custom_1779218760719", "orina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-19", "resultados": {"hemo|Glóbulos Rojos": "4.390.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.7", "hemo|VCM": "93.9", "hemo|HCM": "31.2", "hemo|CHCM": "33.2", "hemo|Glóbulos Blancos": "7.400", "hemo|Cayados": "1", "hemo|Neutrófilos": "47", "hemo|Eosinófilos": "3", "hemo|Basófilos": "0", "hemo|Linfocitos": "45", "hemo|Monocitos": "4", "hemo|Plaquetas": "225.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "18", "hepat|Dosaje de Gamma GT": "15", "hepat|Bilirrubina total": "0.97", "hepat|Bilirrubina directa": "0.48", "hepat|Bilirrubina indirecta": "0.50", "lip|Colesterol total": "163", "lip|HDL": "101", "lip|LDL": "58", "lip|Triglicéridos": "57", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "", "quim_glucosa_basal|Resultado": "91", "quim_urea|Resultado": "0.21", "quim_creatinina|Resultado": "0.82", "quim_insulina|Resultado": "9.9", "quim_homa|Resultado": "2.21", "orina|Aspecto": "Ligeramente turbio", "orina|Densidad": "1015", "orina|Color": "Amarillo Ambar", "orina|pH": "7.5", "orina|Proteínas": "", "orina|Células ": "Regular", "orina|Leucocitos (microscopía)": "5-6", "orina|Mucus": "Regular", "orina|Hematíes": "2-3", "orina|Hemoglobina": "Trazas", "custom_1779218760719|Resultado": "9.70", "custom_1779218045497|Resultado": "3.1", "custom_1779218494032|Resultado": "25.2", "quim_urea|Referencia": "15 a 50 mg/dl"}}, {"id": 14, "pacienteId": 8, "medico": "—", "analisis": ["orina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-19", "resultados": {"orina|Aspecto": "Ligeramente turbio", "orina|Color": "Amarillo Ambar", "orina|Densidad": "1020", "orina|pH": "6", "orina|Proteínas": "No Contiene", "orina|Glucosa": "No Contiene", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "No Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "0-1", "orina|Mucus": "Escaso"}}, {"id": 15, "pacienteId": 9, "medico": "—", "analisis": ["hemo", "hepat", "ionograma", "lip", "quim_glucosa_basal", "quim_creatinina", "custom_1779218045497", "custom_1779323625485", "custom_1779323957195", "custom_1779324001979", "custom_1779324030602", "custom_1779324048026", "custom_1779324326329", "custom_1779823239381"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-20", "resultados": {"hemo|Glóbulos Rojos": "2.600.000", "hemo|Hematocrito": "26", "hemo|Hemoglobina": "8.2", "hemo|VCM": "98", "hemo|HCM": "31", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "5.700", "hemo|Cayados": "1", "hemo|Neutrófilos": "66", "hemo|Eosinófilos": "0", "hemo|Basófilos": "0", "hemo|Linfocitos": "31", "hemo|Monocitos": "2", "hemo|Plaquetas": "140.000 Valor Confirmado", "hemo|Observaciones ": "ANISOCITOSIS CON PRESENCIA DE MICROCITOS, NORMOCITOS Y MACROCITOS.\nPOIQUILOCITOSIS : ANULOCITOS , ELIPTOCITOS\nLEVE HIPOCROMIA.\nVALOR HEMATOLÓGICO CONFIRMADO", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "12", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "21", "hepat|Dosaje de Gamma GT": "7", "hepat|Dosaje de Fosfatasa alcalina": "48", "hepat|Bilirrubina total": "0.24", "hepat|Bilirrubina directa": "0.13", "hepat|Bilirrubina indirecta": "0.11", "ionograma|Sodio": "140", "ionograma|Potasio": "4.02", "ionograma|Cloro": "106", "ionograma|Calcio": "", "lip|Colesterol total": "150", "lip|HDL": "34", "lip|LDL": "103", "lip|Triglicéridos": "130", "quim_glucosa_basal|Resultado": "89", "quim_creatinina|Resultado": "3.35 VALOR CONF.", "custom_1779218045497|Resultado": "7.9 VALOR CONFIRMADO", "custom_1779218760719|Resultado": "4.75", "custom_1779323625485|Metodo": "Colorimétrico", "custom_1779323957195|Metodo": "Ferrozina III", "custom_1779324001979|Metodo": "Ferrozina III", "custom_1779324030602|Metodo": "Quimioluminiscencia", "custom_1779324048026|Metodo": "Ferrozina III", "custom_1779323625485|Resultado": "4.04", "custom_1779323957195|Resultado": "134", "custom_1779324001979|Resultado": "37", "custom_1779324030602|Resultado": "124.0", "custom_1779324048026|Resultado": "78", "custom_1779324326329|Resultado": "212", "custom_1779823239381|Resultado": "4.75"}}, {"id": 16, "pacienteId": 6, "medico": "Lescano Martin", "analisis": ["hemo", "ionograma", "proteinas", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "custom_1779326626877", "custom_1779326800067"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 5000, "fecha": "2026-05-20", "resultados": {"hemo|Glóbulos Rojos": "4.650.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.7", "hemo|VCM": "89", "hemo|HCM": "29", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "8.300", "hemo|Cayados": "1", "hemo|Neutrófilos": "62", "hemo|Eosinófilos": "2", "hemo|Basófilos": "0", "hemo|Monocitos": "2", "hemo|Linfocitos": "34", "hemo|Plaquetas": "256.000", "ionograma|Sodio": "146", "ionograma|Potasio": "3.87", "ionograma|Cloro": "107", "proteinas|Proteínas totales": "7.23", "quim_glucosa_basal|Resultado": "119 Valor Confirmado", "quim_urea|Resultado": "39", "quim_creatinina|Resultado": "1.03", "custom_1779326626877|Proteinuria (24h)": "114 Valor Confirmado", "custom_1779326626877|Proteinuria (AL.) Presencia de Proteína en orina causada por la amiloidosis.": "109", "custom_1779326626877|Volumen": "1050", "custom_1779326800067|Coeficiente de excreción de CR (Mide la cantidad de desecho metabólico que el cuerpo libera en 24h) ": "11.9 Valor Confirmado", "custom_1779326800067|Tiempo de recolección ": "1040", "custom_1779326800067|Volumen Minuto": "0.73", "custom_1779326800067|Creatinina en Orina": "79.2", "custom_1779326800067|Volumen de Orina": "1050", "custom_1779326800067|CLEARENCE DE CREATININA (DCE)": "54.1 Valor Confirmado", "custom_1779326800067|MDRD-IDMS (formula empleada para estimar la tasa de filtrado glomerular)": ">60.0 ML/MIN/1.73M2", "quim_urea|Referencia": "15 a 50 mg/dl", "custom_1779326800067|COEFICIENTE DE EXCRECION CR (Mide la cantidad de desecho metabólico que el cuerpo libera en 24h) ": "11.9", "custom_1779326800067|MDRD-IDMS (Formula empleada para estimar la tasa de filtrado glomerular)": ">60.0 ML/MIN/1.73M2"}}, {"id": 17, "pacienteId": 5, "medico": "Prieto Marcela", "analisis": ["tiro", "custom_1779219008163"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 0, "fecha": "2026-05-21", "resultados": {"tiro|Dosaje de Tirotrofina ultrasensible TSH": "8.12", "custom_1779219008163|Proteína totales": "7.68", "custom_1779219008163|Albumina abs": "4.62", "custom_1779219008163|Albumina %": "60.20", "custom_1779219008163|Alfa 1 globulinas abs": "0.31", "custom_1779219008163|Alfa 1 globulinas %": "4.00", "custom_1779219008163|Alfa 2 globulinas abs": "0.76", "custom_1779219008163|Alfa 2 globulinas %": "9.90", "custom_1779219008163|Beta 1 globulinas abs": "0.46", "custom_1779219008163|Beta 1 globulinas %": "6.00", "custom_1779219008163|Beta 2 globulinas abs": "0.35", "custom_1779219008163|Beta 2 globulinas %": "4.60", "custom_1779219008163|Gamma globulinas abs": "1.18", "custom_1779219008163|Gamma globulinas %": "15.30", "custom_1779219008163|Relación Alb/Glob": "1.51"}}, {"id": 18, "pacienteId": 10, "medico": "Mangone Pamela", "analisis": ["hemo", "hepat", "lip", "tiro", "quim_hba1c", "quim_urea", "quim_creatinina", "quim_insulina", "custom_1779816141046"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-22", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.900.000", "hemo|Hematocrito": "42", "hemo|Hemoglobina": "14.1", "hemo|VCM": "87", "hemo|HCM": "29", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "6.100", "hemo|Cayados": "1", "hemo|Neutrófilos": "47", "hemo|Eosinófilos": "3", "hemo|Basófilos": "0", "hemo|Linfocitos": "48", "hemo|Monocitos": "2", "hemo|Plaquetas": "261.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "8", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "19", "hepat|Dosaje de Gamma GT": "12", "hepat|Dosaje de Fosfatasa alcalina": "770", "lip|Colesterol total": "126", "lip|HDL": "55", "lip|LDL": "70", "lip|Triglicéridos": "83", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "2.53", "tiro|T4 libre": "1.22", "quim_hba1c|Resultado": "5.8", "quim_urea|Resultado": "24", "quim_creatinina|Resultado": "0.57", "quim_bilirrubina|Bilirrubina Total": "", "quim_insulina|Resultado": "9.6", "hepat|Bilirrubina total": "0.57", "hepat|Bilirrubina directa": "0.10", "hepat|Bilirrubina indirecta": "0.47", "custom_1779816141046|Resultado": "566"}}, {"id": 19, "pacienteId": 11, "medico": "Segundo Juri", "analisis": ["custom_1779816891739", "custom_1779811102813"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 0, "fecha": "2026-05-22", "resultados": {"custom_1779816891739|Resultado": "28.8", "custom_1779811102813|Resultado": "1142"}}, {"id": 20, "pacienteId": 12, "medico": "Araujo María", "analisis": ["hemo", "hepat", "lip", "tiro", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_insulina", "urocultivo", "custom_1779488458182"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-22", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.180.000", "hemo|Hematocrito": "38", "hemo|Hemoglobina": "12.5", "hemo|VCM": "92", "hemo|HCM": "30", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "8.200", "hemo|Cayados": "1", "hemo|Neutrófilos": "63", "hemo|Eosinófilos": "1", "hemo|Basófilos": "0", "hemo|Linfocitos": "32", "hemo|Monocitos": "3", "hemo|Plaquetas": "155.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "16", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "18", "hepat|Dosaje de Gamma GT": "22", "hepat|Dosaje de Fosfatasa alcalina": "214", "hepat|Bilirrubina total": "0.80", "hepat|Bilirrubina directa": "0.20", "hepat|Bilirrubina indirecta": "0.60", "quim_glucosa_basal|Resultado": "73", "quim_urea|Resultado": "47", "quim_creatinina|Resultado": "0.91", "quim_insulina|Resultado": "7.0", "custom_1779488458182|EX DIRECTO:": "Abundantes células. 10 a 15 leucocitos. No se observan piocitos ni hematies", "custom_1779488458182|GRAM:": "Cocos bacilos gran ( + )", "custom_1779488458182|CULTIVO:": "Se aisla flora bacteriana compatible con la normal.  Ex Micológico: elementos levaduriformes con pseudomicelios. Ex Parasitológico: Negativo", "lip|Colesterol total": "180", "lip|HDL": "67", "lip|LDL": "105", "lip|Triglicéridos": "75", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "3.79", "tiro|T4 Total": "6.36"}}, {"id": 21, "pacienteId": 13, "medico": "Rojo Gonzalo", "analisis": ["hemo", "hepat", "ionograma", "lip", "orina", "quim_eritrosedimentacion", "quim_glucosa_basal", "quim_hba1c", "quim_urea", "quim_creatinina", "quim_pcr", "custom_1779218045497", "custom_1779811102813", "custom_1779812083770"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 0, "fecha": "2026-05-22", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "5.200.000", "hemo|Hematocrito": "44", "hemo|Hemoglobina": "14.7", "hemo|VCM": "85", "hemo|HCM": "28", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "8.700", "hemo|Cayados": "1", "hemo|Neutrófilos": "66", "hemo|Eosinófilos": "4", "hemo|Basófilos": "0", "hemo|Linfocitos": "26", "hemo|Monocitos": "3", "hemo|Plaquetas": "162.000", "hemo|VSG": "", "orina|Aspecto": "Limpido", "orina|Densidad": "1.025", "orina|Color": "Amarillo Ambar", "orina|pH": "5.0", "orina|Proteínas": "No Contiene", "orina|Glucosa": "No Contiene", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "0-1 ", "orina|Hematíes": "0-1", "orina|Mucus": "Escaso", "quim_eritrosedimentacion|Resultado": "10", "quim_pcr|Interpretación": "NO REACTIVO", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "19", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "16", "hepat|Dosaje de Gamma GT": "39", "hepat|Dosaje de Fosfatasa alcalina": "245", "hepat|Bilirrubina total": "0.53", "hepat|Bilirrubina directa": "0.10", "hepat|Bilirrubina indirecta": "0.43", "ionograma|Sodio": "141", "ionograma|Potasio": "4.56", "ionograma|Cloro": "102", "lip|Colesterol total": "126", "lip|HDL": "37", "lip|LDL": "75", "lip|Triglicéridos": "115", "quim_glucosa_basal|Resultado": "99", "quim_hba1c|Resultado": "5.6", "quim_urea|Resultado": "40", "quim_creatinina|Resultado": "1.27", "custom_1779218045497|Resultado": "6.9", "custom_1779811102813|Resultado": "330", "custom_1779812083770|Resultado": "17.7", "ionograma|Sodio (Na)": "141", "ionograma|Potasio (K)": "4.56", "ionograma|Cloro (Cl)": "102"}}, {"id": 22, "pacienteId": 14, "medico": "Cagna Federico", "analisis": ["hemo", "hepat", "lip", "tiro", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt", "quim_insulina", "quim_homa"], "obs": "", "estado": "completado", "pago": "pagado", "importe": 57, "fecha": "2026-05-22", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.800.000", "hemo|Hematocrito": "43", "hemo|Hemoglobina": "13.9", "hemo|VCM": "89", "hemo|HCM": "29", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "6.400", "hemo|Cayados": "1", "hemo|Neutrófilos": "57", "hemo|Eosinófilos": "2", "hemo|Basófilos": "0", "hemo|Linfocitos": "38", "hemo|Monocitos": "2", "hemo|Plaquetas": "249.000", "quim_tiempo_protrombina|Tiempo de Protrombina": "13", "quim_kptt|Resultado": "35", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "33", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "27", "hepat|Dosaje de Gamma GT": "29", "hepat|Dosaje de Fosfatasa alcalina": "317", "lip|Colesterol total": "207 Valor Confirmado", "lip|HDL": "48", "lip|LDL": "146", "lip|Triglicéridos": "149", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "5.95", "tiro|T4 Total": "7.46", "quim_glucosa_basal|Resultado": "101", "quim_urea|Resultado": "41", "quim_creatinina|Resultado": "0.86", "quim_tiempo_protrombina|Actividad": "95", "quim_insulina|Resultado": "34.8 Valor Confirmado", "quim_homa|Resultado": "9.37"}}, {"id": 23, "pacienteId": 12, "medico": "—", "analisis": ["tiro", "quim_insulina", "custom_1779817450969", "custom_1779817491538", "custom_1779817523537"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-22", "resultados": {"tiro|Dosaje de Tirotrofina ultrasensible TSH": "3.79", "tiro|T4 Total": "6.36", "quim_insulina|Resultado": "7.00", "custom_1779817450969|Resultado": "No Reactivo", "custom_1779817491538|Resultado": "No Reactivo", "custom_1779817523537|Resultado": "No Reactivo"}}, {"id": 24, "pacienteId": 15, "medico": "Murga Ana Dora", "analisis": ["hemo", "lip", "tiro", "quim_eritrosedimentacion", "quim_hba1c", "quim_urea", "quim_creatinina", "quim_insulina", "quim_homa", "custom_1779218494032", "hepat", "quim_glucosa_basal"], "obs": "", "estado": "pendiente", "pago": "parcial", "importe": 0, "fecha": "2026-05-23", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.400.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.2", "hemo|VCM": "93", "hemo|HCM": "30", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "5.800", "hemo|Cayados": "1", "hemo|Neutrófilos": "58", "hemo|Eosinófilos": "1", "hemo|Basófilos": "0", "hemo|Linfocitos": "38", "hemo|Monocitos": "2", "hemo|Plaquetas": "231.000", "hemo|VSG": "", "quim_eritrosedimentacion|Resultado": "10", "lip|Colesterol total": "218", "lip|HDL": "55", "lip|LDL": "141", "lip|Triglicéridos": "90", "tiro|Dosaje de Tirotrofina ultrasensible TSH": "0.72", "tiro|T4 libre": "1.42", "tiro|ATPO (Detección de anticuerpos antiperoxidasa tiroidea) ": "13.1", "quim_hba1c|Resultado": "5.6", "quim_urea|Resultado": "33", "quim_creatinina|Resultado": "1.00", "quim_insulina|Resultado": "15.9", "quim_homa|Resultado": "3.52", "custom_1779218494032|Resultado": "31.2", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "13", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "15", "hepat|Dosaje de Gamma GT": "21", "quim_glucosa_basal|Resultado": "90"}}, {"id": 25, "pacienteId": 16, "medico": "—", "analisis": ["tiro"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-23", "resultados": {"tiro|Dosaje de Tirotrofina ultrasensible TSH": "2.09", "tiro|T4 libre": "1.03"}}, {"id": 26, "pacienteId": 18, "medico": "—", "analisis": ["orina", "urocultivo"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-26", "resultados": {}}, {"id": 27, "pacienteId": 19, "medico": "—", "analisis": ["hemo", "quim_eritrosedimentacion", "quim_glucosa_basal", "lip", "quim_urea", "quim_creatinina", "custom_1779218045497", "hepat", "ionograma", "psa", "quim_tiempo_protrombina", "quim_kptt", "orina"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-26", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.053.000", "hemo|Hematocrito": "40", "hemo|Hemoglobina": "12.7", "hemo|VCM": "83", "hemo|HCM": "28", "hemo|CHCM": "34", "hemo|Glóbulos Blancos": "6.700", "hemo|Cayados": "1", "hemo|Neutrófilos": "51", "hemo|Eosinófilos": "4", "hemo|Basófilos": "0", "hemo|Linfocitos": "41", "hemo|Monocitos": "3", "hemo|Plaquetas": "194.000", "hepat|Dosaje de GPT (Transaminasa G. Pirúvica)": "28", "hepat|Dosaje de GOT (Transaminasa G.Oxalacético)": "12", "hepat|Dosaje de Gamma GT": "38", "hepat|Dosaje de Fosfatasa alcalina": "197", "hepat|Bilirrubina total": "0.80", "hepat|Bilirrubina directa": "0.10", "hepat|Bilirrubina indirecta": "0.70", "lip|Colesterol total": "236 Valor Confirmado", "lip|Triglicéridos": "156", "orina|Aspecto": "Turbio", "orina|Densidad": "1015", "orina|Color": "Amarillo Ambar", "orina|pH": "5", "orina|Proteínas": "No Contiene", "orina|Glucosa": "Contiene +++", "orina|Hemoglobina": "No Contiene", "orina|Urobilinógeno ": "Normal", "orina|Cetonas": "No Contiene", "orina|Pig. Biliares ": "No Contiene", "orina|Células ": "Escasas", "orina|Leucocitos (microscopía)": "1-2", "orina|Mucus": "Regular", "quim_eritrosedimentacion|Resultado": "7", "quim_glucosa_basal|Resultado": "229 Valor Confirmado", "quim_urea|Resultado": "33", "quim_creatinina|Resultado": "0.84", "ionograma|Sodio (Na)": "142", "ionograma|Potasio (K)": "4.37", "ionograma|Cloro (Cl)": "104", "lip|HDL": "49", "lip|LDL": "201  Val confirmado", "orina|Hematíes": "3-4", "orina|Cristales de ácido úrico": "Abundantes", "psa|PSA total": "1.27", "quim_tiempo_protrombina|Tiempo de Protrombina": "12.30", "quim_tiempo_protrombina|Actividad": "95", "quim_kptt|Resultado": "37", "custom_1779218045497|Resultado": "4.6"}}, {"id": 29, "pacienteId": 21, "medico": "—", "analisis": ["hemo", "quim_urea", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt", "custom_1779817491538", "custom_1779822764775"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 44, "fecha": "2026-05-26", "resultados": {"quim_urea|Referencia": "15 a 50 mg/dl", "hemo|Glóbulos Rojos": "4.021.000", "hemo|Hematocrito": "37", "hemo|Hemoglobina": "11.8", "hemo|VCM": "37", "hemo|HCM": "88", "hemo|CHCM": "32", "hemo|Glóbulos Blancos": "8.200", "hemo|Cayados": "1", "hemo|Neutrófilos": "59", "hemo|Eosinófilos": "5", "hemo|Basófilos": "0", "hemo|Linfocitos": "30", "hemo|Monocitos": "5", "hemo|Plaquetas": "206.000", "custom_1779817491538|Resultado": "NO REACTIVO", "custom_1779822764775|Resultado": "NO DETECTABLE (No se detecta cantidad de hormana hCG)", "quim_urea|Resultado": "42", "quim_creatinina|Resultado": "0.81", "quim_tiempo_protrombina|Tiempo de Protrombina": "13.30", "quim_tiempo_protrombina|Actividad": "85", "quim_kptt|Resultado": "36"}}, {"id": 30, "pacienteId": 5, "medico": "—", "analisis": ["custom_1779488458182"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-26", "resultados": {"custom_1779488458182|EX DIRECTO:": "Abundantes células. Escasos leucocitos . No se observan hematíes ni piocitos.", "custom_1779488458182|GRAM:": "Cocos bacilos gran ( - )", "custom_1779488458182|CULTIVO:": "Se aísla Gradnerella Vaginalis. Ex Micológico: elementos levaduriformes con pseudomicelio.s. Ex Parasitologico: negativo"}}, {"id": 31, "pacienteId": 22, "medico": "SARACHO VICTOR", "analisis": ["hemo", "lip", "orina", "quim_glucosa_basal", "quim_urea", "quim_creatinina", "custom_1779218045497"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 35000, "fecha": "2026-05-27", "resultados": {"hemo|Glóbulos Rojos": "4.400.000", "hemo|Hematocrito": "41", "hemo|Hemoglobina": "13.8", "hemo|VCM": "94", "hemo|HCM": "31", "hemo|CHCM": "33", "hemo|Glóbulos Blancos": "8.200", "hemo|Cayados": "1", "hemo|Neutrófilos": "53", "hemo|Eosinófilos": "0", "hemo|Basófilos": "0", "hemo|Linfocitos": "44", "hemo|Monocitos": "2", "hemo|Plaquetas": "230.000"}}, {"id": 32, "pacienteId": 23, "medico": "—", "analisis": ["urocultivo"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-27", "resultados": {}}, {"id": 33, "pacienteId": 15, "medico": "—", "analisis": ["tiro", "custom_1779218494032", "custom_1779812083770", "custom_1779823816402", "custom_1779823842106", "custom_1779823896394"], "obs": "", "estado": "completado", "pago": "pendiente", "importe": 0, "fecha": "2026-05-27", "resultados": {"tiro|Dosaje de Tirotrofina ultrasensible TSH": "0.72", "tiro|T4 libre": "1.42", "custom_1779812083770|Resultado": "13.3", "custom_1779823816402|Resultado": "4.32", "custom_1779823842106|Resultado": "13.50", "custom_1779823896394|Resultado": "111", "custom_1779218494032|Resultado": "125", "tiro|ATPO (Detección de anticuerpos antiperoxidasa tiroidea) ": "13.1"}}, {"id": 34, "pacienteId": 24, "medico": "—", "analisis": ["hemo", "hepat", "lip", "orina", "tiro", "quim_glucosa_basal", "quim_hba1c", "quim_urea", "quim_creatinina", "quim_tiempo_protrombina", "quim_kptt", "quim_insulina", "quim_homa", "quim_cpk", "custom_1779218045497", "custom_1779811102813"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-27", "resultados": {}}, {"id": 35, "pacienteId": 25, "medico": "—", "analisis": ["hemo", "hepat", "lip", "orina", "tiro", "quim_glucosa_basal", "quim_hba1c", "quim_urea", "quim_creatinina", "custom_1779218045497", "custom_1779811102813"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-27", "resultados": {}}, {"id": 36, "pacienteId": 23, "medico": "—", "analisis": ["urocultivo"], "obs": "", "estado": "pendiente", "pago": "pendiente", "importe": 0, "fecha": "2026-05-27", "resultados": {}}], "informes": [{"id": 11, "ordenId": 2, "fecha": "2026-05-18"}, {"id": 12, "ordenId": 2, "fecha": "2026-05-18"}, {"id": 13, "ordenId": 4, "fecha": "2026-05-18"}, {"id": 14, "ordenId": 4, "fecha": "2026-05-18"}, {"id": 15, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 16, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 17, "ordenId": 5, "fecha": "2026-05-18"}, {"id": 18, "ordenId": 6, "fecha": "2026-05-18"}, {"id": 19, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 20, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 21, "ordenId": 7, "fecha": "2026-05-18"}, {"id": 22, "ordenId": 8, "fecha": "2026-05-18"}, {"id": 23, "ordenId": 9, "fecha": "2026-05-18"}, {"id": 24, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 25, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 26, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 27, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 29, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 30, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 31, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 32, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 33, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 34, "ordenId": 10, "fecha": "2026-05-19"}, {"id": 35, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 36, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 37, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 38, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 39, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 40, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 41, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 42, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 43, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 44, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 45, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 46, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 47, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 48, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 49, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 50, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 51, "ordenId": 11, "fecha": "2026-05-19"}, {"id": 52, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 53, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 54, "ordenId": 12, "fecha": "2026-05-19"}, {"id": 55, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 56, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 57, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 58, "ordenId": 13, "fecha": "2026-05-19"}, {"id": 59, "ordenId": 14, "fecha": "2026-05-19"}, {"id": 60, "ordenId": 16, "fecha": "2026-05-20"}, {"id": 61, "ordenId": 16, "fecha": "2026-05-20"}, {"id": 62, "ordenId": 15, "fecha": "2026-05-26"}, {"id": 63, "ordenId": 15, "fecha": "2026-05-21"}, {"id": 64, "ordenId": 15, "fecha": "2026-05-21"}, {"id": 65, "ordenId": 16, "fecha": "2026-05-21"}, {"id": 66, "ordenId": 16, "fecha": "2026-05-21"}, {"id": 67, "ordenId": 17, "fecha": "2026-05-21"}, {"id": 68, "ordenId": 13, "fecha": "2026-05-21"}, {"id": 69, "ordenId": 18, "fecha": "2026-05-26"}, {"id": 70, "ordenId": 20, "fecha": "2026-05-26"}, {"id": 71, "ordenId": 20, "fecha": "2026-05-22"}, {"id": 72, "ordenId": 20, "fecha": "2026-05-22"}, {"id": 73, "ordenId": 22, "fecha": "2026-05-26"}, {"id": 74, "ordenId": 28, "fecha": "2026-05-26"}, {"id": 75, "ordenId": 21, "fecha": "2026-05-26"}, {"id": 76, "ordenId": 19, "fecha": "2026-05-26"}, {"id": 77, "ordenId": 23, "fecha": "2026-05-26"}, {"id": 78, "ordenId": 29, "fecha": "2026-05-26"}, {"id": 79, "ordenId": 30, "fecha": "2026-05-26"}, {"id": 80, "ordenId": 25, "fecha": "2026-05-26"}, {"id": 80, "ordenId": 33, "fecha": "2026-05-27"}], "pagos": [{"id": 1, "ordenId": 12, "importe": 5000, "estado": "pagado", "fecha": "2026-05-21", "notas": "EFECTIVO"}, {"id": 2, "ordenId": 22, "importe": 57, "estado": "pagado", "fecha": "2026-05-22", "notas": ""}, {"id": 3, "ordenId": 16, "importe": 5000, "estado": "pagado", "fecha": "2026-05-23", "notas": "efevtivo"}, {"id": 4, "ordenId": 29, "importe": 44, "estado": "pendiente", "fecha": "", "notas": ""}, {"id": 5, "ordenId": 31, "importe": 35000, "estado": "pendiente", "fecha": "2026-05-27", "notas": "EFECTIVO 20000 SALDO 15000"}], "nextPId": 27, "nextOId": 37, "nextIId": 81, "nextPagoId": 6, "config": {"nombre": "Laboratorio Palacio Campero", "subtitulo": "Análisis Clínicos y Bacteriológicos", "tel": "Cel. 3814638141 - 3814186380", "email": "palaciocampero.lab@gmail.com", "web": "", "dir": "Pasaje Dorrego 1132", "ciudad": "San Miguel de Tucumán, Tucumán", "responsables": [{"nombre": "T.Bioq. Campero Claudia", "matricula": "", "cargo": "", "textoExtra": "MP: T270"}, {"nombre": "Bioq. Palacio Paola", "matricula": "MP:1287", "cargo": "", "textoExtra": "Bioquímica Certificada "}], "color": "#4d9de0", "icono": "", "pie": "", "fuente": "serif", "estiloHeader": "linea", "headerLinea1": "Bioq. Paola Palacio MP:1287", "headerLinea2": "T.Bioq. Claudia Campero MP:T270", "headerAlign": "left", "mostrarLogoEmoji": true, "mostrarEdad": true, "mostrarOS": false, "mostrarMedico": true, "mostrarAfiliado": false, "pie1": "LA INTERPRETACION CLÍNICA DE LOS RESULTADOS DEBE SER REALIZADA POR EL MÉDICO TRATANTE.", "pie2": "", "pie3": "", "pieLeyendaRef": false, "pieNroInforme": true, "pieFirma": true, "sombrealoAlto": false, "sombreadoBajo": false, "filasAlt": "none", "estiloFlag": "fondo", "usarIcono": true, "iconoSize": "60", "usarMarcaAgua": true, "marcaAguaSize": "200", "marcaAguaOpacidad": "8"}, "medicos": ["Lescano Martin", "Segundo Juri", "Rojo Gonzalo", "SARACHO VICTOR"]};
 
 const DEFAULT_ANALISIS = [
   {
@@ -1035,13 +1041,6 @@ const DEFAULT_ANALISIS = [
         "rMin": "",
         "rMax": "",
         "tipo": "textarea"
-      },
-      {
-        "n": "VSG",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto"
       }
     ]
   },
@@ -1101,22 +1100,22 @@ const DEFAULT_ANALISIS = [
     "nombre": "Ionograma",
     "parametros": [
       {
-        "n": "Sodio",
+        "n": "Sodio (Na)",
         "u": "mEq/L",
-        "rMin": 136,
+        "rMin": "135",
         "rMax": 145
       },
       {
-        "n": "Potasio",
+        "n": "Potasio (K)",
         "u": "mEq/L",
-        "rMin": 3.5,
-        "rMax": 5
+        "rMin": "3.20",
+        "rMax": "5.50"
       },
       {
-        "n": "Cloro",
+        "n": "Cloro (Cl)",
         "u": "mEq/L",
-        "rMin": 98,
-        "rMax": 107
+        "rMin": "90",
+        "rMax": "110"
       },
       {
         "n": "Calcio",
@@ -1647,8 +1646,9 @@ const DEFAULT_ANALISIS = [
       {
         "n": "T4 libre",
         "u": "ng/dL",
-        "rMin": 0.8,
-        "rMax": 1.8
+        "rMin": "",
+        "rMax": "",
+        "refTexto": "0.70 - 1.80 NG/DL"
       },
       {
         "n": "T3 libre",
@@ -1663,6 +1663,14 @@ const DEFAULT_ANALISIS = [
         "rMax": 0,
         "tipo": "numero",
         "refTexto": "Valores de Referencia NIÑOS 4.70 - 14.10 ΜG/DL ADULTOS 4.50 - 12.50 ΜG/DL"
+      },
+      {
+        "n": "ATPO (Detección de anticuerpos antiperoxidasa tiroidea) ",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "numero",
+        "refTexto": "HASTA 34.0 UI/ML"
       }
     ]
   },
@@ -1715,25 +1723,10 @@ const DEFAULT_ANALISIS = [
       {
         "n": "Resultado",
         "u": "mg/dl",
-        "rMin": 74,
-        "rMax": 106,
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia Adultos",
-        "u": "mg/dl",
-        "rMin": 74,
-        "rMax": 106,
-        "tipo": "texto",
-        "placeholder": "74 - 106 mg/dl"
-      },
-      {
-        "n": "Referencia Niños",
-        "u": "mg/dl",
-        "rMin": 60,
-        "rMax": 100,
-        "tipo": "texto",
-        "placeholder": "60 - 100 mg/dl"
+        "rMin": "",
+        "rMax": "",
+        "tipo": "numero",
+        "refTexto": " Adultos 74 - 106 mg/dl // Niños 60 - 100 mg/dl"
       },
       {
         "n": "Método",
@@ -1752,17 +1745,10 @@ const DEFAULT_ANALISIS = [
       {
         "n": "Resultado",
         "u": "%",
-        "rMin": 4.5,
-        "rMax": 6.5,
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "4.50 - 6.50 %"
+        "rMin": "",
+        "rMax": "",
+        "tipo": "numero",
+        "refTexto": "4.50 - 6.50 %"
       },
       {
         "n": "Método",
@@ -1781,18 +1767,10 @@ const DEFAULT_ANALISIS = [
       {
         "n": "Resultado",
         "u": "mg/dl",
-        "rMin": "15",
-        "rMax": "50",
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "0.15 a 0.50 g/l",
-        "valorDefecto": "15 a 50 mg/dl"
+        "rMin": "",
+        "rMax": "",
+        "tipo": "numero",
+        "refTexto": "15 a 50 mg/dl"
       }
     ]
   },
@@ -1803,25 +1781,10 @@ const DEFAULT_ANALISIS = [
       {
         "n": "Resultado",
         "u": "mg/dl",
-        "rMin": 0.8,
-        "rMax": 1.4,
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia Adultos",
-        "u": "mg/dl",
-        "rMin": 0.8,
-        "rMax": 1.4,
-        "tipo": "texto",
-        "placeholder": "Adultos: 0.80 - 1.40 mg/dl"
-      },
-      {
-        "n": "Referencia Niños",
-        "u": "mg/dl",
-        "rMin": 0.57,
-        "rMax": 0.87,
-        "tipo": "texto",
-        "placeholder": "Niños: 0.57 - 0.87 mg/dl"
+        "rMin": "",
+        "rMax": "",
+        "tipo": "numero",
+        "refTexto": "Adultos: 0.80 - 1.40 mg/dl // Niños: 0.57 - 0.87 mg/dl"
       }
     ]
   },
@@ -1906,13 +1869,6 @@ const DEFAULT_ANALISIS = [
     "nombre": "Dosaje de Proteína C Reactiva (PCR)",
     "parametros": [
       {
-        "n": "Resultado",
-        "u": "mg/l",
-        "rMin": 0,
-        "rMax": 6,
-        "tipo": "numero"
-      },
-      {
         "n": "Interpretación",
         "u": "",
         "rMin": 0,
@@ -1934,15 +1890,8 @@ const DEFAULT_ANALISIS = [
         "u": "UI",
         "rMin": 0,
         "rMax": 200,
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "Recomendado hasta 200 UI"
+        "tipo": "numero",
+        "refTexto": "Recomendado hasta 200 UI"
       }
     ]
   },
@@ -1952,18 +1901,11 @@ const DEFAULT_ANALISIS = [
     "parametros": [
       {
         "n": "Resultado",
-        "u": "uUI/ml",
-        "rMin": 2.5,
-        "rMax": 24.9,
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "2.50 a 24.90 uUI/ml — Recomendado hasta 15.00 uUI/ml"
+        "u": "MUI/ML",
+        "rMin": "",
+        "rMax": "",
+        "tipo": "numero",
+        "refTexto": "MÉTODO 2.6 - 24.9 ΜUI/ML RECOMENDADO 2.6 - 15.0 ΜUI/ML"
       }
     ]
   },
@@ -1976,19 +1918,8 @@ const DEFAULT_ANALISIS = [
         "u": "",
         "rMin": 0,
         "rMax": 2.7,
-        "tipo": "numero"
-      },
-      {
-        "n": "Observaciones",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "select",
-        "opciones": [
-          "Normal: < 2.70",
-          "Normal Alto: 2.70 - 3.00",
-          "Sugiere IR: > 3.0"
-        ]
+        "tipo": "numero",
+        "refTexto": "ADULTOS (>15A) < 2,64 SUGIERE IR >2,64 NIÑOS HASTA 15A < 3.20"
       }
     ]
   },
@@ -2026,15 +1957,8 @@ const DEFAULT_ANALISIS = [
         "u": "mg/dl",
         "rMin": 0,
         "rMax": 190,
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "Valor Normal"
+        "tipo": "numero",
+        "refTexto": "Valor Normal"
       },
       {
         "n": "Método",
@@ -2095,17 +2019,10 @@ const DEFAULT_ANALISIS = [
       {
         "n": "Resultado",
         "u": "UI/L",
-        "rMin": 24,
-        "rMax": 195,
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "24 - 195 UI/L"
+        "rMin": "",
+        "rMax": "",
+        "tipo": "numero",
+        "refTexto": "24 - 195 UI/L"
       },
       {
         "n": "Método",
@@ -2124,17 +2041,10 @@ const DEFAULT_ANALISIS = [
       {
         "n": "Resultado",
         "u": "UI/L",
-        "rMin": 240,
-        "rMax": 480,
-        "tipo": "numero"
-      },
-      {
-        "n": "Referencia",
-        "u": "",
-        "rMin": 0,
-        "rMax": 0,
-        "tipo": "texto",
-        "placeholder": "240 - 480 UI/L"
+        "rMin": "",
+        "rMax": "",
+        "tipo": "numero",
+        "refTexto": "240 - 480 UI/L"
       }
     ]
   },
@@ -2612,6 +2522,188 @@ const DEFAULT_ANALISIS = [
         "u": "",
         "rMin": 0,
         "rMax": 0
+      }
+    ]
+  },
+  {
+    "id": "custom_1779811102813",
+    "nombre": "Vitamina B12",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "pg/ml",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "numero",
+        "refTexto": "187 - 883 PG/ML"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779812083770",
+    "nombre": "Homocisteína",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "MUJERES EMBARAZADAS: < 10 ΜMOL/L. NINOS (<15 AÑOS): < 10 ΜMOL/L. ADULTOS ( 15 A 65 AÑOS) < 15 ΜMOL/L. ANCIANOS ( > 65 AÑOS) < 20 ΜMOL/L."
+      }
+    ]
+  },
+  {
+    "id": "custom_1779816141046",
+    "nombre": "IGF-1",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "HASTA 1 AÑOS 65.00-184.00 NG/ML 1 - 2 AÑOS 44.00-126.00 NG/ML 3 - 4 AÑOS 65.00-208.00 NG/ML 5 - 7 AÑOS 70.00-248.00 NG/ML 8 - 11 AÑOS 108.00-315.00 NG/ML 12 - 14 AÑOS 151.00-424.00 NG/ML 15 - 16 AÑOS 88.00-407.00 NG/ML 17 - 20 AÑOS 163.00-402.00 NG/ML 21 - 55 AÑOS 92.00-300.00 NG/ML ADULTO 46.00-218.00 NG/ML"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779816891739",
+    "nombre": "Vitamina D (25-OH), D3+D2",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "MÉTODO UTILIZADO MUJERES 21.6 - 54.0 NG/ML HOMBRES 19.4 - 48.5 NG/ML GENERALES < 20.0 NG/ML DÉFICIT 20.0-30.0 NG/ML INSUFICIENCIA 31.0-100.0 NG/ML SUFICIENCIA >100.0 NG/ML TOXICIDAD"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779817450969",
+    "nombre": "VDRL",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "select",
+        "opciones": [
+          "Reactivo",
+          "No Reactivo"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "custom_1779817491538",
+    "nombre": "HIV",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "METODO DE SCREENING POBLACIONAL. NO DIAGNOSTICO DEFINITIVO. RESULTADO REACTIVOS CONFIRMAR CON METODO WESTERN BIOT Y PCR.",
+        "tipo": "select",
+        "opciones": [
+          "REACTIVO",
+          "NO REACTIVO"
+        ]
+      },
+      {
+        "n": "Nuevo parámetro",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "nota_fija",
+        "textoNota": "METODO DE SCREENING POBLACIONAL. NO DIAGNOSTICO DEFINITIVO. RESULTADO REACTIVOS CONFIRMAR CON METODO WESTERN BIOT Y PCR."
+      }
+    ]
+  },
+  {
+    "id": "custom_1779817523537",
+    "nombre": "HBV AG SUP",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "select",
+        "opciones": [
+          "Reactivo",
+          "No Reactivo"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "custom_1779822764775",
+    "nombre": "Hormona beta-hCG (subunidad beta de la gonadotropina coriónica humana)",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "select",
+        "opciones": [
+          "DETECTABLE (Presencia de cantidad de hormona hCG)",
+          "NO DETECTABLE (No se detecta cantidad de hormana hCG)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "custom_1779823239381",
+    "nombre": "Dosaje de Ca Iónico",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "1-18A 4.80-5.52 MG/DL >18A 4.60-5.40 MG/DL"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779823816402",
+    "nombre": "ACTH (hormona adrenocorticótropa o corticotropina)",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "7.2 - 63.0 PG/ML"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779823842106",
+    "nombre": "CORTISOL - SANGRE",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "ADULTOS 6.20 - 21.40 ΜG/DL HASTA 1 AÑO: 1,8-23,0 ΜG/DL 1-5 AÑOS: 0,6-23,8 ΜG/DL 6-12 AÑOS: 3,0-15,4 ΜG/DL TANNER 2-3: 2,7-13,4 ΜG/DL TANNER 4-5: 3,7-15,3 ΜG/DL"
+      }
+    ]
+  },
+  {
+    "id": "custom_1779823896394",
+    "nombre": "DHEA-SO4 (sulfato de dehidroepiandrosterona)",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "refTexto": "MASCULINO 10-14A 24.0 - 247.0 ΜG/DL 15-19A 70.0 - 492.0 ΜG/DL 20-24A 211.0 - 492.0 ΜG/DL 25-34A 160.0 - 449.0 ΜG/DL 35-44A 89 - 427 ΜG/DL 45-54A 44.0 - 331 ΜG/DL 55-64A 52.0 - 295.0 ΜG/DL 65-74A 34.0 - 249.0 ΜG/DL >74A 16.0 - 123.0 ΜG/DL FEMENINO 10-14A 34.0 - 280.0 ΜG/DL 15-19A 65.0 - 368.0 ΜG/DL 20-24A 148.0 - 407.0 ΜG/DL 25-34A 99.0 - 340.0 ΜG/DL 35-44A 61.0 - 337.0 ΜG/DL 45-54A 35.0 - 256.0 ΜG/DL 55-64A 19.0 - 205.0 ΜG/DL 65-74A 9.0 - 246.0 ΜG/DL >74A 12.0 - 154.0 ΜG/DL -*- NIÑOS;<1 SEMANA 108 - 607 ΜG/DL 1-4 SEMANAS 32 - 431 ΜG/DL 1-12 MESES 4 - 124 ΜG/DL 1-4 AÑOS HASTA 20 ΜG/DL 5-9 AÑOS 3 - 85 ΜG/DL"
       }
     ]
   },
@@ -3918,7 +4010,8 @@ function mostrarInforme(iid){
     filas+=`<tr><td colspan="4" style="background:${col}22;color:${col};font-weight:bold;padding:6px 10px;">${an.nombre}</td></tr>`;
 
     // Leer resultado con clave compuesta (nueva) o legacy (solo nombre)
-    function rRes(pmn){ return o.resultados[aid+'|'+pmn] ?? o.resultados[pmn]; }
+    // IMPORTANTE: usar const arrow para capturar aid correctamente por iteración
+    const rRes = (pmn) => o.resultados[aid+'|'+pmn] ?? o.resultados[pmn];
 
     if(an.tipo==='cultivo'){
       const camposInfo=['Aspecto','Color','Recuento de colonias','Resultado del cultivo','Microorganismo aislado'];
@@ -4281,58 +4374,72 @@ function renderAnalisisConfig(){
 }
 
 function guardarCatalogoEnArchivo() {
-  if (!confirm('Se descargará el programa con el catálogo de análisis actualizado.\n\nEn la otra PC simplemente abrí el archivo descargado — ya tendrá todos los tipos de análisis que configuraste.\n\n¿Continuar?')) return;
+  if (!confirm(
+    'Se descargará el programa completo con:\n' +
+    '• Catálogo de análisis actualizado\n' +
+    '• Todos los datos del sistema (pacientes, órdenes, configuración)\n\n' +
+    '¿Continuar?'
+  )) return;
 
-  // Leer el HTML actual
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', window.location.href, false); // síncrono
-  try { xhr.send(); } catch(e) {
-    // Si falla (file://), leer desde el DOM
-  }
+  // Obtener el HTML base — intentar fetch primero, fallback a outerHTML
+  function procesarHTML(html) {
+    // 1. Reemplazar catálogo (DEFAULT_ANALISIS)
+    const catalogoJSON = JSON.stringify(analisisCatalogo, null, 2);
+    const markerStart = '// @@CATALOGO_START@@';
+    const markerEnd   = '// @@CATALOGO_END@@';
 
-  let html = xhr.status === 200 ? xhr.responseText : document.documentElement.outerHTML;
-
-  // Buscar el bloque DEFAULT_ANALISIS en el código y reemplazarlo con el catálogo actual
-  // El catálogo actual (analisisCatalogo) contiene todas las modificaciones del usuario
-  const catalogoJSON = JSON.stringify(analisisCatalogo, null, 2);
-
-  // Reemplazar DEFAULT_ANALISIS con el catálogo actualizado
-  const markerStart = '// @@CATALOGO_START@@';
-  const markerEnd   = '// @@CATALOGO_END@@';
-
-  if (html.includes(markerStart) && html.includes(markerEnd)) {
-    // Si ya tiene marcadores, reemplazar entre ellos
-    const s = html.indexOf(markerStart);
-    const e = html.indexOf(markerEnd) + markerEnd.length;
-    html = html.slice(0,s) + markerStart + '\nconst DEFAULT_ANALISIS = ' + catalogoJSON + ';\n' + markerEnd + html.slice(e);
-  } else {
-    // Primera vez: insertar marcadores alrededor de DEFAULT_ANALISIS
-    const tag = 'const DEFAULT_ANALISIS = [';
-    const idx = html.indexOf(tag);
-    if (idx < 0) { alert('No se pudo localizar el catálogo en el archivo.'); return; }
-    // Encontrar el cierre del array ];\n
-    let depth=0, i=idx+tag.length-1;
-    for(; i<html.length; i++){
-      if(html[i]==='[') depth++;
-      else if(html[i]===']'){ depth--; if(depth<0){i++;break;} }
+    if (html.includes(markerStart) && html.includes(markerEnd)) {
+      const s = html.indexOf(markerStart);
+      const e = html.indexOf(markerEnd) + markerEnd.length;
+      html = html.slice(0,s) + markerStart + '\nconst DEFAULT_ANALISIS = ' + catalogoJSON + ';\n' + markerEnd + html.slice(e);
+    } else {
+      const tag = 'const DEFAULT_ANALISIS = [';
+      const idx = html.indexOf(tag);
+      if (idx >= 0) {
+        let depth=0, i=idx+tag.length-1;
+        for(; i<html.length; i++){
+          if(html[i]==='[') depth++;
+          else if(html[i]===']'){ depth--; if(depth<0){i++;break;} }
+        }
+        while(i<html.length && html[i]!==';') i++;
+        i++;
+        html = html.slice(0,idx) + markerStart + '\nconst DEFAULT_ANALISIS = ' + catalogoJSON + ';\n' + markerEnd + html.slice(i);
+      }
     }
-    // Saltar hasta el ; que cierra la declaración
-    while(i<html.length && html[i]!==';') i++;
-    i++; // incluir el ;
-    html = html.slice(0,idx) + markerStart + '\nconst DEFAULT_ANALISIS = ' + catalogoJSON + ';\n' + markerEnd + html.slice(i);
+
+    // 2. Reemplazar SEED_DATA con datos actuales del sistema
+    const seedData = {
+      pacientes, ordenes, informes, pagos,
+      nextPId, nextOId, nextIId, nextPagoId,
+      config,
+      medicos: getMedicos()
+    };
+    const seedJSON = JSON.stringify(seedData, null, 0);
+    const seedTag = '\n// Datos pre-cargados del laboratorio\nconst SEED_DATA = ';
+    const seedIdx = html.indexOf(seedTag);
+    if (seedIdx >= 0) {
+      const seedEnd = html.indexOf(';\n\n', seedIdx) + 3;
+      html = html.slice(0, seedIdx) + seedTag + seedJSON + ';\n\n' + html.slice(seedEnd);
+    }
+
+    // 3. Descargar
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'LabClinic_' + new Date().toISOString().slice(0,10) + '.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    setTimeout(()=> alert('✔ Archivo guardado correctamente.\n\nEse archivo ya tiene todo: catálogo, datos y configuración.'), 300);
   }
 
-  // Descargar el archivo resultante
-  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'LabClinic_catalogo_' + new Date().toISOString().slice(0,10) + '.html';
-  a.click();
-  URL.revokeObjectURL(a.href);
-
-  setTimeout(()=>{
-    alert('✔ Archivo descargado correctamente.\n\nEn la otra PC abrí ese archivo y ya tendrá el catálogo actualizado.');
-  }, 300);
+  // Intentar leer el archivo original vía fetch
+  fetch(window.location.href)
+    .then(r => r.text())
+    .then(html => procesarHTML(html))
+    .catch(() => {
+      // Fallback: usar el DOM
+      procesarHTML(document.documentElement.outerHTML);
+    });
 }
 // ============================================================
 // DRAG & DROP — Reordenar parámetros
@@ -5307,5 +5414,14 @@ function cerrarSplash(){
   setTimeout(()=>{ s.style.display='none'; renderDashboard(); },500);
 }
 </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./sw.js')
+        .then(function(r){ console.log('SW OK:', r.scope); })
+        .catch(function(e){ console.warn('SW error:', e); });
+    });
+  }
+  </script>
 </body>
 </html>
