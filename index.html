@@ -406,28 +406,53 @@ body.dark .toggle-thumb { transform:translateX(15px); }
           <label>Fecha de toma de muestra</label>
           <input type="date" id="hiso-fecha-muestra">
         </div>
+
         <div style="background:var(--bg-stat);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:10px;letter-spacing:0.5px;">MÉTODO: TEST RÁPIDO</div>
-          <div class="form-group" style="margin-bottom:10px;">
-            <label>Resultado Influenza A</label>
-            <select id="hiso-influenza-a">
-              <option value="">— Seleccionar —</option>
-              <option value="Negativo - No se detecta presencia del Virus de Influenza A">Negativo - No se detecta presencia del Virus de Influenza A</option>
-              <option value="Positivo - Se detecta presencia del Virus de Influenza A">Positivo - Se detecta presencia del Virus de Influenza A</option>
-            </select>
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:12px;letter-spacing:0.5px;">MÉTODO: TEST RÁPIDO — Seleccioná qué estudios pedir</div>
+
+          <!-- Influenza -->
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px;font-size:13px;">
+            <input type="checkbox" id="hiso-pedir-influenza" style="width:auto;" onchange="toggleHisoSeccion('influenza')"> Informar Influenza A y B
+          </label>
+          <div id="hiso-sec-influenza" style="display:none;margin-left:16px;margin-bottom:12px;">
+            <div class="form-group" style="margin-bottom:8px;">
+              <label>Resultado Influenza A</label>
+              <select id="hiso-influenza-a">
+                <option value="">— Seleccionar —</option>
+                <option value="Negativo - No se detecta presencia del Virus de Influenza A">Negativo - No se detecta presencia del Virus de Influenza A</option>
+                <option value="Positivo - Se detecta presencia del Virus de Influenza A">Positivo - Se detecta presencia del Virus de Influenza A</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label>Resultado Influenza B</label>
+              <select id="hiso-influenza-b">
+                <option value="">— Seleccionar —</option>
+                <option value="Negativo - No se detecta presencia del Virus de Influenza B">Negativo - No se detecta presencia del Virus de Influenza B</option>
+                <option value="Positivo - Se detecta presencia del Virus de Influenza B">Positivo - Se detecta presencia del Virus de Influenza B</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group" style="margin:0;">
-            <label>Resultado Influenza B</label>
-            <select id="hiso-influenza-b">
-              <option value="">— Seleccionar —</option>
-              <option value="Negativo - No se detecta presencia del Virus de Influenza B">Negativo - No se detecta presencia del Virus de Influenza B</option>
-              <option value="Positivo - Se detecta presencia del Virus de Influenza B">Positivo - Se detecta presencia del Virus de Influenza B</option>
-            </select>
+
+          <!-- COVID -->
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px;font-size:13px;">
+            <input type="checkbox" id="hiso-pedir-covid" style="width:auto;" onchange="toggleHisoSeccion('covid')"> Informar COVID-19
+          </label>
+          <div id="hiso-sec-covid" style="display:none;margin-left:16px;">
+            <div class="form-group" style="margin:0;">
+              <label>Resultado COVID-19</label>
+              <select id="hiso-covid">
+                <option value="">— Seleccionar —</option>
+                <option value="NO DETECTADO - No se identificó material genético del virus SARS-CoV-2 en la muestra analizada.">NO DETECTADO - No se identificó material genético del virus SARS-CoV-2 en la muestra analizada.</option>
+                <option value="DETECTADO - Presencia confirmada de SARS-CoV-2. Corresponde a infección activa.">DETECTADO - Presencia confirmada de SARS-CoV-2. Corresponde a infección activa.</option>
+              </select>
+            </div>
           </div>
         </div>
+
         <div style="background:#f0f7ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:11px;font-style:italic;color:#1e3a5f;line-height:1.6;">
-          Un resultado negativo, no excluye completamente la infección por virus Influenza. La interpretación debe realizarse junto con los datos clínicos y epidemiológicos del paciente.
+          Un resultado negativo, no excluye completamente la infección por virus. La interpretación debe realizarse junto con los datos clínicos y epidemiológicos del paciente.
         </div>
+
         <div style="text-align:right;">
           <button class="btn btn-primary" onclick="generarOrdenHisopado()">✔ Guardar y generar informe</button>
         </div>
@@ -3087,32 +3112,12 @@ function exportarDatos() {
 
 const ANALISIS_HISOPADO_ID = 'hisopado_nasofaringeo';
 
-function asegurarHisopado() {
-  if (!analisisCatalogo.find(a => a.id === ANALISIS_HISOPADO_ID)) {
-    analisisCatalogo.push({
-      id: ANALISIS_HISOPADO_ID,
-      nombre: 'Hisopado Nasofaríngeo',
-      tipo: 'hisopado',
-      parametros: [
-        { n:'Fecha de toma de muestra', tipo:'texto', u:'', rMin:0, rMax:0 },
-        { n:'Método', tipo:'texto_fijo', valorFijo:'Test Rápido', u:'', rMin:0, rMax:0 },
-        { n:'Resultado Influenza A', tipo:'select', opciones:[
-            'Negativo - No se detecta presencia del Virus de Influenza A',
-            'Positivo - Se detecta presencia del Virus de Influenza A'
-          ], u:'', rMin:0, rMax:0 },
-        { n:'Resultado Influenza B', tipo:'select', opciones:[
-            'Negativo - No se detecta presencia del Virus de Influenza B',
-            'Positivo - Se detecta presencia del Virus de Influenza B'
-          ], u:'', rMin:0, rMax:0 },
-        { n:'_nota', tipo:'nota_fija', textoNota:'Un resultado negativo, no excluye completamente la infección por virus Influenza. La interpretación debe realizarse junto con los datos clínicos y epidemiológicos del paciente.' }
-      ]
-    });
-    lsSet('catalogo', analisisCatalogo);
-  }
+function toggleHisoSeccion(tipo) {
+  const checked = document.getElementById('hiso-pedir-'+tipo).checked;
+  document.getElementById('hiso-sec-'+tipo).style.display = checked ? 'block' : 'none';
 }
 
 function renderHisopado() {
-  asegurarHisopado();
   const sel = document.getElementById('hiso-paciente');
   if (sel) {
     const cur = sel.value;
@@ -3130,35 +3135,73 @@ function renderHisopado() {
 async function generarOrdenHisopado() {
   const pid = parseInt(document.getElementById('hiso-paciente').value);
   if (!pid) { alert('Seleccioná un paciente.'); return; }
-  const resA = document.getElementById('hiso-influenza-a').value;
-  const resB = document.getElementById('hiso-influenza-b').value;
-  if (!resA || !resB) { alert('Completá ambos resultados de Influenza A y B.'); return; }
+
+  const pedirInfluenza = document.getElementById('hiso-pedir-influenza').checked;
+  const pedirCovid     = document.getElementById('hiso-pedir-covid').checked;
+
+  if (!pedirInfluenza && !pedirCovid) {
+    alert('Seleccioná al menos un estudio a informar (Influenza o COVID-19).');
+    return;
+  }
+
+  if (pedirInfluenza) {
+    const resA = document.getElementById('hiso-influenza-a').value;
+    const resB = document.getElementById('hiso-influenza-b').value;
+    if (!resA || !resB) { alert('Completá ambos resultados de Influenza A y B.'); return; }
+  }
+  if (pedirCovid) {
+    const resCovid = document.getElementById('hiso-covid').value;
+    if (!resCovid) { alert('Completá el resultado de COVID-19.'); return; }
+  }
+
   const fechaMuestra = document.getElementById('hiso-fecha-muestra').value;
-  const medico = document.getElementById('hiso-medico').value;
-  const oid = nextOId++;
+  const medico       = document.getElementById('hiso-medico').value;
+  const oid          = nextOId++;
+
   const orden = {
     id: oid, pacienteId: pid,
     fecha: new Date().toISOString().slice(0,10),
     medico: medico, estado: 'completado',
     analisis: [ANALISIS_HISOPADO_ID], resultados: {}
   };
-  orden.resultados[ANALISIS_HISOPADO_ID+'|Fecha de toma de muestra'] = fechaMuestra;
-  orden.resultados[ANALISIS_HISOPADO_ID+'|Método'] = 'Test Rápido';
-  orden.resultados[ANALISIS_HISOPADO_ID+'|Resultado Influenza A'] = resA;
-  orden.resultados[ANALISIS_HISOPADO_ID+'|Resultado Influenza B'] = resB;
+
+  const key = (n) => ANALISIS_HISOPADO_ID+'|'+n;
+  orden.resultados[key('Fecha de toma de muestra')] = fechaMuestra;
+  orden.resultados[key('Método')]                    = 'Test Rápido';
+  orden.resultados[key('pedir_influenza')]            = pedirInfluenza ? '1' : '';
+  orden.resultados[key('pedir_covid')]                = pedirCovid     ? '1' : '';
+
+  if (pedirInfluenza) {
+    orden.resultados[key('Resultado Influenza A')] = document.getElementById('hiso-influenza-a').value;
+    orden.resultados[key('Resultado Influenza B')] = document.getElementById('hiso-influenza-b').value;
+  }
+  if (pedirCovid) {
+    orden.resultados[key('Resultado COVID-19')] = document.getElementById('hiso-covid').value;
+  }
+
   ordenes.push(orden);
   await guardarOrdenDB(orden);
+
   const iid = nextIId++;
   const inf = { id: iid, ordenId: oid, fecha: new Date().toISOString().slice(0,10) };
   informes.push(inf);
   await guardarInformeDB(inf);
+
   lsSet('ordenes', ordenes);
   lsSet('informes', informes);
   localStorage.setItem('lc_meta', JSON.stringify({nextPId, nextOId, nextIId, nextPagoId}));
+
+  // Limpiar formulario
   document.getElementById('hiso-influenza-a').value = '';
   document.getElementById('hiso-influenza-b').value = '';
-  document.getElementById('hiso-medico').value = '';
+  document.getElementById('hiso-covid').value        = '';
+  document.getElementById('hiso-medico').value       = '';
   document.getElementById('hiso-fecha-muestra').value = '';
+  document.getElementById('hiso-pedir-influenza').checked = false;
+  document.getElementById('hiso-pedir-covid').checked     = false;
+  document.getElementById('hiso-sec-influenza').style.display = 'none';
+  document.getElementById('hiso-sec-covid').style.display     = 'none';
+
   renderDashboard();
   setTimeout(() => mostrarInformeHisopado(inf.id), 200);
 }
@@ -3170,32 +3213,63 @@ function mostrarInformeHisopado(iid) {
   if (!o) return;
   const p = pacientes.find(x => x.id === o.pacienteId);
   if (!p) return;
+
   const rRes = (pmn) => o.resultados[ANALISIS_HISOPADO_ID+'|'+pmn] ?? o.resultados[pmn] ?? '';
-  const fechaMuestra = rRes('Fecha de toma de muestra');
-  const resA = rRes('Resultado Influenza A');
-  const resB = rRes('Resultado Influenza B');
-  const col = config.colorPrincipal || '#1e40af';
+
+  const fechaMuestra   = rRes('Fecha de toma de muestra');
+  const pedirInfluenza = rRes('pedir_influenza') === '1';
+  const pedirCovid     = rRes('pedir_covid')     === '1';
+  const resA           = rRes('Resultado Influenza A');
+  const resB           = rRes('Resultado Influenza B');
+  const resCovid       = rRes('Resultado COVID-19');
+
+  // Usar config del laboratorio igual que el informe estándar
+  const col      = config.color || '#4d9de0';
+  const fuente   = config.fuente || 'serif';
   const contacto = [config.dir, config.tel, config.email].filter(Boolean).join(' | ');
-  const logoHtml = config.mostrarIcono !== false && LOGO_INF
-    ? `<img src="${LOGO_INF}" style="height:${config.tamIcono==='grande'?'60px':config.tamIcono==='chico'?'36px':'48px'};object-fit:contain;">`
+
+  // Logo — mismo tamaño que config
+  const tamIconoPx = config.iconoSize ? config.iconoSize+'px' : '48px';
+  const logoHtml = config.usarIcono !== false && LOGO_INF
+    ? `<img src="${LOGO_INF}" style="height:${tamIconoPx};object-fit:contain;">`
     : '';
-  const resps = config.responsables && config.responsables.length
+
+  // Marca de agua
+  const marcaHtml = config.usarMarcaAgua && LOGO_SPLASH
+    ? `<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);opacity:${(parseInt(config.marcaAguaOpacidad)||8)/100};pointer-events:none;z-index:0;">
+        <img src="${LOGO_SPLASH}" style="width:${config.marcaAguaSize||'200'}px;"></div>`
+    : '';
+
+  // Responsables y firmas
+  const resps    = config.responsables && config.responsables.length
     ? config.responsables
     : [{nombre: config.bio||'', matricula: config.mat||'', cargo: config.cargo||'', textoExtra:''}];
   const firmasImg = [FIRMA_1, FIRMA_2];
   const firmasHtml = config.pieFirma !== false
-    ? `<div style="display:flex;gap:2rem;margin-top:20px;align-items:flex-end;">${
-        resps.filter(r=>r.nombre).map((r,i)=>`
+    ? `<div style="display:flex;gap:2rem;margin-top:20px;align-items:flex-end;">
+        ${resps.filter(r=>r.nombre).map((r,i)=>`
           <div style="text-align:center;min-width:180px;">
             ${firmasImg[i]?`<img src="${firmasImg[i]}" style="height:55px;max-width:160px;object-fit:contain;display:block;margin:0 auto 3px;">`:'<div style="height:55px;"></div>'}
             <div style="border-top:1px solid #555;padding-top:4px;font-size:10px;">
-              <b>${r.nombre}</b>${r.matricula?' — '+r.matricula:''}${r.cargo?'<br>'+r.cargo:''}${r.textoExtra?'<br><span style="color:#555;">'+r.textoExtra+'</span>':''}
+              <b>${r.nombre}</b>${r.matricula?' — '+r.matricula:''}${r.cargo?'<br>'+r.cargo:''}
+              ${r.textoExtra?'<br><span style="color:#555;">'+r.textoExtra+'</span>':''}
             </div>
-          </div>`).join('')
-      }</div>` : '';
+          </div>`).join('')}
+      </div>` : '';
+
+  // Filas de resultados — solo mostrar lo que se pidió
+  const filasInfluenza = pedirInfluenza ? `
+      <tr><td style="color:#555;font-size:9.5pt;width:45%;">Método</td><td>Test Rápido</td></tr>
+      <tr><td><b>Resultado Influenza A</b></td><td>${resA||'—'}</td></tr>
+      <tr><td><b>Resultado Influenza B</b></td><td>${resB||'—'}</td></tr>` : '';
+
+  const filasCovid = pedirCovid ? `
+      <tr><td style="color:#555;font-size:9.5pt;width:45%;">Método</td><td>Test Rápido</td></tr>
+      <tr><td><b>Resultado COVID-19 (SARS-CoV-2)</b></td><td>${resCovid||'—'}</td></tr>` : '';
+
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
   <style>
-    body{font-family:${config.fuente||'Arial'},sans-serif;font-size:11pt;color:#1a1a1a;margin:0;padding:0;}
+    body{font-family:${fuente},sans-serif;font-size:11pt;color:#1a1a1a;margin:0;padding:0;}
     @page{size:A4 portrait;margin:1.8cm;}
     .header{display:flex;align-items:center;gap:14px;border-bottom:2.5px solid ${col};padding-bottom:10px;margin-bottom:14px;}
     .header-text h1{margin:0;font-size:15pt;color:${col};}
@@ -3203,38 +3277,50 @@ function mostrarInformeHisopado(iid) {
     table{width:100%;border-collapse:collapse;margin-top:10px;}
     th{background:#d0d0d0;color:#1a1a1a;padding:6px 10px;font-size:10pt;text-align:left;}
     td{padding:6px 10px;border-bottom:1px solid #e5e7eb;font-size:10.5pt;}
+    .seccion-titulo{background:${col}22;color:${col};font-weight:bold;padding:6px 10px;font-size:11pt;}
     .nota{font-style:italic;color:#1e3a5f;background:#f0f7ff;border:1px solid #bfdbfe;padding:10px 14px;border-radius:6px;font-size:9.5pt;line-height:1.6;margin-top:14px;}
     .footer{margin-top:14px;font-size:8.5pt;color:#555;border-top:1px solid #ccc;padding-top:6px;}
     img{max-width:100%;}
   </style></head><body>
-  <div class="header">${logoHtml}<div class="header-text"><h1>${config.labNombre||'Laboratorio'}</h1><p>${contacto}</p></div></div>
+  ${marcaHtml}
+  <div class="header">${logoHtml}
+    <div class="header-text">
+      <h1>${config.nombre||'Laboratorio'}</h1>
+      <p>${contacto}</p>
+    </div>
+  </div>
+
   <table style="margin-bottom:8px;">
     <tr><td><b>Paciente:</b> ${p.apellido}, ${p.nombre}</td><td><b>DNI:</b> ${p.dni||'—'}</td></tr>
     <tr><td><b>Fecha:</b> ${inf.fecha}</td><td><b>Médico:</b> ${o.medico||'—'}</td></tr>
     ${fechaMuestra?`<tr><td colspan="2"><b>Fecha de toma de muestra:</b> ${fechaMuestra}</td></tr>`:''}
   </table>
+
   <table>
     <thead><tr><th colspan="2" style="background:${col};color:#fff;font-size:12pt;">Hisopado Nasofaríngeo</th></tr></thead>
     <tbody>
-      <tr><td style="color:#555;font-size:9.5pt;">Método</td><td>Test Rápido</td></tr>
-      <tr><td><b>Resultado Influenza A</b></td><td>${resA||'—'}</td></tr>
-      <tr><td><b>Resultado Influenza B</b></td><td>${resB||'—'}</td></tr>
+      ${pedirInfluenza?`<tr><td colspan="2" class="seccion-titulo">Influenza</td></tr>${filasInfluenza}`:''}
+      ${pedirCovid&&pedirInfluenza?`<tr><td colspan="2" style="padding:4px;"></td></tr>`:''}
+      ${pedirCovid?`<tr><td colspan="2" class="seccion-titulo">COVID-19</td></tr>${filasCovid}`:''}
     </tbody>
   </table>
-  <div class="nota">Un resultado negativo, no excluye completamente la infección por virus Influenza. La interpretación debe realizarse junto con los datos clínicos y epidemiológicos del paciente.</div>
+
+  <div class="nota">Un resultado negativo, no excluye completamente la infección por virus. La interpretación debe realizarse junto con los datos clínicos y epidemiológicos del paciente.</div>
+
   <div class="footer">
     ${config.pie1||''}${config.pie2?'<br>'+config.pie2:''}${config.pie3?'<br>'+config.pie3:''}
     ${config.pieNroInforme!==false?`<br>Informe Nº ${iid} — Emitido el ${inf.fecha}`:''}
     ${firmasHtml}
   </div>
   </body></html>`;
+
   document.getElementById('modal-informe').innerHTML = `
     <div class="modal" style="max-width:900px;width:95vw;">
       <div class="modal-header">
         <h3>🧫 Hisopado Nasofaríngeo — ${p.apellido}, ${p.nombre}</h3>
         <button class="btn btn-sm" onclick="closeModal('modal-informe')">✕</button>
       </div>
-      <div style="margin-bottom:10px;display:flex;gap:8px;">
+      <div style="margin-bottom:10px;">
         <button class="btn btn-success" onclick="imprimirHisopadoA4(${iid})">🖨 Imprimir / PDF</button>
       </div>
       <div style="background:#fff;padding:20px;border:1px solid var(--border);border-radius:8px;max-height:65vh;overflow-y:auto;">
