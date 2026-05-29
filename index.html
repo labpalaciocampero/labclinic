@@ -3226,19 +3226,47 @@ function mostrarInformeHisopado(iid) {
   // Usar config del laboratorio igual que el informe estándar
   const col      = config.color || '#4d9de0';
   const fuente   = config.fuente || 'serif';
-  const contacto = [config.dir, config.tel, config.email].filter(Boolean).join(' | ');
+  const estilo   = config.estiloHeader || 'linea';
+  const align    = config.headerAlign || 'left';
+  const contacto = [config.tel, config.email, config.web].filter(Boolean).join(' · ');
+  const direccion= [config.dir, config.ciudad].filter(Boolean).join(', ');
 
-  // Logo — mismo tamaño que config
-  const tamIconoPx = config.iconoSize ? config.iconoSize+'px' : '48px';
-  const logoHtml = config.usarIcono !== false && LOGO_INF
-    ? `<img src="${LOGO_INF}" style="height:${tamIconoPx};object-fit:contain;">`
+  // Logo
+  const usarIcono  = config.usarIcono !== false;
+  const iconoSize  = parseInt(config.iconoSize) || 60;
+  const logoHtml   = usarIcono && LOGO_INF
+    ? `<img src="${LOGO_INF}" style="height:${iconoSize}px;object-fit:contain;flex-shrink:0;">`
     : '';
 
   // Marca de agua
-  const marcaHtml = config.usarMarcaAgua && LOGO_SPLASH
-    ? `<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);opacity:${(parseInt(config.marcaAguaOpacidad)||8)/100};pointer-events:none;z-index:0;">
-        <img src="${LOGO_SPLASH}" style="width:${config.marcaAguaSize||'200'}px;"></div>`
+  const usarMarcaAgua = config.usarMarcaAgua === true;
+  const marcaAguaSize = parseInt(config.marcaAguaSize) || 200;
+  const marcaAguaOp   = (parseInt(config.marcaAguaOpacidad) || 8) / 100;
+  const marcaHtml = usarMarcaAgua && LOGO_SPLASH
+    ? `<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);opacity:${marcaAguaOp};pointer-events:none;z-index:0;">
+        <img src="${LOGO_SPLASH}" style="width:${marcaAguaSize}px;"></div>`
     : '';
+
+  // Header CSS igual al estándar
+  let headerCss = '';
+  if      (estilo==='linea') headerCss=`border-bottom:2px solid ${col};padding-bottom:1rem;margin-bottom:1rem;`;
+  else if (estilo==='banda') headerCss=`background:${col};padding:1rem;margin:-2rem -2rem 1rem;`;
+  else if (estilo==='doble') headerCss=`border-top:3px solid ${col};border-bottom:1px solid ${col};padding:0.75rem 0;margin-bottom:1rem;`;
+  else                       headerCss=`margin-bottom:1rem;`;
+  const hTextCol = estilo==='banda' ? '#fff' : col;
+  const hSubCol  = estilo==='banda' ? 'rgba(255,255,255,0.85)' : '#555';
+
+  const headerHtml = `<div style="display:flex;align-items:center;gap:14px;text-align:${align};${headerCss}">
+    ${logoHtml}
+    <div style="flex:1;">
+      <div style="font-size:15pt;font-weight:bold;color:${hTextCol};">${config.nombre||'Laboratorio'}</div>
+      ${config.subtitulo?`<div style="font-size:10pt;color:${hSubCol};">${config.subtitulo}</div>`:''}
+      ${contacto?`<div style="font-size:9pt;color:${hSubCol};">📞 ${contacto}</div>`:''}
+      ${direccion?`<div style="font-size:9pt;color:${hSubCol};">📍 ${direccion}</div>`:''}
+      ${config.headerLinea1?`<div style="font-size:9.5pt;color:${hSubCol};">${config.headerLinea1}</div>`:''}
+      ${config.headerLinea2?`<div style="font-size:9.5pt;color:${hSubCol};">${config.headerLinea2}</div>`:''}
+    </div>
+  </div>`;
 
   // Responsables y firmas
   const resps    = config.responsables && config.responsables.length
@@ -3271,9 +3299,6 @@ function mostrarInformeHisopado(iid) {
   <style>
     body{font-family:${fuente},sans-serif;font-size:11pt;color:#1a1a1a;margin:0;padding:0;}
     @page{size:A4 portrait;margin:1.8cm;}
-    .header{display:flex;align-items:center;gap:14px;border-bottom:2.5px solid ${col};padding-bottom:10px;margin-bottom:14px;}
-    .header-text h1{margin:0;font-size:15pt;color:${col};}
-    .header-text p{margin:2px 0 0;font-size:9pt;color:#555;}
     table{width:100%;border-collapse:collapse;margin-top:10px;}
     th{background:#d0d0d0;color:#1a1a1a;padding:6px 10px;font-size:10pt;text-align:left;}
     td{padding:6px 10px;border-bottom:1px solid #e5e7eb;font-size:10.5pt;}
@@ -3283,12 +3308,7 @@ function mostrarInformeHisopado(iid) {
     img{max-width:100%;}
   </style></head><body>
   ${marcaHtml}
-  <div class="header">${logoHtml}
-    <div class="header-text">
-      <h1>${config.nombre||'Laboratorio'}</h1>
-      <p>${contacto}</p>
-    </div>
-  </div>
+  ${headerHtml}
 
   <table style="margin-bottom:8px;">
     <tr><td><b>Paciente:</b> ${p.apellido}, ${p.nombre}</td><td><b>DNI:</b> ${p.dni||'—'}</td></tr>
