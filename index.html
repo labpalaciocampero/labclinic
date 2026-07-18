@@ -251,6 +251,7 @@ body.dark .toggle-thumb { transform:translateX(15px); }
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, collection, getDocs, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyACd_vSyzv_9Dkqp_TxtGJv_vFta1CL9OU",
@@ -261,17 +262,57 @@ body.dark .toggle-thumb { transform:translateX(15px); }
       appId: "1:925292431036:web:9d4e49f632b6b3e0b6b2b9"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db  = getFirestore(app);
+    const app  = initializeApp(firebaseConfig);
+    const db   = getFirestore(app);
+    const auth = getAuth(app);
 
-    // Expose Firebase functions to global scope for the main script
+    // Expose to global scope
     window._fb = { db, doc, getDoc, setDoc, collection, getDocs, deleteDoc, writeBatch };
+    window._auth = { auth, signInWithEmailAndPassword, signOut, onAuthStateChanged };
     window._fbReady = true;
     window.dispatchEvent(new Event('firebase-ready'));
   </script>
-
 </head>
 <body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" style="display:none;position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#0d1b2a 0%,#1e3a5f 100%);
+  display:flex;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:40px 36px;width:100%;max-width:400px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);text-align:center;">
+    <!-- Logo -->
+    <div id="login-logo" style="margin-bottom:16px;"></div>
+    <h2 style="margin:0 0 4px;color:#0d1b2a;font-size:20px;">Laboratorio Palacio Campero</h2>
+    <p style="margin:0 0 28px;color:#64748b;font-size:13px;">Sistema de gestión de análisis clínicos</p>
+
+    <div id="login-error" style="display:none;background:#fee2e2;color:#dc2626;
+      border-radius:8px;padding:10px;font-size:13px;margin-bottom:16px;"></div>
+
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:12px;font-weight:700;color:#475569;display:block;margin-bottom:6px;">CORREO ELECTRÓNICO</label>
+      <input id="login-email" type="email" value="palaciocampero.lab@gmail.com"
+        style="width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;box-sizing:border-box;"
+        onkeydown="if(event.key==='Enter')loginDoLogin()">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:12px;font-weight:700;color:#475569;display:block;margin-bottom:6px;">CONTRASEÑA</label>
+      <input id="login-password" type="password"
+        placeholder="••••••••"
+        style="width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;box-sizing:border-box;"
+        onkeydown="if(event.key==='Enter')loginDoLogin()">
+    </div>
+    <button onclick="loginDoLogin()" id="login-btn"
+      style="width:100%;padding:12px;background:#1d4ed8;color:#fff;border:none;border-radius:8px;
+      font-size:15px;font-weight:700;cursor:pointer;">
+      Ingresar al sistema
+    </button>
+    <p style="margin:16px 0 0;font-size:11px;color:#94a3b8;">
+      🔒 Acceso restringido — Laboratorio Palacio Campero
+    </p>
+  </div>
+</div>
+
 <!-- SPLASH SCREEN -->
 <div id="splash-screen" style="
   position:fixed;inset:0;z-index:9999;
@@ -324,6 +365,7 @@ body.dark .toggle-thumb { transform:translateX(15px); }
       <button class="sidebar-btn" onclick="exportarDatos()">⬇ Exportar datos</button>
       <button class="sidebar-btn" onclick="document.getElementById('importar-input').click()">⬆ Importar datos</button>
       <button class="sidebar-btn" onclick="resetearIndexedDB()" style="color:#f87171;border-color:#f87171;" title="Borra la base de datos local y recarga el catálogo del archivo">🔄 Recargar catálogo</button>
+      <button class="sidebar-btn" onclick="loginCerrarSesion()" style="color:#f87171;border-color:#f87171;">🔒 Cerrar sesión</button>
       <input type="file" id="importar-input" accept=".json" style="display:none;" onchange="importarDatos(event)">
       <div class="save-ok" id="save-indicator">✔ Guardado</div>
       <div class="backup-badge" id="backup-badge">💾 Copia de seguridad guardada</div>
@@ -6488,55 +6530,123 @@ function mostrarBackupBadge() {
   setTimeout(() => el.classList.remove('visible'), 5000);
 }
 
-// INIT — async para esperar datos
+// ============================================================
+// LOGIN — Firebase Authentication
+// ============================================================
+
+function loginMostrarError(msg) {
+  const el = document.getElementById('login-error');
+  if (el) { el.textContent = msg; el.style.display = 'block'; }
+}
+
+async function loginDoLogin() {
+  const email    = document.getElementById('login-email')?.value?.trim();
+  const password = document.getElementById('login-password')?.value;
+  const btn      = document.getElementById('login-btn');
+  const errEl    = document.getElementById('login-error');
+  if (!email || !password) { loginMostrarError('Completá email y contraseña.'); return; }
+  if (errEl) errEl.style.display = 'none';
+  if (btn)   { btn.disabled = true; btn.textContent = 'Ingresando...'; }
+  try {
+    const { auth, signInWithEmailAndPassword } = window._auth;
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch(e) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Ingresar al sistema'; }
+    const msgs = {
+      'auth/invalid-credential':    'Email o contraseña incorrectos.',
+      'auth/user-not-found':        'Usuario no encontrado.',
+      'auth/wrong-password':        'Contraseña incorrecta.',
+      'auth/too-many-requests':     'Demasiados intentos. Esperá unos minutos.',
+      'auth/invalid-email':         'Email inválido.',
+      'auth/network-request-failed':'Sin conexión a internet.',
+    };
+    loginMostrarError(msgs[e.code] || 'Error: ' + e.message);
+  }
+}
+
+async function loginCerrarSesion() {
+  if (!confirm('¿Cerrar sesión?')) return;
+  const { auth, signOut } = window._auth;
+  await signOut(auth);
+  window.location.reload();
+}
+
+// ============================================================
+// INIT — con autenticación Firebase
+// ============================================================
 (async () => {
   cargarModoOscuro();
 
-  // Cargar logo en splash inmediatamente
-  const splashLogo = document.getElementById('splash-logo');
-  if(splashLogo) splashLogo.src = LOGO_SPLASH;
-  const splashTexto = document.getElementById('splash-texto');
-  if(splashTexto) splashTexto.src = TEXTO_B64;
-
-  // Barra de progreso animada
-  let prog = 0;
-  const bar = document.getElementById('splash-bar');
-  const splashInterval = setInterval(()=>{
-    prog += 2;
-    if(bar) bar.style.width = Math.min(prog, 85) + '%';
-    if(prog >= 85) clearInterval(splashInterval);
-  }, 35);
-
-  // Timeout de seguridad: si algo falla, el splash cierra igual a los 4s
-  const safetyTimeout = setTimeout(()=>{
-    clearInterval(splashInterval);
-    if(bar) bar.style.width = '100%';
-    cerrarSplash();
-    renderDashboard();
-  }, 4000);
-
-  try {
-    // Cargar datos
-    await cargarDatos();
-    actualizarSidebarLogo();
-    clearTimeout(safetyTimeout);
-    clearInterval(splashInterval);
-    if(bar) bar.style.width = '100%';
-    setTimeout(()=>{
-      cerrarSplash();
-      renderDashboard();
-      setTimeout(copiaDeSeguridad, 1000);
-    }, 400);
-  } catch(e) {
-    console.error('Error cargando datos:', e);
-    clearTimeout(safetyTimeout);
-    clearInterval(splashInterval);
-    if(bar) bar.style.width = '100%';
-    setTimeout(()=>{
-      cerrarSplash();
-      renderDashboard();
-    }, 400);
+  // Poner logo en pantalla de login
+  const loginLogoEl = document.getElementById('login-logo');
+  if (loginLogoEl && LOGO_SPLASH) {
+    loginLogoEl.innerHTML = `<img src="${LOGO_SPLASH}" style="height:72px;object-fit:contain;">`;
   }
+
+  // Esperar a que Firebase Auth esté listo
+  await new Promise(resolve => {
+    const check = () => { if (window._auth) resolve(); else setTimeout(check, 100); };
+    check();
+  });
+
+  const { auth, onAuthStateChanged } = window._auth;
+
+  // Escuchar estado de autenticación
+  onAuthStateChanged(auth, async (user) => {
+    const loginScreen = document.getElementById('login-screen');
+    const splashEl    = document.getElementById('splash-screen');
+
+    if (!user) {
+      // No autenticado — mostrar login, ocultar todo lo demás
+      if (loginScreen) loginScreen.style.display = 'flex';
+      if (splashEl)    splashEl.style.display    = 'none';
+      return;
+    }
+
+    // Autenticado — ocultar login y cargar sistema
+    if (loginScreen) loginScreen.style.display = 'none';
+
+    // Mostrar splash
+    if (splashEl) splashEl.style.display = 'flex';
+    const splashLogo  = document.getElementById('splash-logo');
+    const splashTexto = document.getElementById('splash-texto');
+    if (splashLogo)  splashLogo.src  = LOGO_SPLASH;
+    if (splashTexto) splashTexto.src = TEXTO_B64;
+
+    let prog = 0;
+    const bar = document.getElementById('splash-bar');
+    const splashInterval = setInterval(()=>{
+      prog += 2;
+      if(bar) bar.style.width = Math.min(prog, 85) + '%';
+      if(prog >= 85) clearInterval(splashInterval);
+    }, 35);
+
+    const safetyTimeout = setTimeout(()=>{
+      clearInterval(splashInterval);
+      if(bar) bar.style.width = '100%';
+      cerrarSplash(); renderDashboard();
+    }, 5000);
+
+    try {
+      await cargarDatos();
+      actualizarSidebarLogo();
+      clearTimeout(safetyTimeout);
+      clearInterval(splashInterval);
+      if(bar) bar.style.width = '100%';
+      setTimeout(()=>{
+        cerrarSplash();
+        renderDashboard();
+        setTimeout(copiaDeSeguridad, 1000);
+      }, 400);
+    } catch(e) {
+      console.error('Error cargando datos:', e);
+      clearTimeout(safetyTimeout);
+      clearInterval(splashInterval);
+      if(bar) bar.style.width = '100%';
+      setTimeout(()=>{ cerrarSplash(); renderDashboard(); }, 400);
+    }
+  });
+
 })();
 
 function cerrarSplash(){
