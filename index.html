@@ -4349,7 +4349,7 @@ function mostrarInformeHisopado(iid) {
 
   <table style="margin-bottom:8px;">
     <tr><td><b>Paciente:</b> ${p.apellido}, ${p.nombre}</td><td><b>DNI:</b> ${p.dni||'—'}</td></tr>
-    <tr><td><b>Fecha:</b> ${inf.fecha}</td><td><b>Médico:</b> ${o.medico||'—'}</td></tr>
+    <tr><td></td><td><b>Médico:</b> ${o.medico||'—'}</td></tr>
     ${(o.fechaExtraccion||o.fechaEntrega)?`<tr>
       <td><b>Fecha de extracción:</b> ${o.fechaExtraccion||'—'}</td>
       <td><b>Fecha de entrega:</b> ${o.fechaEntrega||'—'}</td>
@@ -5707,7 +5707,7 @@ function mostrarInforme(iid){
         ${showOS?`<div><b>Obra social:</b> ${p?p.os||'—':'—'}</div>`:''}
         ${showAfil&&p&&p.afiliado?`<div><b>Nº afiliado:</b> ${p.afiliado}</div>`:''}
         ${showMedico?`<div><b>Médico:</b> ${o.medico}</div>`:''}
-        <div><b>Fecha:</b> ${inf.fecha}</div>
+
         ${o.obs?`<div style="grid-column:span 2;"><b>Obs.:</b> ${o.obs}</div>`:''}
         ${(o.fechaExtraccion||o.fechaEntrega)?`<div style="grid-column:span 2;border-top:1px solid #e5e7eb;padding-top:4px;margin-top:4px;display:grid;grid-template-columns:1fr 1fr;gap:4px;">
           <div><b>Fecha de extracción:</b> ${o.fechaExtraccion||'—'}</div>
@@ -6578,7 +6578,7 @@ function actualizarPreviewInforme(){
           ${showOS?'<div><b>Obra social:</b> OSDE</div>':''}
           ${showAfil?'<div><b>Nº afiliado:</b> 1234567</div>':''}
           ${showMedico?'<div><b>Médico:</b> Dr. García</div>':''}
-          <div><b>Fecha:</b> ${new Date().toISOString().slice(0,10)}</div>
+
         </div>
         <table style="width:100%;border-collapse:collapse;font-size:10px;margin-bottom:0.5rem;">
           <thead><tr style="background:${col};color:#fff;">
