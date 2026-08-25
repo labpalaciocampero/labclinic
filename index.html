@@ -1153,288 +1153,289 @@ const SEED_DATA = {"pacientes": [], "ordenes": [], "informes": [], "pagos": [], 
 
 const DEFAULT_ANALISIS = [
   {
+    "id": "hemo",
     "parametros": [
       {
         "u": "mill/mm³",
-        "rMin": "3.950.000",
         "tipo": "numero",
         "n": "Glóbulos Rojos",
-        "rMax": "5.200.000"
+        "rMin": 0,
+        "rMax": 0,
+        "opciones": []
       },
       {
         "n": "Hematocrito",
+        "rMax": "48.5",
         "u": "%",
-        "rMin": "38.0",
-        "rMax": "48.5"
+        "rMin": "38.0"
       },
       {
-        "n": "Hemoglobina",
+        "rMax": "16.8",
         "u": "g/dL",
         "rMin": "12.5",
-        "rMax": "16.8"
+        "n": "Hemoglobina"
       },
       {
-        "rMax": "95",
         "rMin": 80,
         "u": "fL",
+        "rMax": "95",
         "n": "VCM"
       },
       {
-        "rMin": "28.5",
         "rMax": "33.2",
+        "n": "HCM",
         "u": "pg",
-        "n": "HCM"
+        "rMin": "28.5"
       },
       {
-        "n": "CHCM",
-        "rMin": "32.0",
         "rMax": "36.0",
-        "u": "g/dL"
+        "n": "CHCM",
+        "u": "g/dL",
+        "rMin": "32.0"
       },
       {
-        "rMin": "4.900",
         "tipo": "numero",
-        "n": "Glóbulos Blancos",
         "rMax": "9.800",
+        "n": "Glóbulos Blancos",
+        "rMin": "4.900",
         "u": "mil / mm³"
       },
       {
-        "rMax": 0,
-        "u": "",
         "tipo": "texto",
-        "rMin": 0,
-        "n": "Fórmula Leucocitaria"
+        "rMax": 0,
+        "n": "Fórmula Leucocitaria",
+        "u": "",
+        "rMin": 0
       },
       {
-        "n": "Cayados",
-        "rMax": "4",
+        "rMin": "0",
         "opciones": [
           "Opción 1",
           "Opción 2"
         ],
+        "n": "Cayados",
+        "rMax": "4",
         "u": "%",
-        "tipo": "numero",
-        "rMin": "0"
+        "tipo": "numero"
       },
       {
-        "u": "%",
         "rMax": "68",
+        "n": "Neutrófilos",
         "rMin": "55",
-        "n": "Neutrófilos"
+        "u": "%"
       },
       {
+        "rMax": "4",
         "n": "Eosinófilos",
         "u": "%",
-        "rMax": "4",
         "rMin": "0"
       },
       {
+        "rMin": 0,
         "u": "%",
-        "n": "Basófilos",
         "rMax": "1",
-        "rMin": 0
+        "n": "Basófilos"
       },
       {
         "n": "Linfocitos",
         "rMin": "20",
-        "rMax": "46",
-        "u": "%"
-      },
-      {
         "u": "%",
-        "rMin": "2",
-        "rMax": "8",
-        "n": "Monocitos"
+        "rMax": "46"
       },
       {
-        "u": "x mm³",
+        "rMax": "8",
+        "n": "Monocitos",
+        "u": "%",
+        "rMin": "2"
+      },
+      {
         "n": "Plaquetas",
         "rMax": "450.000",
-        "rMin": "150.000"
+        "rMin": "150.000",
+        "u": "x mm³"
       },
       {
-        "rMax": "",
-        "u": "",
         "tipo": "textarea",
         "rMin": "",
-        "n": "Observaciones "
+        "n": "Observaciones ",
+        "rMax": "",
+        "u": ""
       }
     ],
-    "nombre": "Hemograma",
-    "id": "hemo"
+    "nombre": "Hemograma"
   },
   {
     "id": "hepat",
-    "nombre": "Hepatograma",
     "parametros": [
       {
         "n": "Dosaje de GPT (Transaminasa G. Pirúvica)",
         "rMax": "42",
-        "rMin": "8",
+        "u": "UI/L",
+        "rMin": "8"
+      },
+      {
+        "n": "Dosaje de GOT (Transaminasa G.Oxalacético)",
+        "rMax": "42",
+        "rMin": "10",
         "u": "UI/L"
       },
       {
-        "u": "UI/L",
-        "rMin": "10",
-        "rMax": "42",
-        "n": "Dosaje de GOT (Transaminasa G.Oxalacético)"
-      },
-      {
-        "n": "Dosaje de Gamma GT",
         "rMin": "",
+        "u": "UI/L",
         "refTexto": "Hombres Menor a 51 UI/L // Mujeres Menor a 38 UI/L",
         "rMax": "",
-        "u": "UI/L"
+        "n": "Dosaje de Gamma GT"
       },
       {
-        "refTexto": "Adultos 65 a 300 UI/L   ||   Niños y Adolescentes 65 a 700 UI/L ",
-        "rMax": 147,
+        "rMin": 44,
         "n": "Dosaje de Fosfatasa alcalina",
+        "rMax": 147,
         "u": "UI/L",
-        "rMin": 44
+        "refTexto": "Adultos 65 a 300 UI/L   ||   Niños y Adolescentes 65 a 700 UI/L "
       },
       {
-        "n": "Bilirrubina total",
+        "u": "mg/dL",
         "refTexto": "",
         "rMax": "1.10",
-        "rMin": "0.20",
-        "u": "mg/dL"
+        "n": "Bilirrubina total",
+        "rMin": "0.20"
       },
       {
+        "rMin": "0.10",
+        "u": "mg/dL",
         "rMax": "0.20",
-        "rMin": "0.10",
-        "n": "Bilirrubina directa",
-        "u": "mg/dL"
+        "n": "Bilirrubina directa"
       },
       {
+        "u": "mg/dL",
+        "rMin": "0.10",
         "n": "Bilirrubina indirecta",
-        "rMax": "0.80",
-        "rMin": "0.10",
-        "u": "mg/dL"
+        "rMax": "0.80"
       },
       {
-        "u": "",
-        "tipo": "numero",
         "rMin": 0,
-        "rMax": 0,
         "n": "Observaciones ",
-        "refTexto": "--"
+        "rMax": 0,
+        "u": "",
+        "refTexto": "--",
+        "tipo": "numero"
+      }
+    ],
+    "nombre": "Hepatograma"
+  },
+  {
+    "id": "ionograma",
+    "nombre": "Ionograma",
+    "parametros": [
+      {
+        "rMin": "135",
+        "n": "Sodio (Na)",
+        "rMax": 145,
+        "u": "mEq/l"
+      },
+      {
+        "u": "mEq/l",
+        "rMax": "5.50",
+        "n": "Potasio (K)",
+        "rMin": "3.20"
+      },
+      {
+        "rMin": "90",
+        "u": "mEq/l",
+        "rMax": "110",
+        "n": "Cloro (Cl)"
+      },
+      {
+        "rMin": 8.5,
+        "u": "mg/dl",
+        "n": "Calcio",
+        "rMax": 10.5
+      },
+      {
+        "rMin": 1.7,
+        "n": "Magnesio",
+        "rMax": 2.3,
+        "u": "mg/dl"
+      },
+      {
+        "rMin": 2.5,
+        "n": "Fósforo",
+        "u": "mg/dl",
+        "rMax": 4.5
       }
     ]
   },
   {
-    "nombre": "Ionograma",
     "parametros": [
       {
-        "rMax": 145,
-        "rMin": "135",
-        "n": "Sodio (Na)",
-        "u": "mEq/l"
-      },
-      {
-        "rMax": "5.50",
-        "rMin": "3.20",
-        "n": "Potasio (K)",
-        "u": "mEq/l"
-      },
-      {
-        "n": "Cloro (Cl)",
-        "rMin": "90",
-        "rMax": "110",
-        "u": "mEq/l"
-      },
-      {
-        "n": "Calcio",
         "u": "mg/dl",
-        "rMax": 10.5,
-        "rMin": 8.5
-      },
-      {
-        "u": "mg/dl",
-        "rMin": 1.7,
-        "rMax": 2.3,
-        "n": "Magnesio"
-      },
-      {
-        "n": "Fósforo",
-        "u": "mg/dl",
-        "rMin": 2.5,
-        "rMax": 4.5
-      }
-    ],
-    "id": "ionograma"
-  },
-  {
-    "nombre": "Perfil lipídico",
-    "parametros": [
-      {
-        "rMin": "",
+        "n": "COLESTEROL",
         "refTexto": "Riesgo  bajo ( deseable) menor a 180 mg/dl",
-        "u": "mg/dl",
-        "rMax": "",
-        "n": "COLESTEROL"
+        "rMin": "",
+        "rMax": ""
       },
       {
-        "rMax": 0,
-        "n": "HDL",
         "refTexto": "R. bajo ECV > 65 mg/dl // R. moderado ECV 45-65 mg/ dl // R. elevado ECV < 45 mg/dl",
         "tipo": "numero",
-        "u": "mg/dl              ",
-        "rMin": 0
-      },
-      {
         "rMax": 0,
-        "refTexto": "R. bajo ECV < 129 mg/dl // R. moderado ECV 129-149 mg/dl // R. elevado ECV > 149 mg/dl",
-        "n": "LDL",
+        "u": "mg/dl              ",
         "rMin": 0,
-        "tipo": "numero",
-        "u": "mg/dl"
+        "n": "HDL"
       },
       {
         "u": "mg/dl",
-        "valorDefecto": "",
+        "rMin": 0,
+        "n": "LDL",
         "rMax": 0,
+        "tipo": "numero",
+        "refTexto": "R. bajo ECV < 129 mg/dl // R. moderado ECV 129-149 mg/dl // R. elevado ECV > 149 mg/dl"
+      },
+      {
+        "u": "mg/dl",
         "refTexto": "Hasta 160 mg/dl",
         "n": "TRIGLICERIDOS",
-        "rMin": 0,
-        "tipo": "numero"
+        "tipo": "numero",
+        "valorDefecto": "",
+        "rMax": 0,
+        "rMin": 0
       }
     ],
-    "id": "lip"
+    "id": "lip",
+    "nombre": "Perfil lipídico"
   },
   {
+    "tipo": "orina",
     "nombre": "Orina completa",
     "parametros": [
       {
-        "u": "",
         "label": "🔵 Examen Físicos",
-        "rMax": 0,
+        "tipo": "seccion",
         "n": "🔵 Examen Físicos",
-        "rMin": 0,
-        "tipo": "seccion"
+        "rMax": 0,
+        "u": "",
+        "rMin": 0
       },
       {
+        "tipo": "select",
+        "rMax": 0,
+        "u": "",
+        "rMin": 0,
         "opciones": [
           "Limpido",
           "Ligeramente turbio",
           "Turbio"
         ],
-        "n": "Aspecto",
-        "tipo": "select",
-        "rMin": 0,
+        "n": "Aspecto"
+      },
+      {
+        "tipo": "numero",
         "u": "",
+        "n": "Densidad",
+        "rMin": 0,
         "rMax": 0
       },
       {
-        "n": "Densidad",
-        "rMax": 0,
-        "u": "",
-        "tipo": "numero",
-        "rMin": 0
-      },
-      {
-        "u": "",
-        "tipo": "select",
+        "n": "Color",
         "rMin": 0,
         "opciones": [
           "Amarillo pálido",
@@ -1448,53 +1449,58 @@ const DEFAULT_ANALISIS = [
           "Incoloro",
           "Verdoso"
         ],
-        "rMax": 0,
-        "n": "Color"
-      },
-      {
-        "label": "🔵 Examen Químico ",
         "u": "",
         "rMax": 0,
+        "tipo": "select"
+      },
+      {
         "n": "🔵 Examen Químico ",
-        "tipo": "seccion",
-        "rMin": 0
+        "rMax": 0,
+        "u": "",
+        "rMin": 0,
+        "label": "🔵 Examen Químico ",
+        "tipo": "seccion"
       },
       {
-        "tipo": "numero",
-        "rMin": "",
-        "u": "",
         "rMax": "",
+        "rMin": "",
         "opciones": [
           "Contiene",
           "No Contiene"
         ],
-        "n": "pH"
+        "n": "pH",
+        "tipo": "numero",
+        "u": ""
       },
       {
         "rMax": 14,
+        "rMin": 0,
+        "n": "Proteínas",
+        "u": "mg/dL",
+        "tipo": "select",
         "opciones": [
           "Contiene",
           "No Contiene"
-        ],
-        "n": "Proteínas",
-        "tipo": "select",
-        "rMin": 0,
-        "u": "mg/dL"
+        ]
       },
       {
+        "n": "Glucosa",
+        "rMax": 15,
         "u": "mg/dL",
+        "rMin": 0,
         "opciones": [
           "Contiene +",
           "No Contiene",
           "Contiene ++",
           "Contiene +++"
         ],
-        "rMax": 15,
-        "n": "Glucosa",
-        "tipo": "select",
-        "rMin": 0
+        "tipo": "select"
       },
       {
+        "n": "Hemoglobina",
+        "tipo": "select",
+        "u": "",
+        "rMin": 0,
         "opciones": [
           "Contiene +",
           "No Contiene",
@@ -1502,40 +1508,36 @@ const DEFAULT_ANALISIS = [
           "Contiene ++",
           "Contiene +++"
         ],
-        "n": "Hemoglobina",
-        "rMax": 0,
-        "u": "",
-        "rMin": 0,
-        "tipo": "select"
+        "rMax": 0
       },
       {
         "opciones": [
           "Normal",
           "Contiene"
         ],
-        "n": "Urobilinógeno ",
-        "tipo": "select",
-        "rMin": 0,
         "u": "",
+        "tipo": "select",
+        "n": "Urobilinógeno ",
+        "rMax": 0,
         "placeholder": "Observaciones clínicas adicionales",
-        "rMax": 0
+        "rMin": 0
       },
       {
-        "u": "",
-        "rMax": 0,
         "opciones": [
           "Contiene",
           "No Contiene"
         ],
-        "n": "Cetonas",
+        "tipo": "select",
+        "u": "",
+        "rMax": 0,
         "rMin": 0,
-        "tipo": "select"
+        "n": "Cetonas"
       },
       {
-        "tipo": "select",
+        "rMax": 0,
         "rMin": 0,
         "n": "Nitritos",
-        "rMax": 0,
+        "tipo": "select",
         "u": "",
         "opciones": [
           "Contiene",
@@ -1543,516 +1545,515 @@ const DEFAULT_ANALISIS = [
         ]
       },
       {
-        "rMax": 0,
-        "n": "Pig. Biliares ",
-        "tipo": "select",
-        "rMin": 0,
         "opciones": [
           "Contiene",
           "No Contiene"
         ],
+        "rMin": 0,
+        "rMax": 0,
+        "n": "Pig. Biliares ",
+        "tipo": "select",
         "u": ""
       },
       {
-        "tipo": "seccion",
+        "n": "🟠 Sedimento",
+        "rMax": 0,
         "rMin": 0,
         "u": "",
-        "label": "🟠 Sedimento",
-        "rMax": 0,
-        "n": "🟠 Sedimento"
+        "tipo": "seccion",
+        "label": "🟠 Sedimento"
       },
       {
+        "tipo": "select",
+        "rMax": 0,
         "opciones": [
           "Escasas",
           "Abundantes",
           "Regular"
         ],
-        "u": "",
-        "rMax": 0,
         "n": "Células ",
-        "tipo": "select",
+        "rMin": 0,
+        "u": ""
+      },
+      {
+        "n": "Leucocitos (microscopía)",
+        "rMax": 5,
+        "u": "/campo",
         "rMin": 0
       },
       {
-        "rMax": 5,
-        "rMin": 0,
-        "n": "Leucocitos (microscopía)",
-        "u": "/campo"
-      },
-      {
-        "rMin": 0,
-        "rMax": 2,
-        "n": "Hematíes",
-        "u": "/campo"
-      },
-      {
         "u": "/campo",
+        "rMax": 2,
         "rMin": 0,
-        "tipo": "numero",
-        "n": "Piocitos",
-        "rMax": 0
+        "n": "Hematíes"
       },
       {
+        "rMax": 0,
+        "rMin": 0,
+        "n": "Piocitos",
+        "u": "/campo",
+        "tipo": "numero"
+      },
+      {
+        "u": "",
+        "tipo": "select",
+        "n": "Mucus",
+        "rMin": 0,
+        "rMax": 0,
         "opciones": [
           "Escaso",
           "Regular",
           "Abundante"
-        ],
-        "u": "",
-        "rMax": 0,
-        "rMin": 0,
-        "tipo": "select",
-        "n": "Mucus"
+        ]
       },
       {
         "u": "/campo",
-        "rMin": 0,
         "rMax": 2,
+        "rMin": 0,
         "n": "Cilindros hialinos"
       },
       {
-        "rMax": 0,
-        "u": "/campo",
-        "tipo": "numero",
-        "rMin": 0,
+        "n": "Cilindros granulosos",
         "opciones": [
           "Ausentes",
           "Escasos",
           "Moderados",
           "Abundantes"
         ],
-        "n": "Cilindros granulosos"
+        "rMin": 0,
+        "u": "/campo",
+        "rMax": 0,
+        "tipo": "numero"
       },
       {
-        "rMax": 0,
+        "rMin": 0,
         "n": "Cristales de oxalato de calcio",
-        "rMin": 0,
-        "tipo": "select",
         "opciones": [
           "Escasos",
           "Regular",
           "Abundantes"
         ],
-        "u": ""
-      },
-      {
-        "tipo": "select",
-        "rMin": 0,
-        "u": "",
         "rMax": 0,
-        "opciones": [
-          "Escasos",
-          "Regular",
-          "Abundantes"
-        ],
-        "n": "Cristales de ácido úrico"
-      },
-      {
         "u": "",
-        "rMin": 0,
-        "tipo": "select",
-        "n": "Cristales de fosfato triple",
-        "rMax": 0,
-        "opciones": [
-          "Escasos",
-          "Regular",
-          "Abundantes"
-        ]
-      },
-      {
-        "tipo": "select",
-        "rMin": 0,
-        "u": "",
-        "rMax": 0,
-        "opciones": [
-          "Escasos",
-          "Regular",
-          "Abundantes"
-        ],
-        "n": "Cristales de Uratos amorfo"
-      },
-      {
-        "n": "Cristales de Fosfatos amorfos",
-        "rMax": 0,
-        "opciones": [],
-        "u": "",
-        "rMin": 0,
         "tipo": "select"
       },
       {
-        "n": "Observacion",
-        "rMin": 0,
-        "tipo": "textarea",
+        "tipo": "select",
         "u": "",
-        "rMax": 0
-      }
-    ],
-    "id": "orina",
-    "tipo": "orina"
-  },
-  {
-    "parametros": [
-      {
-        "rMin": 6,
-        "rMax": 8.3,
-        "n": "Proteínas totales",
-        "u": "g/dl"
+        "opciones": [
+          "Escasos",
+          "Regular",
+          "Abundantes"
+        ],
+        "rMax": 0,
+        "n": "Cristales de ácido úrico",
+        "rMin": 0
       },
       {
-        "rMin": 3.5,
-        "rMax": 5,
-        "u": "g/dl",
-        "n": "Albúmina"
-      },
-      {
-        "rMin": 2,
-        "rMax": 3.5,
-        "n": "Globulinas",
-        "u": "g/dl"
-      }
-    ],
-    "nombre": "Proteínas séricas",
-    "id": "proteinas"
-  },
-  {
-    "parametros": [
-      {
-        "n": "PSA total",
-        "rMax": "",
+        "u": "",
         "rMin": 0,
-        "u": "ng/ml",
-        "refTexto": "< 50 años hasta 1.45 ng/ml //50-60 años hasta 3.25 ng/ml // 60-70 años hasta 4.38 ng/ml // > 70 años hasta 6.56 ng/ml"
+        "n": "Cristales de fosfato triple",
+        "opciones": [
+          "Escasos",
+          "Regular",
+          "Abundantes"
+        ],
+        "rMax": 0,
+        "tipo": "select"
       },
       {
+        "n": "Cristales de Uratos amorfo",
+        "rMax": 0,
+        "u": "",
         "rMin": 0,
-        "n": "PSA libre",
-        "refTexto": "<50 años hasta 0.39 ng/ml //50-60 años hasta 0.64 ng/ml // 60-70 años hasta 0.95 ng/ml //> 70 años hasta 1.59 ng/ml",
-        "rMax": "",
-        "u": "ng/ml"
+        "opciones": [
+          "Escasos",
+          "Regular",
+          "Abundantes"
+        ],
+        "tipo": "select"
+      },
+      {
+        "rMax": 0,
+        "rMin": 0,
+        "opciones": [],
+        "u": "",
+        "n": "Cristales de Fosfatos amorfos",
+        "tipo": "select"
       },
       {
         "rMax": 0,
         "u": "",
-        "refTexto": "< 0.12 sugiere CA de próstata",
         "rMin": 0,
-        "tipo": "numero",
-        "n": "Relación PSAL/PSAT"
+        "n": "Observacion",
+        "tipo": "textarea"
       }
     ],
-    "id": "psa",
-    "nombre": "PSA (Antígeno prostático)"
+    "id": "orina"
   },
   {
+    "nombre": "Proteínas séricas",
     "parametros": [
       {
-        "n": "Creatinina",
+        "u": "g/dl",
+        "rMax": 8.3,
+        "n": "Proteínas totales",
+        "rMin": 6
+      },
+      {
+        "n": "Albúmina",
+        "rMin": 3.5,
+        "u": "g/dl",
+        "rMax": 5
+      },
+      {
+        "rMin": 2,
+        "u": "g/dl",
+        "n": "Globulinas",
+        "rMax": 3.5
+      }
+    ],
+    "id": "proteinas"
+  },
+  {
+    "nombre": "PSA (Antígeno prostático)",
+    "parametros": [
+      {
+        "refTexto": "< 50 años hasta 1.45 ng/ml //50-60 años hasta 3.25 ng/ml // 60-70 años hasta 4.38 ng/ml // > 70 años hasta 6.56 ng/ml",
+        "u": "ng/ml",
+        "n": "PSA total",
+        "rMin": 0,
+        "rMax": ""
+      },
+      {
+        "u": "ng/ml",
+        "refTexto": "<50 años hasta 0.39 ng/ml //50-60 años hasta 0.64 ng/ml // 60-70 años hasta 0.95 ng/ml //> 70 años hasta 1.59 ng/ml",
+        "rMin": 0,
+        "n": "PSA libre",
+        "rMax": ""
+      },
+      {
+        "u": "",
+        "rMin": 0,
+        "n": "Relación PSAL/PSAT",
+        "rMax": 0,
+        "refTexto": "< 0.12 sugiere CA de próstata",
+        "tipo": "numero"
+      }
+    ],
+    "id": "psa"
+  },
+  {
+    "id": "renal",
+    "nombre": "Función renal",
+    "parametros": [
+      {
+        "rMin": 0.6,
         "u": "mg/dl",
         "rMax": 1.2,
-        "rMin": 0.6
+        "n": "Creatinina"
       },
       {
-        "rMax": 45,
+        "u": "mg/dl",
         "rMin": 15,
         "n": "Urea",
-        "u": "mg/dl"
+        "rMax": 45
       },
       {
-        "n": "Ácido úrico",
-        "rMax": 7,
         "rMin": 2.4,
-        "u": "mg/dl"
+        "u": "mg/dl",
+        "rMax": 7,
+        "n": "Ácido úrico"
       },
       {
-        "u": "ml/min",
-        "n": "TFG estimada",
         "rMin": 60,
-        "rMax": 999
+        "n": "TFG estimada",
+        "rMax": 999,
+        "u": "ml/min"
       }
-    ],
-    "id": "renal",
-    "nombre": "Función renal"
+    ]
   },
   {
-    "nombre": "Tiroides",
+    "id": "tiro",
     "parametros": [
       {
-        "rMax": "",
         "refTexto": "Rango eutiroideo del método: 0.27-4.20 uUI/ml  //  Rango eut.empirico: 0.27-3.00 uUI/ml  //  Niños 1-12 meses 1.70 - 9.10 uUI/ml // 1-10 años 0.70 - 5.70 uUI/ml",
+        "rMax": "",
         "n": "Dosaje de Tirotrofina ultrasensible TSH",
         "rMin": "",
         "u": "µUI/ml"
       },
       {
-        "rMax": 0,
-        "u": "ug/dl",
         "refTexto": " NIÑOS 4.70 - 14.10 ug/dl //  ADULTOS 4.50 - 12.50 ug/dl",
         "rMin": 0,
+        "rMax": 0,
         "tipo": "numero",
+        "u": "ug/dl",
         "n": "Dosaje de tiroxina - T4 Total"
       },
       {
-        "rMax": "",
         "n": "Dosaje de tiroxina libre - T4 libre",
-        "rMin": "",
         "refTexto": "0.70 - 1.80 ng/dl",
+        "u": "ng/dl",
+        "rMin": "",
+        "rMax": ""
+      },
+      {
+        "refTexto": "Adulto 60-200 ng/dl // < 12 años 60-240 ng/dl",
+        "rMin": "0",
+        "n": "Dosaje de Triyodotironina  -  T3 Total",
+        "rMax": "0",
         "u": "ng/dl"
       },
       {
-        "rMax": "0",
-        "refTexto": "Adulto 60-200 ng/dl // < 12 años 60-240 ng/dl",
-        "u": "ng/dl",
-        "rMin": "0",
-        "n": "Dosaje de Triyodotironina  -  T3 Total"
-      },
-      {
-        "n": "Dosaje de Triyodotironina libre -T3 libre",
-        "rMin": 0,
-        "tipo": "numero",
         "refTexto": "2.7 -  5.20  pg/ml",
+        "tipo": "numero",
+        "n": "Dosaje de Triyodotironina libre -T3 libre",
+        "rMax": 0,
         "u": "pg/dl",
-        "rMax": 0
+        "rMin": 0
       },
       {
-        "refTexto": "HASTA 34.0 UI/ml",
-        "tipo": "numero",
-        "rMin": 0,
+        "rMax": 0,
         "n": "ATPO (Detección de anticuerpos antiperoxidasa tiroidea) ",
         "u": "UI/ml",
-        "rMax": 0
+        "rMin": 0,
+        "refTexto": "HASTA 34.0 UI/ml",
+        "tipo": "numero"
       },
       {
-        "u": "UI/L",
+        "rMax": 0,
         "rMin": 0,
         "refTexto": "hasta 1.48 UI/L",
-        "tipo": "numero",
         "n": "Receptor para Tirotrofina -Ac -(TRAb)",
-        "rMax": 0
+        "tipo": "numero",
+        "u": "UI/L"
       }
     ],
-    "id": "tiro"
+    "nombre": "Tiroides"
   },
   {
+    "id": "quim_plaquetas",
     "parametros": [
       {
-        "rMax": "450.000",
-        "u": "/ul",
-        "tipo": "numero",
         "rMin": "150.000",
-        "n": "Resultado"
+        "rMax": "450.000",
+        "tipo": "numero",
+        "n": "Resultado",
+        "u": "/ul"
       },
       {
         "placeholder": "Conteo automatizado",
-        "n": "Método",
         "rMin": 0,
-        "tipo": "texto",
         "rMax": 0,
+        "tipo": "texto",
+        "n": "Método",
         "u": ""
       }
     ],
-    "nombre": "Recuento de Plaquetas",
-    "id": "quim_plaquetas"
+    "nombre": "Recuento de Plaquetas"
   },
   {
-    "id": "quim_eritrosedimentacion",
     "parametros": [
       {
-        "n": "Resultado",
         "rMin": 0,
-        "tipo": "numero",
         "rMax": 20,
-        "u": "mm"
-      },
-      {
-        "n": "Método",
-        "placeholder": "Gravidimétrico",
-        "rMax": 0,
-        "u": "",
-        "rMin": 0,
-        "tipo": "texto"
-      }
-    ],
-    "nombre": "Eritrosedimentación 1 hora (VSG)"
-  },
-  {
-    "id": "quim_glucosa_basal",
-    "parametros": [
-      {
-        "rMax": "",
-        "u": "mg/dl",
         "tipo": "numero",
-        "rMin": "",
-        "refTexto": " Adultos 74 - 106 mg/dl // Niños 60 - 100 mg/dl",
+        "u": "mm",
         "n": "Resultado"
       },
       {
-        "placeholder": "Enzimático AA",
-        "u": "",
-        "tipo": "texto",
-        "rMin": 0,
-        "n": "Método",
-        "rMax": 0
-      }
-    ],
-    "nombre": "Dosaje de Glucosa Basal"
-  },
-  {
-    "nombre": "Dosaje de Hemoglobina Glicosilada A1c",
-    "id": "quim_hba1c",
-    "parametros": [
-      {
-        "rMax": "",
-        "n": "Resultado",
-        "tipo": "numero",
-        "rMin": "",
-        "u": "%",
-        "refTexto": "4.50 - 6.50 %"
-      },
-      {
-        "n": "Método",
-        "placeholder": "Quimioluminiscencia",
         "rMax": 0,
+        "n": "Método",
+        "placeholder": "Gravidimétrico",
         "rMin": 0,
         "u": "",
         "tipo": "texto"
       }
-    ]
+    ],
+    "nombre": "Eritrosedimentación 1 hora (VSG)",
+    "id": "quim_eritrosedimentacion"
+  },
+  {
+    "parametros": [
+      {
+        "refTexto": " Adultos 74 - 106 mg/dl // Niños 60 - 100 mg/dl",
+        "rMax": "",
+        "rMin": "",
+        "u": "mg/dl",
+        "n": "Resultado",
+        "tipo": "numero"
+      },
+      {
+        "rMax": 0,
+        "placeholder": "Enzimático AA",
+        "rMin": 0,
+        "n": "Método",
+        "tipo": "texto",
+        "u": ""
+      }
+    ],
+    "nombre": "Dosaje de Glucosa Basal",
+    "id": "quim_glucosa_basal"
   },
   {
     "parametros": [
       {
         "tipo": "numero",
-        "rMin": "",
-        "u": "mg/dl",
-        "rMax": "",
         "n": "Resultado",
+        "refTexto": "4.50 - 6.50 %",
+        "u": "%",
+        "rMin": "",
+        "rMax": ""
+      },
+      {
+        "n": "Método",
+        "tipo": "texto",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0,
+        "placeholder": "Quimioluminiscencia"
+      }
+    ],
+    "nombre": "Dosaje de Hemoglobina Glicosilada A1c",
+    "id": "quim_hba1c"
+  },
+  {
+    "parametros": [
+      {
+        "tipo": "numero",
+        "n": "Resultado",
+        "u": "mg/dl",
+        "rMin": "",
+        "rMax": "",
         "refTexto": "15 a 50 mg/dl"
       }
     ],
-    "id": "quim_urea",
-    "nombre": "Dosaje de Urea"
+    "nombre": "Dosaje de Urea",
+    "id": "quim_urea"
   },
   {
     "id": "quim_creatinina",
     "parametros": [
       {
-        "u": "mg/dl",
-        "rMin": "",
-        "tipo": "numero",
         "n": "Resultado",
+        "u": "mg/dl",
+        "tipo": "numero",
+        "rMax": "",
         "refTexto": "Adultos: 0.80 - 1.40 mg/dl // Niños: 0.57 - 0.87 mg/dl",
-        "rMax": ""
+        "rMin": ""
       }
     ],
     "nombre": "Dosaje de Creatinina"
   },
   {
-    "id": "quim_bilirrubina",
     "nombre": "Dosaje de Bilirrubina Total y Fraccionada",
+    "id": "quim_bilirrubina",
     "parametros": [
       {
-        "u": "mg/dl",
-        "rMin": 0,
         "tipo": "numero",
-        "rMax": 1.1,
-        "n": "Bilirrubina Total"
+        "rMin": 0,
+        "u": "mg/dl",
+        "n": "Bilirrubina Total",
+        "rMax": 1.1
       },
       {
-        "tipo": "numero",
-        "rMin": 0,
-        "u": "mg/dl",
         "rMax": 0.2,
-        "n": "Bilirrubina Directa"
-      },
-      {
-        "n": "Bilirrubina Indirecta",
-        "rMax": 0.8,
-        "u": "mg/dl",
+        "n": "Bilirrubina Directa",
         "rMin": 0,
+        "u": "mg/dl",
         "tipo": "numero"
       },
       {
-        "tipo": "texto",
+        "rMin": 0,
+        "n": "Bilirrubina Indirecta",
+        "rMax": 0.8,
+        "u": "mg/dl",
+        "tipo": "numero"
+      },
+      {
         "rMin": 0,
         "n": "Método",
-        "placeholder": "Colorimétrico",
+        "rMax": 0,
         "u": "",
-        "rMax": 0
+        "tipo": "texto",
+        "placeholder": "Colorimétrico"
       }
     ]
   },
   {
+    "id": "quim_tiempo_protrombina",
     "nombre": "Tiempo de Protrombina",
     "parametros": [
       {
+        "rMin": 12,
         "u": "Segundos",
         "rMax": 15,
         "n": "Tiempo de Protrombina",
-        "tipo": "numero",
-        "rMin": 12
+        "tipo": "numero"
       },
       {
-        "rMax": 100,
+        "tipo": "numero",
+        "u": "%",
         "n": "Actividad",
-        "tipo": "numero",
         "rMin": 70,
-        "u": "%"
+        "rMax": 100
       },
       {
-        "n": "RIN (Razón Internacional Normatizada)",
         "rMin": "2",
+        "rMax": "4",
         "tipo": "numero",
-        "u": "",
-        "rMax": "4"
+        "n": "RIN (Razón Internacional Normatizada)",
+        "u": ""
       }
-    ],
-    "id": "quim_tiempo_protrombina"
+    ]
   },
   {
+    "nombre": "K.P.T.T. (Tiempo Parcial de Tromboplastina)",
     "parametros": [
       {
-        "tipo": "numero",
-        "rMin": 34,
-        "u": "Segundos",
         "n": "Resultado",
-        "rMax": 45
+        "tipo": "numero",
+        "u": "Segundos",
+        "rMax": 45,
+        "rMin": 34
       },
       {
-        "rMax": 0,
+        "tipo": "texto",
         "n": "Método",
+        "rMax": 0,
         "rMin": 0,
         "u": "",
-        "tipo": "texto",
         "placeholder": "Ej: Tiempo Parcial de Tromboplastina"
       }
     ],
-    "nombre": "K.P.T.T. (Tiempo Parcial de Tromboplastina)",
     "id": "quim_kptt"
   },
   {
-    "id": "quim_pcr",
     "parametros": [
       {
-        "opciones": [],
         "n": "Resultado",
-        "rMax": 0,
-        "refTexto": "Valores de consideración mayores a 6 mg/l",
-        "valorDefecto": "Valores de consideración mayores a 60 mg/l",
+        "opciones": [],
+        "tipo": "numero",
         "u": "mg/l",
+        "refTexto": "Valores de consideración mayores a 6 mg/l",
         "rMin": 0,
-        "tipo": "numero"
+        "valorDefecto": "Valores de consideración mayores a 60 mg/l",
+        "rMax": 0
       }
     ],
+    "id": "quim_pcr",
     "nombre": "Dosaje de Proteína C Reactiva (PCR)"
   },
   {
-    "id": "quim_antistreptolisina",
     "nombre": "Detección de Antiestreptolisina O",
+    "id": "quim_antistreptolisina",
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": 200,
         "u": "UI",
         "rMin": 0,
+        "n": "Resultado",
+        "rMax": 200,
         "tipo": "numero",
         "refTexto": "Recomendado hasta 200 UI"
       }
@@ -2061,516 +2062,530 @@ const DEFAULT_ANALISIS = [
   {
     "parametros": [
       {
+        "n": "Resultado",
+        "rMax": "",
+        "rMin": "",
         "u": "uUI/ml",
         "refTexto": " 2.6 - 24.9 uUI/ml  //   RECOMENDADO 2.6 - 15.0 uUI/ml",
-        "tipo": "numero",
-        "rMin": "",
-        "n": "Resultado",
-        "rMax": ""
+        "tipo": "numero"
       }
     ],
     "nombre": "Dosaje de Insulina",
     "id": "quim_insulina"
   },
   {
+    "id": "quim_homa",
     "parametros": [
       {
-        "n": "Resultado",
-        "tipo": "numero",
-        "rMin": 0,
-        "refTexto": "ADULTOS mayor a 15 años < 2,64 //SUGIERE Insulino Resistencia >2,64 // NIÑOS menores a  15A < 3.20",
         "u": "",
+        "tipo": "numero",
+        "refTexto": "ADULTOS mayor a 15 años < 2,64 //SUGIERE Insulino Resistencia >2,64 // NIÑOS menores a  15A < 3.20",
+        "n": "Resultado",
+        "rMin": 0,
         "rMax": 2.7
       }
     ],
-    "id": "quim_homa",
     "nombre": "Índice de Insulino Resistencia (HOMA)"
   },
   {
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": "",
         "rMin": 0,
-        "refTexto": "Riesgo bajo ( deseable) menor a 180 mg/dl",
+        "rMax": "",
+        "n": "Resultado",
         "tipo": "numero",
+        "refTexto": "Riesgo bajo ( deseable) menor a 180 mg/dl",
         "u": "mg/dl"
       },
       {
-        "n": "HDL",
         "rMax": 0,
         "refTexto": "R. bajo ECV > 65 mg/dl // R.mod ECV 45-65 mg/dl // R. elevado ECV < 45 mg/dl ",
-        "tipo": "numero",
         "rMin": 0,
-        "u": "mg/dl"
+        "u": "mg/dl",
+        "tipo": "numero",
+        "n": "HDL"
       },
       {
-        "refTexto": "R. bajo ECV < 120 mg/dl // R. moderado ECV 129-149 MG/DL // R. alto ECV >149 mg/dl",
         "rMin": 0,
-        "tipo": "numero",
-        "n": "LDL",
+        "refTexto": "R. bajo ECV < 120 mg/dl // R. moderado ECV 129-149 MG/DL // R. alto ECV >149 mg/dl",
+        "rMax": 0,
         "u": "mg/dl",
-        "rMax": 0
+        "tipo": "numero",
+        "n": "LDL"
       }
     ],
     "id": "quim_colesterol",
     "nombre": "Dosaje de Colesterol"
   },
   {
+    "id": "quim_trigliceridos",
     "parametros": [
       {
-        "rMax": 190,
-        "u": "mg/dl",
         "rMin": 0,
+        "u": "mg/dl",
+        "rMax": 190,
+        "n": "Resultado",
         "tipo": "numero",
-        "refTexto": "Valor Normal",
-        "n": "Resultado"
+        "refTexto": "Valor Normal"
       },
       {
-        "n": "Método",
+        "rMax": 0,
         "rMin": 0,
-        "tipo": "texto",
+        "n": "Método",
         "placeholder": "Ej: Cinético UV 37°C",
         "u": "",
-        "rMax": 0
+        "tipo": "texto"
       }
     ],
-    "id": "quim_trigliceridos",
     "nombre": "Dosaje de Triglicéridos"
   },
   {
     "parametros": [
       {
-        "rMax": 42,
-        "n": "Resultado",
-        "tipo": "numero",
         "rMin": 10,
-        "u": "UI/L"
+        "rMax": 42,
+        "tipo": "numero",
+        "u": "UI/L",
+        "n": "Resultado"
       },
       {
-        "rMin": 0,
         "tipo": "texto",
         "n": "Método",
-        "rMax": 0,
         "u": "",
-        "placeholder": "Cinético UV 37°C"
+        "rMin": 0,
+        "placeholder": "Cinético UV 37°C",
+        "rMax": 0
       }
     ],
-    "id": "quim_got",
-    "nombre": "Dosaje de G.O.T. (Transaminasa G.Oxalacético)"
+    "nombre": "Dosaje de G.O.T. (Transaminasa G.Oxalacético)",
+    "id": "quim_got"
   },
   {
+    "nombre": "Dosaje de Amilasa",
     "id": "quim_amilasa",
     "parametros": [
       {
         "tipo": "numero",
-        "rMin": 25,
-        "u": "UI/L",
         "rMax": 125,
-        "n": "Resultado"
+        "u": "UI/L",
+        "n": "Resultado",
+        "rMin": 25
+      },
+      {
+        "tipo": "texto",
+        "n": "Método",
+        "placeholder": "Cinético UV 37°C",
+        "u": "",
+        "rMin": 0,
+        "rMax": 0
+      }
+    ]
+  },
+  {
+    "parametros": [
+      {
+        "n": "Resultado",
+        "rMax": "",
+        "u": "UI/L",
+        "rMin": "",
+        "tipo": "numero",
+        "refTexto": "24 - 195 UI/L"
       },
       {
         "placeholder": "Cinético UV 37°C",
-        "n": "Método",
         "rMax": 0,
-        "u": "",
         "rMin": 0,
+        "u": "",
+        "n": "Método",
         "tipo": "texto"
       }
     ],
-    "nombre": "Dosaje de Amilasa"
-  },
-  {
-    "id": "quim_cpk",
     "nombre": "Dosaje de C.P.K. Total (Creatininfosfokinasa Total)",
-    "parametros": [
-      {
-        "rMax": "",
-        "u": "UI/L",
-        "refTexto": "24 - 195 UI/L",
-        "tipo": "numero",
-        "rMin": "",
-        "n": "Resultado"
-      },
-      {
-        "rMax": 0,
-        "u": "",
-        "placeholder": "Cinético UV 37°C",
-        "tipo": "texto",
-        "rMin": 0,
-        "n": "Método"
-      }
-    ]
+    "id": "quim_cpk"
   },
   {
     "id": "quim_ldh",
-    "nombre": "Dosaje de L.D.H. (Lactato Deshidrogenasa)",
     "parametros": [
       {
-        "refTexto": "240 - 480 UI/L",
-        "n": "Resultado",
-        "rMax": "",
+        "rMin": "",
         "u": "UI/L",
+        "rMax": "",
+        "n": "Resultado",
         "tipo": "numero",
-        "rMin": ""
-      }
-    ]
-  },
-  {
-    "parametros": [
-      {
-        "u": "U/L",
-        "rMax": 11500,
-        "rMin": 3100,
-        "n": "Resultado"
+        "refTexto": "240 - 480 UI/L"
       }
     ],
-    "nombre": "Colinesterasa Sérica",
-    "id": "custom_1779211840614"
+    "nombre": "Dosaje de L.D.H. (Lactato Deshidrogenasa)"
   },
   {
-    "id": "custom_1779213948631",
     "parametros": [
       {
+        "rMin": 3100,
+        "n": "Resultado",
+        "rMax": 11500,
+        "u": "U/L"
+      }
+    ],
+    "id": "custom_1779211840614",
+    "nombre": "Colinesterasa Sérica"
+  },
+  {
+    "parametros": [
+      {
+        "n": "Resultado",
         "rMin": 3.5,
         "rMax": 5,
-        "n": "Resultado",
         "u": "g/dl"
       }
     ],
+    "id": "custom_1779213948631",
     "nombre": "Albúmina Sérica"
   },
   {
-    "nombre": "Acido Úrico",
     "parametros": [
       {
-        "rMin": 0,
         "u": "mg/dl",
-        "refTexto": "Hombres: 3.4 a 7.0 mg/dl  //  Mujeres: 2.4 a 6.0 mg/dl  //  Niños: 2.0 a 5.5 mg/dl ",
         "n": "Resultado",
-        "rMax": 0
+        "refTexto": "Hombres: 3.4 a 7.0 mg/dl  //  Mujeres: 2.4 a 6.0 mg/dl  //  Niños: 2.0 a 5.5 mg/dl ",
+        "rMax": 0,
+        "rMin": 0
       }
     ],
+    "nombre": "Acido Úrico",
     "id": "custom_1779218045497"
   },
   {
-    "id": "custom_1779218494032",
-    "nombre": "Vitamina D (25 - OH)",
     "parametros": [
       {
-        "u": "ng/ml",
+        "rMax": "0",
         "refTexto": "Mujeres 21.6 - 54.0 ng/ml // Hombres 19.4 - 48.5 ng/ml // < 20.0 ng/ml  Déficit  // 20.0 - 30.0 ng/ml  Insuficiencia // 31.0 - 100.0 ng/ml  Suficiencia // > 100.0 ng/ml Toxicidad ",
         "rMin": "0",
-        "rMax": "0",
-        "n": "Resultado"
+        "n": "Resultado",
+        "u": "ng/ml"
+      }
+    ],
+    "id": "custom_1779218494032",
+    "nombre": "Vitamina D (25 - OH)"
+  },
+  {
+    "nombre": "Calcemia ( Método EFM )",
+    "id": "custom_1779218760719",
+    "parametros": [
+      {
+        "rMin": "0",
+        "refTexto": "Hasta 1 meses 7.6 - 10.4 mg/dl // 1 - 24 meses 8.7 - 9.8 mg/dl // 2- 13 años 8.8 - 10.6 mg/dl // 13 - 15 años 9.2 - 10.7 mg/dl // Adulto 8.5 - 10.5 mg/dl ",
+        "n": "Resultado",
+        "u": "mg/dl",
+        "rMax": "0"
       }
     ]
   },
   {
-    "parametros": [
-      {
-        "u": "mg/dl",
-        "rMin": "0",
-        "refTexto": "Hasta 1 meses 7.6 - 10.4 mg/dl // 1 - 24 meses 8.7 - 9.8 mg/dl // 2- 13 años 8.8 - 10.6 mg/dl // 13 - 15 años 9.2 - 10.7 mg/dl // Adulto 8.5 - 10.5 mg/dl ",
-        "rMax": "0",
-        "n": "Resultado"
-      }
-    ],
-    "id": "custom_1779218760719",
-    "nombre": "Calcemia ( Método EFM )"
-  },
-  {
-    "id": "custom_1779219008163",
     "nombre": "Proteinograma",
     "parametros": [
       {
         "u": "g/dl",
-        "rMax": 0,
+        "tipo": "numero",
         "refTexto": "NEONATOS 4.50 - 5.60 G/DL 1-12A 5.00 - 8.00 G/DL >12A 6.00 - 8,20 G/DL",
         "n": "Proteína totales",
-        "tipo": "numero",
-        "rMin": 0
+        "rMin": 0,
+        "rMax": 0
       },
       {
-        "u": "g/dl",
-        "rMax": 68,
         "n": "Albumina abs",
+        "rMax": 68,
         "refTexto": "NEONATOS 2.80 - 4.20 G/DL 1-12A 3.30 - 5.50 G/DL >12A 3,00 - 5.00 G/DL",
+        "u": "g/dl",
         "rMin": 52
       },
       {
         "rMin": 0,
-        "tipo": "numero",
-        "u": "%",
+        "n": "Albumina %",
         "rMax": 0,
+        "u": "%",
         "refTexto": "NEONATOS 62.0- 75.0% 1-12A 66.0 - 69.0% >12A 50.0 - 62.0%",
-        "n": "Albumina %"
+        "tipo": "numero"
       },
       {
-        "refTexto": "NEONATOS; 1-12A Y >12A 0,10 - 0,30 G/DL",
-        "n": "Alfa 1 globulinas abs",
         "rMax": 5,
         "u": "g/dl",
-        "rMin": 2
+        "rMin": 2,
+        "n": "Alfa 1 globulinas abs",
+        "refTexto": "NEONATOS; 1-12A Y >12A 0,10 - 0,30 G/DL"
       },
       {
         "u": "%",
-        "tipo": "numero",
+        "rMax": 0,
+        "refTexto": "NEONATOS; 1-12A Y >12A 2.2 - 8.5%",
         "rMin": 0,
         "n": "Alfa 1 globulinas %",
-        "refTexto": "NEONATOS; 1-12A Y >12A 2.2 - 8.5%",
-        "rMax": 0
+        "tipo": "numero"
       },
       {
-        "refTexto": "NEONATOS 0.45 - 0.90 G/DL 1-12A 0.50 - 1.10 G/DL >12A 0,50 - 1,00 G/DL",
         "n": "Alfa 2 globulinas abs",
-        "rMin": 6.6,
         "u": "g/dl",
-        "rMax": 13.5
+        "rMax": 13.5,
+        "refTexto": "NEONATOS 0.45 - 0.90 G/DL 1-12A 0.50 - 1.10 G/DL >12A 0,50 - 1,00 G/DL",
+        "rMin": 6.6
       },
       {
-        "rMin": 0,
-        "tipo": "numero",
-        "u": "%",
-        "refTexto": "NEONATOS 10.0 - 16.1% 1-12A 10.0 - 14.0% >12A 8.0 - 12.2%",
+        "n": "Alfa 2 globulinas %",
         "rMax": 0,
-        "n": "Alfa 2 globulinas %"
+        "u": "%",
+        "rMin": 0,
+        "refTexto": "NEONATOS 10.0 - 16.1% 1-12A 10.0 - 14.0% >12A 8.0 - 12.2%",
+        "tipo": "numero"
       },
       {
         "rMin": 6,
-        "u": "g/dl",
         "rMax": 9.8,
-        "n": "Beta 1 globulinas abs",
-        "refTexto": "NEONATOS 0.35 - 0.70 G/DL >1A 0,50 - 1,00 G/DL"
+        "u": "g/dl",
+        "refTexto": "NEONATOS 0.35 - 0.70 G/DL >1A 0,50 - 1,00 G/DL",
+        "n": "Beta 1 globulinas abs"
       },
       {
-        "u": "%",
+        "n": "Beta 1 globulinas %",
         "tipo": "numero",
+        "u": "%",
         "refTexto": "NEONATOS 7.8 - 12,5 % >1A 8,5 - 12.5%",
         "rMin": 0,
-        "rMax": 0,
-        "n": "Beta 1 globulinas %"
+        "rMax": 0
       },
       {
         "rMin": 2.6,
-        "refTexto": "NEONATOS 0.10 - 0.48 G/DL >1A 0.14 - 0.50 G/DL",
-        "u": "g/dl",
         "rMax": 5.8,
+        "u": "g/dl",
+        "refTexto": "NEONATOS 0.10 - 0.48 G/DL >1A 0.14 - 0.50 G/DL",
         "n": "Beta 2 globulinas abs"
       },
       {
-        "u": "%",
         "tipo": "numero",
-        "rMin": 0,
         "refTexto": "NEONATOS 2.2 - 3.6% >1A 2.3 - 6.1%",
-        "rMax": 0,
-        "n": "Beta 2 globulinas %"
-      },
-      {
-        "u": "g/dl",
-        "refTexto": "NEONATOS 0.50 - 1.30 G/DL 1-12A 0.30 - 1.10 G/DL >12A 0,70 - 1,50 G/DL",
-        "rMin": 11,
-        "n": "Gamma globulinas abs",
-        "rMax": 21
-      },
-      {
-        "rMax": 0,
-        "n": "Gamma globulinas %",
         "rMin": 0,
+        "n": "Beta 2 globulinas %",
+        "u": "%",
+        "rMax": 0
+      },
+      {
+        "refTexto": "NEONATOS 0.50 - 1.30 G/DL 1-12A 0.30 - 1.10 G/DL >12A 0,70 - 1,50 G/DL",
+        "u": "g/dl",
+        "rMax": 21,
+        "n": "Gamma globulinas abs",
+        "rMin": 11
+      },
+      {
         "tipo": "numero",
+        "rMin": 0,
         "refTexto": "NEONATOS 11.1 - 23.2% 1-12A 6.0 - 14.0% >12A 12.0 - 20.0%",
+        "n": "Gamma globulinas %",
+        "rMax": 0,
         "u": "%"
       },
       {
-        "rMax": 0,
         "n": "Relación Alb/Glob",
-        "u": "",
-        "refTexto": "1.10 - 1.84 g/dl",
         "rMin": 0,
+        "u": "",
+        "rMax": 0,
+        "refTexto": "1.10 - 1.84 g/dl",
         "tipo": "numero"
       }
-    ]
+    ],
+    "id": "custom_1779219008163"
   },
   {
-    "id": "custom_1779323625485",
+    "nombre": "Fosfatemia (Dosaje de fosforo en plasma)",
     "parametros": [
       {
-        "refTexto": "Adulto 2.3 a 4.37 mg/dl  //  Niños 4.0 a 6.5 mg/dl",
-        "rMax": 0,
         "u": "mg/dl",
         "n": "Resultado",
-        "rMin": 0
+        "rMin": 0,
+        "refTexto": "Adulto 2.3 a 4.37 mg/dl  //  Niños 4.0 a 6.5 mg/dl",
+        "rMax": 0
       },
       {
-        "u": "",
-        "tipo": "texto",
-        "rMin": 0,
         "valorDefecto": "Colorimétrico",
+        "tipo": "texto",
         "rMax": 0,
-        "n": "Metodo"
+        "n": "Metodo",
+        "rMin": 0,
+        "u": ""
       }
     ],
-    "nombre": "Fosfatemia (Dosaje de fosforo en plasma)"
+    "id": "custom_1779323625485"
   },
   {
-    "id": "custom_1779323957195",
     "parametros": [
       {
         "n": "Resultado",
-        "u": "ug/dl",
         "rMin": "112",
-        "rMax": "346 ug/dl"
+        "rMax": "346 ug/dl",
+        "u": "ug/dl"
       },
       {
-        "u": "",
-        "valorDefecto": "Ferrozina III",
-        "tipo": "texto",
-        "rMin": 0,
         "n": "Metodo",
-        "rMax": 0
+        "u": "",
+        "tipo": "texto",
+        "rMax": 0,
+        "valorDefecto": "Ferrozina III",
+        "rMin": 0
       }
     ],
+    "id": "custom_1779323957195",
     "nombre": "Dosaje de Transferrina, capacidad disponible (UIBC)"
   },
   {
-    "id": "custom_1779324001979",
     "parametros": [
       {
         "u": "%",
         "rMax": 50,
-        "rMin": 20,
-        "n": "Resultado"
+        "n": "Resultado",
+        "rMin": 20
+      },
+      {
+        "valorDefecto": "Calculado",
+        "tipo": "texto",
+        "rMax": 0,
+        "n": "Metodo",
+        "rMin": 0,
+        "u": ""
+      }
+    ],
+    "nombre": "Saturación de transferrina",
+    "id": "custom_1779324001979"
+  },
+  {
+    "nombre": "Ferritina",
+    "parametros": [
+      {
+        "u": "ng/ml",
+        "rMin": "30.0",
+        "n": "Resultado",
+        "rMax": "150.0"
+      },
+      {
+        "n": "Metodo",
+        "tipo": "texto",
+        "u": "",
+        "rMax": 0,
+        "valorDefecto": "Quimioluminiscencia",
+        "rMin": 0
+      }
+    ],
+    "id": "custom_1779324030602"
+  },
+  {
+    "parametros": [
+      {
+        "rMax": "145",
+        "u": "ug/dl",
+        "n": "Resultado",
+        "rMin": "37"
       },
       {
         "rMax": 0,
-        "u": "",
-        "valorDefecto": "Calculado",
+        "valorDefecto": "Ferrozina III",
         "n": "Metodo",
         "rMin": 0,
+        "u": "",
         "tipo": "texto"
       }
     ],
-    "nombre": "Saturación de transferrina"
-  },
-  {
-    "id": "custom_1779324030602",
-    "parametros": [
-      {
-        "rMin": "30.0",
-        "rMax": "150.0",
-        "u": "ng/ml",
-        "n": "Resultado"
-      },
-      {
-        "rMax": 0,
-        "u": "",
-        "rMin": 0,
-        "tipo": "texto",
-        "valorDefecto": "Quimioluminiscencia",
-        "n": "Metodo"
-      }
-    ],
-    "nombre": "Ferritina"
-  },
-  {
     "nombre": "Ferremia",
-    "id": "custom_1779324048026",
-    "parametros": [
-      {
-        "rMin": "37",
-        "rMax": "145",
-        "n": "Resultado",
-        "u": "ug/dl"
-      },
-      {
-        "valorDefecto": "Ferrozina III",
-        "u": "",
-        "tipo": "texto",
-        "rMin": 0,
-        "n": "Metodo",
-        "rMax": 0
-      }
-    ]
+    "id": "custom_1779324048026"
   },
   {
-    "nombre": "TBIC (capacidad total de fijación de hierro)",
     "parametros": [
       {
-        "rMin": "228",
         "rMax": "428",
-        "u": "ug/dl",
-        "n": "Resultado"
+        "n": "Resultado",
+        "rMin": "228",
+        "u": "ug/dl"
       }
     ],
+    "nombre": "TBIC (capacidad total de fijación de hierro)",
     "id": "custom_1779324326329"
   },
   {
+    "id": "urocultivo",
+    "nombre": "Urocultivo completo",
+    "tipo": "cultivo",
     "parametros": [
       {
         "n": "GRAM",
+        "placeholder": "Especificar si corresponde",
+        "rMin": 0,
         "rMax": 0,
+        "u": "",
+        "tipo": "texto",
         "opciones": [
           "",
           "Opción 2"
-        ],
-        "u": "",
-        "rMin": 0,
-        "tipo": "texto",
-        "placeholder": "Especificar si corresponde"
+        ]
       },
       {
-        "u": "",
         "rMax": 0,
-        "n": "CULTIVO",
-        "tipo": "texto",
         "opciones": [
           "Ausente",
           "Escaso",
           "Moderado",
           "Abundante"
         ],
-        "rMin": 0
+        "rMin": 0,
+        "n": "CULTIVO",
+        "u": "",
+        "tipo": "texto"
       },
       {
+        "rMin": "",
+        "rMax": "",
+        "u": "UFC",
+        "tipo": "select",
+        "n": "RECUENTO DE COLINAS",
         "opciones": [
           "> 50.000 UFC",
           "> 100.000 UFC"
-        ],
-        "rMin": "",
-        "tipo": "select",
-        "u": "UFC",
-        "rMax": "",
-        "n": "RECUENTO DE COLINAS"
+        ]
       },
       {
-        "u": "",
-        "rMin": 0,
-        "tipo": "seccion",
         "label": "ANTIBIOGRAMA",
+        "tipo": "seccion",
         "opciones": [
           "Sensible",
           "Resistente"
         ],
         "rMax": 0,
-        "n": "ANTIBIOGRAMA"
-      },
-      {
-        "rMin": 0,
-        "tipo": "select",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ],
-        "n": "NORFLOXACINA (NOR)",
-        "rMax": 0,
-        "u": ""
+        "n": "ANTIBIOGRAMA",
+        "u": "",
+        "rMin": 0
       },
       {
         "u": "",
-        "rMin": 0,
-        "tipo": "select",
-        "n": "NITROFURANTOINA (FT)",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ],
         "rMax": 0,
+        "rMin": 0,
+        "n": "NORFLOXACINA (NOR)",
+        "tipo": "select"
+      },
+      {
+        "tipo": "select",
+        "u": "",
+        "opciones": [
+          "Sensible",
+          "Resistente"
+        ],
+        "n": "NITROFURANTOINA (FT)",
+        "rMin": 0,
+        "rMax": 0
+      },
+      {
+        "rMax": 0,
+        "rMin": 0,
+        "u": "",
+        "n": "AMOXI + ACIDO CLAVULANICO (AMC)",
+        "tipo": "select",
         "opciones": [
           "Sensible",
           "Resistente"
@@ -2578,154 +2593,140 @@ const DEFAULT_ANALISIS = [
       },
       {
         "u": "",
-        "tipo": "select",
         "opciones": [
           "Sensible",
           "Resistente"
         ],
-        "rMin": 0,
-        "n": "AMOXI + ACIDO CLAVULANICO (AMC)",
-        "rMax": 0
-      },
-      {
-        "rMin": 0,
         "tipo": "select",
-        "u": "",
-        "opciones": [
-          "Sensible",
-          "Resistente"
-        ],
         "n": "TRIMETRO/SULFA (STX)",
-        "rMax": 0
+        "rMax": 0,
+        "rMin": 0
       },
       {
+        "tipo": "select",
         "n": "GENTAMICINA (GM)",
         "opciones": [
           "Sensible",
           "Resistente"
         ],
-        "rMax": 0,
-        "tipo": "select",
+        "u": "",
         "rMin": 0,
-        "u": ""
+        "rMax": 0
       },
       {
-        "tipo": "select",
-        "rMin": 0,
-        "n": "CEFALOTINA (CF)",
+        "rMax": 0,
         "opciones": [
           "Sensible",
           "Resistente"
         ],
-        "rMax": 0,
+        "rMin": 0,
+        "n": "CEFALOTINA (CF)",
+        "tipo": "select",
         "u": ""
       },
       {
         "rMax": 0,
-        "u": "",
-        "n": "CEFOTAXIMA (CTX)",
-        "tipo": "select",
         "rMin": 0,
         "opciones": [
           "Sensible",
           "Resistente"
-        ]
+        ],
+        "u": "",
+        "tipo": "select",
+        "n": "CEFOTAXIMA (CTX)"
       },
       {
-        "opciones": [],
-        "n": "CEFUROXIMA (CXM)",
-        "tipo": "texto",
-        "rMin": 0,
+        "rMax": 0,
         "u": "",
-        "rMax": 0
+        "n": "CEFUROXIMA (CXM)",
+        "rMin": 0,
+        "opciones": [],
+        "tipo": "texto"
       }
-    ],
-    "id": "urocultivo",
-    "nombre": "Urocultivo completo",
-    "tipo": "cultivo"
+    ]
   },
   {
+    "nombre": "Proteinuria",
     "id": "custom_1779326626877",
     "parametros": [
       {
-        "u": "mg/24h",
-        "rMax": 0,
+        "refTexto": "HASTA 150 MG/24H",
         "n": "Proteinuria (24h)",
+        "u": "mg/24h",
         "rMin": 0,
-        "refTexto": "HASTA 150 MG/24H"
+        "rMax": 0
       },
       {
         "n": "Proteinuria (AL.) Presencia de Proteína en orina causada por la amiloidosis.",
-        "rMin": 0,
         "rMax": 0,
-        "u": "mg/l"
+        "u": "mg/l",
+        "rMin": 0
       },
       {
         "n": "Volumen",
-        "rMin": 0,
+        "rMax": 0,
         "u": "ml",
-        "rMax": 0
+        "rMin": 0
       }
-    ],
-    "nombre": "Proteinuria"
+    ]
   },
   {
     "id": "custom_1779326800067",
-    "nombre": "Clearence de Creatinina",
     "parametros": [
       {
-        "rMax": 0,
+        "u": "",
+        "refTexto": "12 a 50 Años 18.5 - 25.0 mg/kg/dia  // Mayor de 50 años 17.7 - 20.2 mg/kg/dia",
         "n": "COEFICIENTE DE EXCRECION CR (Mide la cantidad de desecho metabólico que el cuerpo libera en 24h) ",
         "rMin": 0,
-        "u": "",
-        "refTexto": "12 a 50 Años 18.5 - 25.0 mg/kg/dia  // Mayor de 50 años 17.7 - 20.2 mg/kg/dia"
+        "rMax": 0
       },
       {
+        "u": "min",
+        "rMax": 0,
+        "rMin": 0,
         "n": "Tiempo de recolección ",
         "refTexto": "",
-        "tipo": "numero",
-        "rMin": 0,
-        "u": "min",
-        "rMax": 0
+        "tipo": "numero"
       },
       {
+        "rMax": 0,
+        "rMin": 0,
         "n": "Volumen Minuto",
         "tipo": "numero",
+        "u": "ml/min"
+      },
+      {
+        "rMax": 0,
+        "u": "mg/dl",
         "rMin": 0,
-        "u": "ml/min",
+        "n": "Creatinina en Orina",
+        "tipo": "numero"
+      },
+      {
+        "tipo": "numero",
+        "u": "ml",
+        "n": "Volumen de Orina",
+        "rMin": 0,
         "rMax": 0
       },
       {
-        "u": "mg/dl",
-        "rMax": 0,
-        "n": "Creatinina en Orina",
-        "tipo": "numero",
-        "rMin": 0
-      },
-      {
-        "rMax": 0,
-        "n": "Volumen de Orina",
         "rMin": 0,
-        "tipo": "numero",
-        "u": "ml"
-      },
-      {
-        "n": "CLEARENCE DE CREATININA (DCE)",
-        "rMax": 0,
         "refTexto": "80.0 - 140.0 ML/MIN/1.73M2",
-        "u": "",
+        "rMax": 0,
         "tipo": "numero",
-        "rMin": 0
+        "n": "CLEARENCE DE CREATININA (DCE)",
+        "u": ""
       },
       {
         "n": "MDRD-IDMS (Formula empleada para estimar la tasa de filtrado glomerular)",
         "rMax": 0,
-        "rMin": 0,
-        "tipo": "numero",
         "u": "",
-        "refTexto": ">60.0 ML/MIN/1.73M2"
+        "rMin": 0,
+        "refTexto": ">60.0 ML/MIN/1.73M2",
+        "tipo": "numero"
       }
-    ]
+    ],
+    "nombre": "Clearence de Creatinina"
   },
   {
     "id": "custom_1779488458182",
@@ -2733,322 +2734,322 @@ const DEFAULT_ANALISIS = [
     "parametros": [
       {
         "rMin": 0,
-        "u": "",
         "refTexto": "-",
         "rMax": 0,
+        "u": "",
         "n": "EX DIRECTO:"
       },
       {
-        "rMin": 0,
         "n": "GRAM:",
-        "refTexto": "-",
+        "u": "",
+        "rMin": 0,
         "rMax": 0,
-        "u": ""
+        "refTexto": "-"
       },
       {
-        "u": "",
         "refTexto": "-",
         "rMax": 0,
+        "rMin": 0,
         "n": "CULTIVO:",
-        "rMin": 0
+        "u": ""
       }
     ]
   },
   {
-    "id": "custom_1779811102813",
-    "nombre": "Vitamina B12",
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": 0,
-        "refTexto": "187 - 883 PG/ML",
-        "u": "pg/ml",
         "rMin": 0,
-        "tipo": "numero"
+        "rMax": 0,
+        "u": "pg/ml",
+        "refTexto": "187 - 883 PG/ML",
+        "tipo": "numero",
+        "n": "Resultado"
       }
-    ]
+    ],
+    "nombre": "Vitamina B12",
+    "id": "custom_1779811102813"
   },
   {
-    "id": "custom_1779812083770",
     "nombre": "Homocisteína",
     "parametros": [
       {
-        "refTexto": "MUJERES EMBARAZADAS: < 10 ΜMOL/L. NINOS (<15 AÑOS): < 10 ΜMOL/L. ADULTOS ( 15 A 65 AÑOS) < 15 ΜMOL/L. ANCIANOS ( > 65 AÑOS) < 20 ΜMOL/L.",
-        "u": "",
-        "rMin": 0,
         "n": "Resultado",
-        "rMax": 0
+        "rMin": 0,
+        "u": "",
+        "rMax": 0,
+        "refTexto": "MUJERES EMBARAZADAS: < 10 ΜMOL/L. NINOS (<15 AÑOS): < 10 ΜMOL/L. ADULTOS ( 15 A 65 AÑOS) < 15 ΜMOL/L. ANCIANOS ( > 65 AÑOS) < 20 ΜMOL/L."
       }
-    ]
+    ],
+    "id": "custom_1779812083770"
   },
   {
     "nombre": "IGF-1",
-    "id": "custom_1779816141046",
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": 0,
-        "u": "",
         "rMin": 0,
-        "refTexto": "HASTA 1 AÑOS 65.00-184.00 NG/ML 1 - 2 AÑOS 44.00-126.00 NG/ML 3 - 4 AÑOS 65.00-208.00 NG/ML 5 - 7 AÑOS 70.00-248.00 NG/ML 8 - 11 AÑOS 108.00-315.00 NG/ML 12 - 14 AÑOS 151.00-424.00 NG/ML 15 - 16 AÑOS 88.00-407.00 NG/ML 17 - 20 AÑOS 163.00-402.00 NG/ML 21 - 55 AÑOS 92.00-300.00 NG/ML ADULTO 46.00-218.00 NG/ML"
+        "rMax": 0,
+        "n": "Resultado",
+        "refTexto": "HASTA 1 AÑOS 65.00-184.00 NG/ML 1 - 2 AÑOS 44.00-126.00 NG/ML 3 - 4 AÑOS 65.00-208.00 NG/ML 5 - 7 AÑOS 70.00-248.00 NG/ML 8 - 11 AÑOS 108.00-315.00 NG/ML 12 - 14 AÑOS 151.00-424.00 NG/ML 15 - 16 AÑOS 88.00-407.00 NG/ML 17 - 20 AÑOS 163.00-402.00 NG/ML 21 - 55 AÑOS 92.00-300.00 NG/ML ADULTO 46.00-218.00 NG/ML",
+        "u": ""
       }
-    ]
+    ],
+    "id": "custom_1779816141046"
   },
   {
-    "id": "custom_1779817450969",
+    "nombre": "VDRL",
     "parametros": [
       {
         "n": "Resultado",
-        "rMax": 0,
+        "tipo": "select",
+        "u": "",
+        "rMin": 0,
         "opciones": [
           "Reactivo",
           "No Reactivo"
         ],
-        "u": "",
-        "tipo": "select",
-        "rMin": 0
+        "rMax": 0
       },
       {
         "tipo": "texto",
         "rMin": 0,
-        "n": "Título",
+        "u": "",
         "rMax": 0,
-        "u": ""
+        "n": "Título"
       }
     ],
-    "nombre": "VDRL"
+    "id": "custom_1779817450969"
   },
   {
-    "id": "custom_1779817491538",
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": 0,
         "u": "",
-        "refTexto": "METODO DE SCREENING POBLACIONAL. NO DIAGNOSTICO DEFINITIVO. RESULTADO REACTIVOS CONFIRMAR CON METODO WESTERN BIOT Y PCR.",
         "opciones": [
           "REACTIVO",
           "NO REACTIVO"
         ],
-        "tipo": "numero",
-        "rMin": 0
+        "rMax": 0,
+        "n": "Resultado",
+        "rMin": 0,
+        "refTexto": "METODO DE SCREENING POBLACIONAL. NO DIAGNOSTICO DEFINITIVO. RESULTADO REACTIVOS CONFIRMAR CON METODO WESTERN BIOT Y PCR.",
+        "tipo": "numero"
       },
       {
-        "n": "Nuevo parámetro",
-        "textoNota": "METODO DE SCREENING POBLACIONAL. NO DIAGNOSTICO DEFINITIVO. RESULTADO REACTIVOS CONFIRMAR CON METODO WESTERN BIOT Y PCR.",
-        "rMax": 0,
-        "u": "",
         "tipo": "nota_fija",
-        "rMin": 0
+        "n": "Nuevo parámetro",
+        "u": "",
+        "rMin": 0,
+        "textoNota": "METODO DE SCREENING POBLACIONAL. NO DIAGNOSTICO DEFINITIVO. RESULTADO REACTIVOS CONFIRMAR CON METODO WESTERN BIOT Y PCR.",
+        "rMax": 0
       }
     ],
+    "id": "custom_1779817491538",
     "nombre": "HIV"
   },
   {
+    "id": "custom_1779817523537",
     "parametros": [
       {
+        "rMin": 0,
         "rMax": 0,
         "n": "Resultado",
+        "tipo": "select",
         "opciones": [
           "Reactivo",
           "No Reactivo"
         ],
-        "tipo": "select",
-        "rMin": 0,
         "u": ""
       }
     ],
-    "nombre": "HBV AG SUP",
-    "id": "custom_1779817523537"
+    "nombre": "HBV AG SUP"
   },
   {
-    "parametros": [
-      {
-        "u": "",
-        "tipo": "select",
-        "rMin": 0,
-        "opciones": [
-          "DETECTABLE (Presencia de cantidad de hormona hCG)",
-          "NO DETECTABLE (No se detecta cantidad de hormana hCG)"
-        ],
-        "n": "Resultado",
-        "rMax": 0
-      }
-    ],
-    "nombre": "Hormona beta-hCG (subunidad beta de la gonadotropina coriónica humana)",
-    "id": "custom_1779822764775"
-  },
-  {
-    "nombre": "Dosaje de Ca Iónico",
-    "id": "custom_1779823239381",
     "parametros": [
       {
         "rMax": 0,
         "u": "",
-        "refTexto": "1-18A 4.80-5.52 MG/DL >18A 4.60-5.40 MG/DL",
+        "rMin": 0,
         "n": "Resultado",
+        "opciones": [
+          "DETECTABLE (Presencia de cantidad de hormona hCG)",
+          "NO DETECTABLE (No se detecta cantidad de hormana hCG)"
+        ],
+        "tipo": "select"
+      }
+    ],
+    "id": "custom_1779822764775",
+    "nombre": "Hormona beta-hCG (subunidad beta de la gonadotropina coriónica humana)"
+  },
+  {
+    "id": "custom_1779823239381",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "refTexto": "1-18A 4.80-5.52 MG/DL >18A 4.60-5.40 MG/DL",
+        "u": "",
+        "rMax": 0,
         "rMin": 0
       }
-    ]
+    ],
+    "nombre": "Dosaje de Ca Iónico"
   },
   {
     "id": "custom_1779823816402",
     "parametros": [
       {
+        "refTexto": "7.2 - 63.0  pg/ml",
+        "rMin": 0,
         "u": "pg/ml",
         "rMax": 0,
-        "n": "Resultado",
-        "refTexto": "7.2 - 63.0  pg/ml",
-        "rMin": 0
+        "n": "Resultado"
       }
     ],
     "nombre": "ACTH (hormona adrenocorticótropa o corticotropina)"
   },
   {
     "nombre": "CORTISOL - SANGRE",
+    "id": "custom_1779823842106",
     "parametros": [
       {
         "u": "ug/dl",
-        "rMax": 0,
         "refTexto": "ADULTOS 6.20 - 21.40 ug/dl  // HASTA 1 AÑO: 1,8-23,0 ug/dl  // 1-5 AÑOS: 0,6-23,8 ug/dl  //  6-12 AÑOS: 3,0-15,4 ug/dl //  TANNER 2-3: 2,7-13,4 ug/dl  //  TANNER 4-5: 3,7-15,3 ug/dl",
+        "rMax": 0,
         "n": "Resultado",
         "rMin": 0
       }
-    ],
-    "id": "custom_1779823842106"
+    ]
   },
   {
     "parametros": [
       {
-        "rMax": 0,
+        "u": "ug/dl",
         "n": "Resultado",
+        "rMin": 0,
         "refTexto": "MASCULINO  10-14A 24.0 - 247.0 ΜG/DL 15-19A 70.0 - 492.0 ΜG/DL 20-24A 211.0 - 492.0 ΜG/DL 25-34A 160.0 - 449.0 ΜG/DL 35-44A 89 - 427 ΜG/DL 45-54A 44.0 - 331 ΜG/DL 55-64A 52.0 - 295.0 ΜG/DL 65-74A 34.0 - 249.0 ΜG/DL >74A 16.0 - 123.0 ΜG/DL FEMENINO 10-14A 34.0 - 280.0 ΜG/DL 15-19A 65.0 - 368.0 ΜG/DL 20-24A 148.0 - 407.0 ΜG/DL 25-34A 99.0 - 340.0 ΜG/DL 35-44A 61.0 - 337.0 ΜG/DL 45-54A 35.0 - 256.0 ΜG/DL 55-64A 19.0 - 205.0 ΜG/DL 65-74A 9.0 - 246.0 ΜG/DL >74A 12.0 - 154.0 ΜG/DL -*- NIÑOS;<1 SEMANA 108 - 607 ΜG/DL 1-4 SEMANAS 32 - 431 ΜG/DL 1-12 MESES 4 - 124 ΜG/DL 1-4 AÑOS HASTA 20 ΜG/DL 5-9 AÑOS 3 - 85 ΜG/DL",
-        "rMin": 0,
-        "u": "ug/dl"
+        "rMax": 0
       }
     ],
-    "nombre": "DHEA-SO4 (sulfato de dehidroepiandrosterona)",
-    "id": "custom_1779823896394"
+    "id": "custom_1779823896394",
+    "nombre": "DHEA-SO4 (sulfato de dehidroepiandrosterona)"
   },
   {
+    "nombre": "INMUNOGLOBULINA A",
+    "id": "custom_1784112656077",
     "parametros": [
       {
-        "rMin": 0,
-        "tipo": "numero",
-        "refTexto": "<3 meses 3.50-66.0 mg/dl // 3-6 meses 5.00-90.0 mg/dl // 6-12 meses 15.0- 95.0 mg/dl // 1-2 años 15.0-118.0 mg/dl // 2-3 años 25.0-137.0 mg/dl // 3-6 años 38.0-209.0 mg/dl //6-12 años 32.0-297.0 mg/dl //Adulto 80.0-330.0 mg/dl",
         "n": "Resultado",
         "rMax": 0,
-        "u": "mg/dl"
+        "u": "mg/dl",
+        "rMin": 0,
+        "refTexto": "<3 meses 3.50-66.0 mg/dl // 3-6 meses 5.00-90.0 mg/dl // 6-12 meses 15.0- 95.0 mg/dl // 1-2 años 15.0-118.0 mg/dl // 2-3 años 25.0-137.0 mg/dl // 3-6 años 38.0-209.0 mg/dl //6-12 años 32.0-297.0 mg/dl //Adulto 80.0-330.0 mg/dl",
+        "tipo": "numero"
       }
-    ],
-    "id": "custom_1784112656077",
-    "nombre": "INMUNOGLOBULINA A"
+    ]
   },
   {
     "nombre": "Antiendomisio-AC IGG",
     "id": "custom_1784112714189",
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": 0,
+        "tipo": "select",
         "opciones": [
           "POSITIVO",
           "NEGATIVO"
         ],
         "rMin": 0,
-        "tipo": "select",
-        "u": ""
+        "u": "",
+        "rMax": 0,
+        "n": "Resultado"
       }
     ]
   },
   {
-    "id": "custom_1784112749948",
-    "nombre": "Antigliadina - AC IGG",
     "parametros": [
       {
         "rMax": 0,
-        "n": "Resultado",
-        "refTexto": "NO REACTIVO <10 UI/ml // REACTIVO > 10 UI/ ml",
-        "tipo": "numero",
         "rMin": 0,
-        "u": "UI/ml"
+        "u": "UI/ml",
+        "refTexto": "NO REACTIVO <10 UI/ml // REACTIVO > 10 UI/ ml",
+        "n": "Resultado",
+        "tipo": "numero"
       }
-    ]
+    ],
+    "id": "custom_1784112749948",
+    "nombre": "Antigliadina - AC IGG"
   },
   {
-    "nombre": "Antitransglutaminasa  IGG",
     "id": "custom_1784112803140",
     "parametros": [
       {
+        "rMin": 0,
         "refTexto": "NO REACTIVO <10 UI/ ml",
-        "u": "UI/ml",
-        "tipo": "numero",
-        "rMin": 0,
-        "n": "Resultado",
-        "rMax": 0
-      }
-    ]
-  },
-  {
-    "parametros": [
-      {
-        "rMin": 0,
-        "refTexto": "Hasta 30 mg/gCr // Microalbuminuria 30 - 300 mg/gCr // Proteinuria > 300 mg/gCr ",
-        "n": "RESULTADO",
         "rMax": 0,
-        "u": "mg/gCr"
-      },
-      {
-        "refTexto": "-",
-        "u": "mg/l",
+        "n": "Resultado",
         "tipo": "numero",
-        "rMin": "",
-        "n": "ALBUMINURIA",
-        "rMax": ""
-      },
-      {
-        "rMax": "",
-        "u": "mg/dl",
-        "refTexto": "-",
-        "rMin": "",
-        "tipo": "numero",
-        "n": "CREATININA EN ORINA"
+        "u": "UI/ml"
       }
     ],
+    "nombre": "Antitransglutaminasa  IGG"
+  },
+  {
     "id": "custom_1784291452901",
+    "parametros": [
+      {
+        "rMax": 0,
+        "u": "mg/gCr",
+        "rMin": 0,
+        "n": "RESULTADO",
+        "refTexto": "Hasta 30 mg/gCr // Microalbuminuria 30 - 300 mg/gCr // Proteinuria > 300 mg/gCr "
+      },
+      {
+        "n": "ALBUMINURIA",
+        "u": "mg/l",
+        "tipo": "numero",
+        "rMax": "",
+        "refTexto": "-",
+        "rMin": ""
+      },
+      {
+        "tipo": "numero",
+        "u": "mg/dl",
+        "n": "CREATININA EN ORINA",
+        "refTexto": "-",
+        "rMin": "",
+        "rMax": ""
+      }
+    ],
     "nombre": "RELACION ALBUMINURIA / CREATININURIA"
   },
   {
-    "nombre": "ANTICUERPOS ANTINUCLEARES- FAN (ANA) IFI",
     "parametros": [
       {
-        "rMax": 0,
-        "u": "",
+        "n": "Resultado",
         "tipo": "numero",
-        "rMin": 0,
+        "u": "",
         "refTexto": "Adultos Título significativo >1/40 /// Niños Título significativo > 1/20",
-        "n": "Resultado"
+        "rMax": 0,
+        "rMin": 0
       },
       {
-        "refTexto": "-",
-        "tipo": "numero",
         "rMin": 0,
-        "u": "",
         "rMax": 0,
-        "n": "Patrón "
+        "refTexto": "-",
+        "n": "Patrón ",
+        "tipo": "numero",
+        "u": ""
       }
     ],
+    "nombre": "ANTICUERPOS ANTINUCLEARES- FAN (ANA) IFI",
     "id": "custom_1784321585018"
   },
   {
-    "id": "custom_1784321642878",
     "nombre": "SCL 70 - AC",
+    "id": "custom_1784321642878",
     "parametros": [
       {
-        "rMin": 0,
+        "n": "Resultado",
         "tipo": "numero",
         "u": "UI/ml",
-        "n": "Resultado",
+        "rMin": 0,
         "rMax": 0,
         "refTexto": "No Reactivo < 15.0 UI/ml  //  Zona gris 15.0-25.0 UI/ml  //  Reactivo > 25.0 UI/ml"
       }
@@ -3057,322 +3058,322 @@ const DEFAULT_ANALISIS = [
   {
     "parametros": [
       {
-        "rMin": 0,
-        "tipo": "numero",
         "n": "Resultado",
-        "refTexto": "No Reactivo < 15.0 UI/ml  //  Zona gris 15.0-25.0 UI/ml  //  Reactivo > 25.0 UI/ml",
         "rMax": 0,
-        "u": "UI/ml"
+        "rMin": 0,
+        "u": "UI/ml",
+        "refTexto": "No Reactivo < 15.0 UI/ml  //  Zona gris 15.0-25.0 UI/ml  //  Reactivo > 25.0 UI/ml",
+        "tipo": "numero"
       }
     ],
     "nombre": "SSA/RO-AC",
     "id": "custom_1784321664294"
   },
   {
-    "nombre": "SSB/LA-AC",
     "parametros": [
       {
-        "refTexto": "No Reactivo < 15.0 UI/ml  //  Zona gris 15.0-25.0 UI/ml  //  Reactivo > 25.0 UI/ml",
-        "rMax": 0,
-        "n": "Resultado",
         "tipo": "numero",
         "rMin": 0,
-        "u": "UI/ml"
+        "u": "UI/ml",
+        "refTexto": "No Reactivo < 15.0 UI/ml  //  Zona gris 15.0-25.0 UI/ml  //  Reactivo > 25.0 UI/ml",
+        "n": "Resultado",
+        "rMax": 0
       }
     ],
+    "nombre": "SSB/LA-AC",
     "id": "custom_1784321680742"
   },
   {
-    "id": "custom_1784322366726",
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": 0,
-        "refTexto": "No Reactivo < 20 UI/ml  // Reactivo > 20 UI/ml",
         "u": "UI/ml",
+        "n": "Resultado",
+        "tipo": "numero",
         "opciones": [
           "Negativo < 20 UI/ml",
           "Positivo > 20 UI/ML"
         ],
-        "tipo": "numero",
+        "rMax": 0,
+        "refTexto": "No Reactivo < 20 UI/ml  // Reactivo > 20 UI/ml",
         "rMin": 0
       }
     ],
-    "nombre": "Factor Reumatoideo ( LATEX)"
+    "nombre": "Factor Reumatoideo ( LATEX)",
+    "id": "custom_1784322366726"
   },
   {
-    "id": "custom_1784323031894",
+    "nombre": "PÉPTIDO CITRULIANO CÍCLICO - AC IGG",
     "parametros": [
       {
-        "u": "U/ml",
-        "rMax": 0,
-        "n": "Resultado",
+        "rMin": 0,
         "opciones": [
           "NO REACTIVO < 5.0 U/ml",
           "REACTIVO > 5.0 U /ml"
         ],
-        "refTexto": "No Reactivo < 5.0 U/ml  // Reactivo > 5.0 U/ml",
+        "rMax": 0,
+        "u": "U/ml",
         "tipo": "numero",
-        "rMin": 0
+        "n": "Resultado",
+        "refTexto": "No Reactivo < 5.0 U/ml  // Reactivo > 5.0 U/ml"
       }
     ],
-    "nombre": "PÉPTIDO CITRULIANO CÍCLICO - AC IGG"
+    "id": "custom_1784323031894"
   },
   {
+    "nombre": "FOSFATEMIA ( Método  Punto Final UV )",
+    "id": "custom_1784379021002",
     "parametros": [
       {
-        "rMax": 0,
-        "refTexto": "< 1 mes 4.50 - 9.00 mg/dl //  Hasta 12 A 4.50 - 6.00 mg/dl // > 12 A  2.50 - 5.00 mg/dl",
         "n": "Resultado",
+        "refTexto": "< 1 mes 4.50 - 9.00 mg/dl //  Hasta 12 A 4.50 - 6.00 mg/dl // > 12 A  2.50 - 5.00 mg/dl",
         "rMin": 0,
-        "u": "mg/dl"
+        "u": "mg/dl",
+        "rMax": 0
       }
-    ],
-    "id": "custom_1784379021002",
-    "nombre": "FOSFATEMIA ( Método  Punto Final UV )"
+    ]
   },
   {
     "id": "custom_1784379536123",
     "nombre": "PTH  ( Método Eclia )",
     "parametros": [
       {
-        "n": "RESULTADO",
         "rMax": 0,
-        "refTexto": "> 13 años : 5.0 - 55.0 pg/ml // 1 - 13 años : 51.0 - 217.0 pg/ml",
         "u": "pg/ml",
-        "rMin": 0
+        "refTexto": "> 13 años : 5.0 - 55.0 pg/ml // 1 - 13 años : 51.0 - 217.0 pg/ml",
+        "rMin": 0,
+        "n": "RESULTADO"
       }
     ]
   },
   {
-    "nombre": "FOSFATURIA  ( O 24 HS)",
+    "id": "custom_1784379914978",
     "parametros": [
       {
         "refTexto": "-",
-        "n": "Fosforo en orina",
-        "rMax": 0,
         "u": "mg/dl",
+        "rMax": 0,
+        "n": "Fosforo en orina",
         "rMin": 0
       },
       {
         "u": "mg/24 hs",
-        "n": "Fosfaturia en orina 24 hs",
         "rMin": "200",
+        "n": "Fosfaturia en orina 24 hs",
         "rMax": "1500"
       },
       {
-        "rMin": 0,
         "u": "ml",
-        "n": "Volumen de orina",
+        "rMin": 0,
         "rMax": 0,
+        "n": "Volumen de orina",
         "refTexto": "-"
       }
     ],
-    "id": "custom_1784379914978"
+    "nombre": "FOSFATURIA  ( O 24 HS)"
   },
   {
-    "id": "custom_1784380219432",
-    "nombre": "CALCIURIA  ( 24 HS )",
     "parametros": [
       {
-        "rMax": 0,
-        "refTexto": "-",
+        "u": "mg/dl",
         "n": "CALCIURIA",
         "rMin": 0,
-        "u": "mg/dl"
+        "rMax": 0,
+        "refTexto": "-"
       },
       {
-        "rMin": 0,
         "n": "CALCIURIA  (24 HS )",
         "refTexto": "Dieta Normocalcica hasta 300 mg/24hs  //  Dieta Hipocalcemica hasta 150 mg/24 hs",
         "u": "mg/ 24 hs",
-        "rMax": 0
+        "rMax": 0,
+        "rMin": 0
       },
       {
+        "rMax": 0,
+        "u": "ml",
         "rMin": 0,
         "n": "VOLUMEN DE ORINA",
-        "refTexto": "-",
-        "u": "ml",
+        "refTexto": "-"
+      }
+    ],
+    "nombre": "CALCIURIA  ( 24 HS )",
+    "id": "custom_1784380219432"
+  },
+  {
+    "id": "custom_1784380769397",
+    "parametros": [
+      {
+        "rMin": 0,
+        "n": "RESULTADO",
+        "u": "mg/dl",
+        "rMax": 0,
+        "refTexto": "< 4 dias 1.46 - 2.20 mg/dl // 4 - 31 dias 1.71 - 2.29 mg/dl // 1 - 12 meses 1.71 - 2.29 mg/dl // 1 a 12 A 1.71 - 2.07 mg/dl // 12 - 20 A 1.59 - 2.20 mg/ dl // Adulto 1.60 - 2.60 mg/ dl"
+      }
+    ],
+    "nombre": "MAGNESEMIA  ( Método EFM )"
+  },
+  {
+    "id": "custom_1784544280545",
+    "nombre": "ESTRADIOL - DOSAJE DE ESTRADIOL 17 BETA E2",
+    "parametros": [
+      {
+        "tipo": "numero",
+        "u": "pg/ml",
+        "refTexto": "HOMBRE : 7.63 - 42.60  pg/ml  // MUJER : Fase Folicular : 12.5 - 166.0 pg/ml  // Pico Ovulatorio : 85.8 - 498.0 pg/ml // Fase Lutea : 43.8 - 211.0 pg/ml // Postmenospausia : hasta 20.0 pg/ml",
+        "n": "Resultado",
+        "rMin": 0,
         "rMax": 0
       }
     ]
   },
   {
-    "parametros": [
-      {
-        "rMax": 0,
-        "n": "RESULTADO",
-        "refTexto": "< 4 dias 1.46 - 2.20 mg/dl // 4 - 31 dias 1.71 - 2.29 mg/dl // 1 - 12 meses 1.71 - 2.29 mg/dl // 1 a 12 A 1.71 - 2.07 mg/dl // 12 - 20 A 1.59 - 2.20 mg/ dl // Adulto 1.60 - 2.60 mg/ dl",
-        "rMin": 0,
-        "u": "mg/dl"
-      }
-    ],
-    "id": "custom_1784380769397",
-    "nombre": "MAGNESEMIA  ( Método EFM )"
-  },
-  {
-    "parametros": [
-      {
-        "rMax": 0,
-        "u": "pg/ml",
-        "n": "Resultado",
-        "tipo": "numero",
-        "rMin": 0,
-        "refTexto": "HOMBRE : 7.63 - 42.60  pg/ml  // MUJER : Fase Folicular : 12.5 - 166.0 pg/ml  // Pico Ovulatorio : 85.8 - 498.0 pg/ml // Fase Lutea : 43.8 - 211.0 pg/ml // Postmenospausia : hasta 20.0 pg/ml"
-      }
-    ],
-    "id": "custom_1784544280545",
-    "nombre": "ESTRADIOL - DOSAJE DE ESTRADIOL 17 BETA E2"
-  },
-  {
-    "parametros": [
-      {
-        "rMin": 0,
-        "refTexto": "Fase Folicular 0.20 -1.50 ng/ml //Fase ovulatorio 0.80-3.00 ng/ml //Fase Lútea 1.70-27.0 ng/ml //Posmenopausia 0.10-0.80 ng/ml",
-        "tipo": "numero",
-        "u": "ng/ml",
-        "rMax": 0,
-        "n": "Resultado "
-      }
-    ],
     "id": "custom_1784544300537",
+    "parametros": [
+      {
+        "rMin": 0,
+        "n": "Resultado ",
+        "rMax": 0,
+        "refTexto": "Fase Folicular 0.20 -1.50 ng/ml //Fase ovulatorio 0.80-3.00 ng/ml //Fase Lútea 1.70-27.0 ng/ml //Posmenopausia 0.10-0.80 ng/ml",
+        "u": "ng/ml",
+        "tipo": "numero"
+      }
+    ],
     "nombre": "PROGESTERONA"
   },
   {
-    "nombre": "TESTOSTERONA PLASMÁTICA",
     "parametros": [
       {
-        "u": "ng/ml",
-        "tipo": "numero",
         "rMin": 0,
-        "refTexto": "Masculino : <1 año 0.12-0.21 ng/ml //1-6 años 0.03-0.32 ng/ml //6-12 años 0.03-0.68 ng/ml //ADULTO 2.80-9.0 ng/ml ///Femenino adulto 0.06-0.82 ng/ml",
         "rMax": 0,
-        "n": "Resultado"
+        "tipo": "numero",
+        "n": "Resultado",
+        "refTexto": "Masculino : <1 año 0.12-0.21 ng/ml //1-6 años 0.03-0.32 ng/ml //6-12 años 0.03-0.68 ng/ml //ADULTO 2.80-9.0 ng/ml ///Femenino adulto 0.06-0.82 ng/ml",
+        "u": "ng/ml"
       }
     ],
+    "nombre": "TESTOSTERONA PLASMÁTICA",
     "id": "custom_1784544336966"
   },
   {
-    "id": "custom_1784544356142",
     "parametros": [
       {
         "rMax": 0,
-        "n": "Resultado",
         "rMin": 0,
+        "n": "Resultado",
+        "refTexto": "Masculino >50 años 49.0-113.0 pg/ml //<50 años 62.0-184.0 pg/ml /// Femenino 0.8-9.2 pg/ml",
         "u": "pg/ml",
-        "tipo": "numero",
-        "refTexto": "Masculino >50 años 49.0-113.0 pg/ml //<50 años 62.0-184.0 pg/ml /// Femenino 0.8-9.2 pg/ml"
+        "tipo": "numero"
       }
     ],
-    "nombre": "TESTOSTERONA PLASMÁTICA  LIBRE"
+    "nombre": "TESTOSTERONA PLASMÁTICA  LIBRE",
+    "id": "custom_1784544356142"
   },
   {
     "nombre": "CORTISOL SALIVAL MATUTINO",
     "parametros": [
       {
         "refTexto": "< 5.0 ug/dl",
-        "u": "ug/dl",
         "tipo": "numero",
-        "rMin": 0,
+        "u": "ug/dl",
+        "rMax": 0,
         "n": "Resultado",
-        "rMax": 0
+        "rMin": 0
       }
     ],
     "id": "custom_1784544385786"
   },
   {
+    "nombre": "CORTISOL SALIVAL VESPERTINO",
+    "id": "custom_1784544400066",
+    "parametros": [
+      {
+        "n": "Resultado",
+        "rMin": 0,
+        "rMax": 0,
+        "u": "ug/dl",
+        "refTexto": "-",
+        "tipo": "numero"
+      }
+    ]
+  },
+  {
+    "nombre": "CORTISOL SALIVAL NOCTURNO",
     "parametros": [
       {
         "tipo": "numero",
-        "rMin": 0,
-        "refTexto": "-",
         "n": "Resultado",
-        "rMax": 0,
-        "u": "ug/dl"
-      }
-    ],
-    "nombre": "CORTISOL SALIVAL VESPERTINO",
-    "id": "custom_1784544400066"
-  },
-  {
-    "parametros": [
-      {
         "u": "ug/dl ",
-        "rMax": 0,
         "refTexto": "< 0.16 ug/dl  //  Sospecha de HC > 0.32 ug/dl",
-        "n": "Resultado",
         "rMin": 0,
-        "tipo": "numero"
+        "rMax": 0
       }
     ],
-    "id": "custom_1784544418578",
-    "nombre": "CORTISOL SALIVAL NOCTURNO"
+    "id": "custom_1784544418578"
   },
   {
     "id": "custom_1784544438735",
     "nombre": "Proteína C Reactiva (US)",
     "parametros": [
       {
-        "rMax": 0,
-        "u": "mg/l",
-        "rMin": 0,
-        "tipo": "numero",
         "refTexto": "R. Bajo ECV <1 mg/l //R. moderado ECV 1-3 mg/l // R. Alto ECV 3-11 mg/l // RFA > 11 mg/l",
-        "n": "Resultado"
+        "tipo": "numero",
+        "rMax": 0,
+        "n": "Resultado",
+        "u": "mg/l",
+        "rMin": 0
       }
     ]
   },
   {
-    "id": "custom_1784544515630",
+    "nombre": "FSH",
     "parametros": [
       {
-        "n": "Resultado",
+        "refTexto": "Prepúber < 2.0 mUI/ml //Fase folicular 4.0-13.0 mUI/ml // Pico ovulatorio 5.0-22.0 mUI/ml //Fase Luteínica 2.0-13.0 mUI/ml //Posmenopausica 20.0-138.0 mUI/ml",
         "tipo": "numero",
         "rMin": 0,
         "u": "mUI/ml",
-        "refTexto": "Prepúber < 2.0 mUI/ml //Fase folicular 4.0-13.0 mUI/ml // Pico ovulatorio 5.0-22.0 mUI/ml //Fase Luteínica 2.0-13.0 mUI/ml //Posmenopausica 20.0-138.0 mUI/ml",
-        "rMax": 0
+        "rMax": 0,
+        "n": "Resultado"
       }
     ],
-    "nombre": "FSH"
+    "id": "custom_1784544515630"
   },
   {
-    "id": "custom_1784544522845",
     "nombre": "LH",
     "parametros": [
       {
-        "u": "mUI/ml",
         "tipo": "numero",
-        "rMin": 0,
         "refTexto": "Prepúber <2.00mUI/ml // Fase folicular 2.4- 12.6 mUI/ml //Fase Lútea 1.0 -11.4 mUI/ml //Pico ovulatorio 14.0- 95.6 mUI/ml//Postmenopausia 7.7 -58.5 mUI/ml",
-        "rMax": 0,
-        "n": "Resultado"
+        "rMin": 0,
+        "u": "mUI/ml",
+        "n": "Resultado",
+        "rMax": 0
       }
-    ]
+    ],
+    "id": "custom_1784544522845"
   },
   {
-    "id": "custom_1784548143069",
-    "nombre": "VITAMINA C",
     "parametros": [
       {
-        "rMin": "4.0",
+        "n": "RESULTADO",
         "tipo": "numero",
         "u": "mg/l",
-        "n": "RESULTADO",
-        "rMax": "20.0"
+        "rMax": "20.0",
+        "rMin": "4.0"
       }
-    ]
+    ],
+    "nombre": "VITAMINA C",
+    "id": "custom_1784548143069"
   },
   {
     "parametros": [
       {
-        "tipo": "numero",
         "rMin": 0,
-        "u": "mg/dl",
         "valorDefecto": "",
-        "n": "Resultado",
         "rMax": 0,
-        "refTexto": "Hombres : 66 -133 mg/dl  //  Mujeres : 60 - 117 mg/dl"
+        "u": "mg/dl",
+        "refTexto": "Hombres : 66 -133 mg/dl  //  Mujeres : 60 - 117 mg/dl",
+        "tipo": "numero",
+        "n": "Resultado"
       }
     ],
     "id": "custom_1784726735881",
@@ -3381,95 +3382,95 @@ const DEFAULT_ANALISIS = [
   {
     "parametros": [
       {
+        "rMin": 0,
+        "u": "mg/dl",
         "n": "Resultado",
         "rMax": 0,
-        "rMin": 0,
         "tipo": "numero",
-        "u": "mg/dl",
         "refTexto": "Riesgo: Normal < 30 mg/dl // Dudoso 30 - 35 mg/dl // Incrementado > 35 mg/dl"
       }
     ],
-    "nombre": "LIPOPROTEINA  A - LP ( A )",
-    "id": "custom_1784727470821"
+    "id": "custom_1784727470821",
+    "nombre": "LIPOPROTEINA  A - LP ( A )"
   },
   {
-    "id": "custom_1784750304955",
     "nombre": "APOLIPOPROTEINA    A1",
     "parametros": [
       {
-        "rMax": 0,
-        "n": "Resultado ",
-        "u": "mg/dl",
-        "rMin": 0,
         "tipo": "numero",
-        "refTexto": "Hombres : 104 - 202 mg/dl // Mujeres : 108 -225 mg/dl"
+        "refTexto": "Hombres : 104 - 202 mg/dl // Mujeres : 108 -225 mg/dl",
+        "rMin": 0,
+        "u": "mg/dl",
+        "rMax": 0,
+        "n": "Resultado "
+      }
+    ],
+    "id": "custom_1784750304955"
+  },
+  {
+    "parametros": [
+      {
+        "tipo": "numero",
+        "u": "ng/dl",
+        "rMin": 0,
+        "refTexto": "Masculino:  < 50 años: 144.0 - 432.0 // > 50 años : 110.0 - 256.0 ng/dl  // Femenino: 2.0 - 20.0 ng/dl",
+        "rMax": 0,
+        "n": ""
+      }
+    ],
+    "nombre": "TESTOSTERONA  BIODISPONIBLE",
+    "id": "custom_1784750885407"
+  },
+  {
+    "nombre": "GLOBULINA LIGADORA DE ANDROGENOS / ESTROGENOS ( GLAE / SHBG )",
+    "parametros": [
+      {
+        "tipo": "numero",
+        "n": "",
+        "refTexto": "26.0 - 110.0  nmoles/l",
+        "u": "nmoles/l",
+        "rMin": 0,
+        "rMax": 0
+      }
+    ],
+    "id": "custom_1784751489643"
+  },
+  {
+    "nombre": "SANGRE OCULTA EN MATERIA FECAL  ( SOMF )",
+    "id": "custom_1784753903226",
+    "parametros": [
+      {
+        "opciones": [],
+        "tipo": "numero",
+        "n": "Resultado",
+        "refTexto": "-",
+        "rMax": 0,
+        "u": "",
+        "rMin": 0
       }
     ]
   },
   {
+    "nombre": "HEPATITIS C VIRUS - HCV ( AC IGG ) //  ( METODO: ECLIA)",
     "parametros": [
       {
-        "tipo": "numero",
-        "rMin": 0,
-        "n": "",
-        "refTexto": "Masculino:  < 50 años: 144.0 - 432.0 // > 50 años : 110.0 - 256.0 ng/dl  // Femenino: 2.0 - 20.0 ng/dl",
-        "rMax": 0,
-        "u": "ng/dl"
-      }
-    ],
-    "id": "custom_1784750885407",
-    "nombre": "TESTOSTERONA  BIODISPONIBLE"
-  },
-  {
-    "id": "custom_1784751489643",
-    "parametros": [
-      {
-        "refTexto": "26.0 - 110.0  nmoles/l",
-        "rMin": 0,
-        "tipo": "numero",
-        "n": "",
-        "rMax": 0,
-        "u": "nmoles/l"
-      }
-    ],
-    "nombre": "GLOBULINA LIGADORA DE ANDROGENOS / ESTROGENOS ( GLAE / SHBG )"
-  },
-  {
-    "id": "custom_1784753903226",
-    "parametros": [
-      {
-        "rMax": 0,
-        "u": "",
-        "opciones": [],
-        "rMin": 0,
-        "tipo": "numero",
         "n": "Resultado",
-        "refTexto": "-"
-      }
-    ],
-    "nombre": "SANGRE OCULTA EN MATERIA FECAL  ( SOMF )"
-  },
-  {
-    "parametros": [
-      {
-        "rMin": 0,
         "u": "",
+        "rMin": 0,
         "refTexto": "LOS METODOS DE IE SON DE TAMIZAJE, ANTE UN RESULTADO  REACTIVO  PUEDEN REQUERIR  ESTUDIOS CONFIRMATORIOS.   REACTIVO > 1.0",
-        "rMax": 0,
-        "n": "Resultado"
+        "rMax": 0
       }
     ],
-    "id": "custom_1784754198177",
-    "nombre": "HEPATITIS C VIRUS - HCV ( AC IGG ) //  ( METODO: ECLIA)"
+    "id": "custom_1784754198177"
   },
   {
     "parametros": [
       {
-        "u": "UI/ml",
+        "tipo": "numero",
         "rMax": 0,
+        "u": "UI/ml",
         "n": "Resultado",
         "refTexto": "Hasta 39.0 UL/ml",
-        "tipo": "numero",
         "rMin": 0
       }
     ],
@@ -3477,221 +3478,221 @@ const DEFAULT_ANALISIS = [
     "nombre": "CA 19-9 ( COLON / PANCREAS )  METODO : ECLIA"
   },
   {
+    "nombre": "CEA   METODO : ECLIA",
+    "id": "custom_1784754581893",
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": 0,
-        "refTexto": "NO FUMADORES Hasta  5.00 ng/ml // FUMADORES Hasta 6.50 ng/ml",
-        "rMin": 0,
         "u": "ng/ml",
-        "tipo": "numero"
+        "n": "Resultado",
+        "tipo": "numero",
+        "refTexto": "NO FUMADORES Hasta  5.00 ng/ml // FUMADORES Hasta 6.50 ng/ml",
+        "rMax": 0,
+        "rMin": 0
       }
-    ],
-    "id": "custom_1784754581893",
-    "nombre": "CEA   METODO : ECLIA"
+    ]
   },
   {
-    "id": "custom_1784813263940",
     "nombre": "Hormona Anti Mulleriana",
     "parametros": [
       {
-        "tipo": "numero",
         "rMin": 0,
-        "n": "Resultado",
-        "refTexto": "Hombres : 1.43 - 11.6 ng/ml /// Mujeres : 20 a 24 años 1.66 - 9.49 ng/ml // 25 a 29 años 1.18 - 9.16 ng/ml //30  a 34 años 0.67 - 7.55 ng/ml // 35 a 39 años 0.78 - 5.24 ng/ml //40 a 44 años 0.10 - 2.96 ng/ml // 45 a 50 años 0.05 - 2.06 ng/ml",
-        "rMax": 0,
-        "u": "ng/ml"
-      }
-    ]
-  },
-  {
-    "id": "custom_1784817036738",
-    "nombre": "CA 15-3 ( mama)",
-    "parametros": [
-      {
         "n": "Resultado",
         "rMax": 0,
-        "refTexto": "Hasta 30 UI/ml",
-        "u": "UI/ml",
-        "rMin": 0,
-        "tipo": "numero"
-      }
-    ]
-  },
-  {
-    "parametros": [
-      {
-        "n": "Resultado",
+        "u": "ng/ml",
         "tipo": "numero",
-        "rMin": 0,
-        "refTexto": "Hasta 26.0 UI/ml",
-        "u": "UI/ml",
-        "rMax": 0
+        "refTexto": "Hombres : 1.43 - 11.6 ng/ml /// Mujeres : 20 a 24 años 1.66 - 9.49 ng/ml // 25 a 29 años 1.18 - 9.16 ng/ml //30  a 34 años 0.67 - 7.55 ng/ml // 35 a 39 años 0.78 - 5.24 ng/ml //40 a 44 años 0.10 - 2.96 ng/ml // 45 a 50 años 0.05 - 2.06 ng/ml"
       }
     ],
+    "id": "custom_1784813263940"
+  },
+  {
+    "nombre": "CA 15-3 ( mama)",
+    "id": "custom_1784817036738",
+    "parametros": [
+      {
+        "refTexto": "Hasta 30 UI/ml",
+        "tipo": "numero",
+        "u": "UI/ml",
+        "rMax": 0,
+        "n": "Resultado",
+        "rMin": 0
+      }
+    ]
+  },
+  {
     "nombre": "CA 125 ( OVARIO)",
+    "parametros": [
+      {
+        "refTexto": "Hasta 26.0 UI/ml",
+        "tipo": "numero",
+        "u": "UI/ml",
+        "rMax": 0,
+        "rMin": 0,
+        "n": "Resultado"
+      }
+    ],
     "id": "custom_1784817054657"
   },
   {
+    "id": "custom_1784988771612",
+    "nombre": "Ácido Fólico",
     "parametros": [
       {
+        "rMax": "20.0",
+        "rMin": "1.5",
         "u": "ng/ml",
         "tipo": "numero",
-        "rMin": "1.5",
-        "n": "Resultado",
-        "rMax": "20.0"
+        "n": "Resultado"
       }
-    ],
-    "id": "custom_1784988771612",
-    "nombre": "Ácido Fólico"
+    ]
   },
   {
-    "nombre": "Investigación de Macroprolactina ( ECLIA )",
     "parametros": [
       {
-        "rMax": 26.3,
         "rMin": 4.8,
+        "n": "Prolactina Pre PEG",
         "u": "ng/ml",
-        "n": "Prolactina Pre PEG"
+        "rMax": 26.3
       },
       {
         "tipo": "numero",
         "rMin": 0,
-        "n": "Prolactina Post PEG",
         "u": "ng/ml",
-        "rMax": 0
+        "rMax": 0,
+        "n": "Prolactina Post PEG"
       },
       {
-        "rMax": 0,
-        "refTexto": "Recuperación < 50.0 % sugieren macroprolactinemia",
-        "n": "Porcentaje de Recuperación",
         "u": "%",
         "tipo": "numero",
+        "n": "Porcentaje de Recuperación",
+        "refTexto": "Recuperación < 50.0 % sugieren macroprolactinemia",
+        "rMax": 0,
         "rMin": 0
       }
     ],
+    "nombre": "Investigación de Macroprolactina ( ECLIA )",
     "id": "custom_1785070047622"
   },
   {
-    "nombre": "Tiempo de Sangría ( Método de Duke)",
+    "id": "custom_1785073570184",
     "parametros": [
       {
-        "tipo": "numero",
-        "rMin": "1",
         "n": "Resultado",
-        "rMax": "5",
-        "u": "minutos"
+        "tipo": "numero",
+        "u": "minutos",
+        "rMin": "1",
+        "rMax": "5"
       }
     ],
-    "id": "custom_1785073570184"
+    "nombre": "Tiempo de Sangría ( Método de Duke)"
   },
   {
-    "id": "custom_1785423429105",
-    "nombre": "Coprocultivo",
     "parametros": [
       {
-        "opciones": [],
-        "tipo": "numero",
-        "rMin": 0,
-        "u": "",
         "valorDefecto": "",
+        "opciones": [],
         "rMax": 0,
-        "n": "EXÁMEN MACROSCÓPICO"
-      },
-      {
         "u": "",
         "rMin": 0,
-        "tipo": "numero",
-        "n": "Consistencia",
-        "rMax": 0
-      },
-      {
-        "u": "",
-        "rMax": 0,
-        "n": "Color",
-        "rMin": 0,
+        "n": "EXÁMEN MACROSCÓPICO",
         "tipo": "numero"
+      },
+      {
+        "n": "Consistencia",
+        "rMax": 0,
+        "rMin": 0,
+        "u": "",
+        "tipo": "numero"
+      },
+      {
+        "rMin": 0,
+        "rMax": 0,
+        "tipo": "numero",
+        "n": "Color",
+        "u": ""
       },
       {
         "n": "EXÁMEN MICROSCÓPICO",
-        "rMax": 0,
-        "u": "",
         "tipo": "numero",
+        "u": "",
+        "rMax": 0,
         "rMin": 0
       },
       {
-        "rMin": 0,
-        "tipo": "texto",
-        "u": "",
-        "rMax": 0,
         "opciones": [],
-        "n": "Leucocitos"
+        "rMin": 0,
+        "u": "",
+        "rMax": 0,
+        "n": "Leucocitos",
+        "tipo": "texto"
       },
       {
-        "opciones": [],
-        "rMax": 0,
-        "u": "",
         "tipo": "texto",
-        "rMin": 0,
-        "n": "Hematies"
-      },
-      {
         "u": "",
         "rMax": 0,
-        "n": "Mucus",
+        "n": "Hematies",
         "rMin": 0,
-        "tipo": "numero"
-      },
-      {
-        "n": "Levaduras",
-        "rMax": 0,
-        "u": "",
-        "rMin": 0,
-        "tipo": "texto",
         "opciones": []
       },
       {
-        "rMax": 0,
-        "u": "",
-        "tipo": "texto",
+        "tipo": "numero",
+        "n": "Mucus",
         "rMin": 0,
-        "opciones": [],
-        "n": "Parásitos"
+        "u": "",
+        "rMax": 0
       },
       {
         "tipo": "texto",
+        "opciones": [],
+        "u": "",
+        "rMax": 0,
+        "n": "Levaduras",
+        "rMin": 0
+      },
+      {
+        "opciones": [],
+        "tipo": "texto",
+        "u": "",
+        "n": "Parásitos",
         "rMin": 0,
+        "rMax": 0
+      },
+      {
+        "tipo": "texto",
+        "rMax": 0,
         "u": "",
         "opciones": [],
-        "rMax": 0,
+        "rMin": 0,
         "n": "Cultivo"
       }
-    ]
+    ],
+    "nombre": "Coprocultivo",
+    "id": "custom_1785423429105"
   },
   {
     "nombre": "GRUPO SANGUINEO Y FACTOR RH",
     "parametros": [
       {
-        "rMin": 0,
         "tipo": "texto",
         "u": "",
         "n": "",
+        "rMin": 0,
         "rMax": 0
       }
     ],
     "id": "custom_1786493101613"
   },
   {
-    "nombre": "DOSAJE DE PROTEINA C REACTIVA",
     "id": "custom_1786564622204",
+    "nombre": "DOSAJE DE PROTEINA C REACTIVA",
     "parametros": [
       {
-        "n": "",
-        "rMin": 0,
-        "tipo": "numero",
-        "refTexto": "-",
+        "rMax": 0,
         "u": "",
-        "rMax": 0
+        "rMin": 0,
+        "n": "",
+        "refTexto": "-",
+        "tipo": "numero"
       }
     ]
   },
@@ -3700,123 +3701,124 @@ const DEFAULT_ANALISIS = [
     "id": "custom_1786651427047",
     "parametros": [
       {
-        "refTexto": "4.80 - 26.30 ng/ml",
-        "rMax": 0,
-        "u": "ng/ml",
         "tipo": "numero",
+        "n": "RESULTADO",
         "rMin": 0,
-        "n": "RESULTADO"
+        "refTexto": "4.80 - 26.30 ng/ml",
+        "u": "ng/ml",
+        "rMax": 0
       }
     ]
   },
   {
-    "id": "custom_1786813722693",
-    "nombre": "DIMERO D ( Método Inmunoturbidimétrico)",
     "parametros": [
       {
         "rMax": "",
+        "n": "Resultado",
+        "rMin": 0,
         "u": "ng/ml",
         "tipo": "numero",
+        "refTexto": "menor a 200 ng/ml"
+      }
+    ],
+    "nombre": "DIMERO D ( Método Inmunoturbidimétrico)",
+    "id": "custom_1786813722693"
+  },
+  {
+    "nombre": "DETECCIÓN DE T. CRUZZI -  AC TOTALES ( METODO: HAI )",
+    "id": "custom_1787147730675",
+    "parametros": [
+      {
+        "valorDefecto": "",
         "rMin": 0,
-        "refTexto": "menor a 200 ng/ml",
+        "refTexto": "TITULO SIGNIFICATIVO  >  1/4",
+        "rMax": 0,
+        "opciones": [],
+        "tipo": "numero",
+        "u": "",
         "n": "Resultado"
       }
     ]
   },
   {
-    "id": "custom_1787147730675",
     "parametros": [
       {
-        "n": "Resultado",
-        "rMax": 0,
-        "opciones": [],
-        "u": "",
-        "valorDefecto": "",
-        "refTexto": "TITULO SIGNIFICATIVO  >  1/4",
         "rMin": 0,
+        "refTexto": "NO REACTIVO < 6.0  AU/ML   //  REACTIVO  > 6.0 AU/ML",
+        "u": "AU/ML",
+        "rMax": 0,
+        "n": "Resultado",
         "tipo": "numero"
       }
     ],
-    "nombre": "DETECCIÓN DE T. CRUZZI -  AC TOTALES ( METODO: HAI )"
-  },
-  {
-    "id": "custom_1787148919658",
     "nombre": "CMV IGG ( METODO CMIA )",
-    "parametros": [
-      {
-        "n": "Resultado",
-        "refTexto": "NO REACTIVO < 6.0  AU/ML   //  REACTIVO  > 6.0 AU/ML",
-        "rMin": 0,
-        "tipo": "numero",
-        "u": "AU/ML",
-        "rMax": 0
-      }
-    ]
+    "id": "custom_1787148919658"
   },
   {
+    "nombre": "CMV IGM ( METODO: QUIMIOLUMINISCENCIA - QL )",
     "id": "custom_1787148958393",
     "parametros": [
       {
         "n": "Resultado",
-        "refTexto": "NO REACTIVO  Rp < 1.0  // INDETERMINADO  Rp  > 0.9 -  < 1.1 //  REACTIVO  Rp> 1.1",
         "rMax": 0,
         "valorDefecto": "",
         "u": "",
+        "refTexto": "NO REACTIVO  Rp < 1.0  // INDETERMINADO  Rp  > 0.9 -  < 1.1 //  REACTIVO  Rp> 1.1",
         "rMin": 0,
         "tipo": "numero"
       }
-    ],
-    "nombre": "CMV IGM ( METODO: QUIMIOLUMINISCENCIA - QL )"
+    ]
   },
   {
+    "nombre": "TOXOPLASMA GONDII AC IGM ( METODO: ECLIA )",
     "id": "custom_1787149013489",
     "parametros": [
       {
-        "valorDefecto": "No Reactivo Rp < 1.0 // Indeterminado Rp 1.00 - 1.10  //  Reactivo Rp >1.10",
-        "rMin": 0,
-        "tipo": "numero",
-        "u": "",
-        "refTexto": "NO REACTIVO Rp < 1.0 // BORDERLINE  Rp 1.00 - 1.10  //  REACTIVO  Rp >1.10",
         "n": "Resultado",
+        "tipo": "numero",
+        "refTexto": "NO REACTIVO Rp < 1.0 // BORDERLINE  Rp 1.00 - 1.10  //  REACTIVO  Rp >1.10",
+        "valorDefecto": "No Reactivo Rp < 1.0 // Indeterminado Rp 1.00 - 1.10  //  Reactivo Rp >1.10",
+        "u": "",
+        "rMax": 0,
         "opciones": [],
-        "rMax": 0
+        "rMin": 0
       }
-    ],
-    "nombre": "TOXOPLASMA GONDII AC IGM ( METODO: ECLIA )"
+    ]
   },
   {
-    "id": "custom_1787149084208",
     "parametros": [
       {
         "tipo": "numero",
-        "rMin": 0,
         "refTexto": "NO REACTIVO  < 1.60 UI/ML  //  BORDERLINE 1.60 - 3.0 UI/ ML //  REACTIVO  > 3.0 UI/ML",
+        "valorDefecto": "",
+        "rMin": 0,
         "n": "Resultado",
         "rMax": 0,
-        "u": "",
-        "valorDefecto": ""
+        "u": ""
       }
     ],
-    "nombre": "TOXOPLASMA GONDII AC IGG ( METODO: CMIA )"
+    "nombre": "TOXOPLASMA GONDII AC IGG ( METODO: CMIA )",
+    "id": "custom_1787149084208"
   },
   {
-    "nombre": "RUBEOLA - AC IGG ( METODO: ELISA)",
     "parametros": [
       {
-        "u": "UL/ML",
         "refTexto": "NEGATIVO  < 4.9 UI/ML   //  ZONA GRIS  5.0 - 9.90 UI/ML   //  POSITIVO  >  o igual 10 UI/ML",
+        "u": "UL/ML",
         "rMax": 0,
         "n": "Resultado",
         "rMin": 0,
         "tipo": "numero"
       }
     ],
+    "nombre": "RUBEOLA - AC IGG ( METODO: ELISA)",
     "id": "custom_1787149140176"
   },
   {
+    "nombre": "RUBEOLA - AC IGM ( METODO: ELISA)",
     "parametros": [
       {
-        "n": "Resultado",
+        "tipo": "numero",
         "opciones": [
           "asdad",
           "asdad",
@@ -3824,114 +3826,113 @@ const DEFAULT_ANALISIS = [
           "asdads",
           ""
         ],
-        "refTexto": "Menor a  0.8  NO REACTIVO //  Entre 0.8 y 1.0 INDETERMINADO // Mayor a 1.0 REACTIVO",
-        "rMax": 0,
+        "rMin": 0,
         "u": "ul/l",
-        "tipo": "numero",
-        "rMin": 0
+        "n": "Resultado",
+        "refTexto": "Menor a  0.8  NO REACTIVO //  Entre 0.8 y 1.0 INDETERMINADO // Mayor a 1.0 REACTIVO",
+        "rMax": 0
       }
     ],
-    "id": "custom_1787149172664",
-    "nombre": "RUBEOLA - AC IGM ( METODO: ELISA)"
+    "id": "custom_1787149172664"
   },
   {
     "id": "custom_1787275686570",
-    "nombre": "TPHA",
     "parametros": [
       {
-        "n": "Resultado",
-        "opciones": [],
-        "rMax": 0,
         "u": "",
+        "rMax": 0,
+        "n": "Resultado",
         "rMin": 0,
-        "tipo": "texto"
+        "tipo": "texto",
+        "opciones": []
       }
-    ]
+    ],
+    "nombre": "TPHA"
   },
   {
     "parametros": [
       {
         "u": "",
         "tipo": "texto",
-        "rMin": 0,
         "n": "",
+        "rMin": 0,
         "rMax": 0
       }
     ],
-    "id": "custom_1787498088590",
-    "nombre": "Frotis de Materia Fecal"
+    "nombre": "Frotis de Materia Fecal",
+    "id": "custom_1787498088590"
   },
   {
-    "id": "custom_1787583980455",
-    "nombre": "CURVA DE TOLERANCIA ORAL A LA GLUCOSA",
     "parametros": [
       {
+        "rMin": 0,
         "rMax": 0,
-        "u": "",
         "n": "GLUCEMIA EN AYUNAS ( BASAL )",
-        "rMin": 0,
+        "refTexto": "ADULTO : 74 - 106 MG/DL // NIÑOS: 60 - 100 MG/DL",
         "tipo": "numero",
-        "refTexto": "ADULTO : 74 - 106 MG/DL // NIÑOS: 60 - 100 MG/DL"
+        "u": ""
       },
       {
-        "u": "",
         "rMax": 0,
-        "n": "GLUCEMIA A LOS 120 MIN",
+        "rMin": 0,
         "refTexto": "< 140 MG/DL",
-        "tipo": "numero",
-        "rMin": 0
+        "n": "GLUCEMIA A LOS 120 MIN",
+        "u": "",
+        "tipo": "numero"
       },
       {
-        "refTexto": "--",
-        "tipo": "numero",
-        "rMin": 0,
         "u": "",
-        "opciones": [],
+        "refTexto": "--",
+        "n": "OBSERVACION :",
+        "tipo": "numero",
         "rMax": 0,
-        "n": "OBSERVACION :"
+        "opciones": [],
+        "rMin": 0
       }
-    ]
+    ],
+    "id": "custom_1787583980455",
+    "nombre": "CURVA DE TOLERANCIA ORAL A LA GLUCOSA"
   },
   {
+    "id": "custom_1787601185319",
     "nombre": "ATT IGA ( MÉTODO : ELISA)",
     "parametros": [
       {
         "refTexto": "NO REACTIVO < 20 UI/ml //  REACTIVO > 20 UI/ ml",
-        "u": "UI/ml",
-        "rMax": 0,
-        "rMin": 0,
-        "n": "Resultado"
-      }
-    ],
-    "id": "custom_1787601185319"
-  },
-  {
-    "parametros": [
-      {
         "n": "Resultado",
         "rMax": 0,
-        "u": "",
+        "u": "UI/ml",
+        "rMin": 0
+      }
+    ]
+  },
+  {
+    "id": "custom_1787601291547",
+    "parametros": [
+      {
+        "tipo": "numero",
         "refTexto": "REACTIVO Rp > 1.0  //  NO REACTIVO < 1.0",
-        "opciones": [],
+        "n": "Resultado",
+        "u": "",
         "rMin": 0,
-        "tipo": "numero"
+        "opciones": [],
+        "rMax": 0
       }
     ],
-    "nombre": "HB VIRUS - AC CORE IGG ( MÉTODO CMIA)",
-    "id": "custom_1787601291547"
+    "nombre": "HB VIRUS - AC CORE IGG ( MÉTODO CMIA)"
   },
   {
-    "nombre": "IGE ( MÉTODO: ECLIA)",
+    "id": "custom_1787601355929",
     "parametros": [
       {
         "n": "Resultado",
-        "rMin": 0,
         "u": "UI/ml",
+        "rMin": 0,
         "rMax": 0,
         "refTexto": "< 1 AÑO HASTA 15.0 UI/ ml  //  1 - 5 AÑOS HASTA 60.0 UI/ml  //  6 - 9 AÑOS HASTA 90.0 UI/ ml  //  10 - 15 AÑOS HASTA 200.0 UI/ml  //  ADULTO HASTA 100.0 UI/ml"
       }
     ],
-    "id": "custom_1787601355929"
+    "nombre": "IGE ( MÉTODO: ECLIA)"
   }
 ];
 
@@ -4990,6 +4991,7 @@ function ordenAcciones(o) {
   return `<div class="flex-row" style="gap:2px;flex-wrap:wrap;">
     <button class="btn btn-sm" onclick="irResultados(${o.id})" title="Cargar resultados">🧪</button>
     <button class="btn btn-sm" onclick="editarMedicoOrden(${o.id})" title="Cambiar médico">👨‍⚕️</button>
+    <button class="btn btn-sm" onclick="editarFechasOrden(${o.id})" title="Editar fechas de extracción y entrega">📅</button>
     <button class="btn btn-sm" onclick="reordenarAnalisisOrden(${o.id})" title="Reordenar análisis">↕</button>
     <button class="btn btn-sm" onclick="agregarAnalisisOrden(${o.id})" title="Agregar análisis">➕</button>
     <button class="btn btn-sm" onclick="quitarAnalisisOrden(${o.id})" title="Quitar análisis">➖</button>
@@ -5374,6 +5376,22 @@ function quitarAnalisisOrden(oid) {
   if (!confirm(`¿Quitar "${nombreQuitado}" de la orden #${o.id}?`)) return;
   o.analisis.splice(idx, 1);
   guardarOrdenDB(o).then(() => { renderOrdenes(); });
+}
+
+function editarFechasOrden(oid) {
+  const o = ordenes.find(x => x.id === oid);
+  if (!o) return;
+  const fechaExt  = o.fechaExtraccion || '';
+  const fechaEnt  = o.fechaEntrega    || '';
+  const nuevaExt  = prompt(`Fecha de extracción (AAAA-MM-DD):\nEjemplo: 2026-08-25`, fechaExt);
+  if (nuevaExt === null) return; // canceló
+  const nuevaEnt  = prompt(`Fecha de entrega (AAAA-MM-DD):\nEjemplo: 2026-08-25`, fechaEnt);
+  if (nuevaEnt === null) return; // canceló
+  o.fechaExtraccion = nuevaExt.trim();
+  o.fechaEntrega    = nuevaEnt.trim();
+  guardarOrdenDB(o);
+  renderOrdenes();
+  flash();
 }
 
 function editarMedicoOrden(oid) {
